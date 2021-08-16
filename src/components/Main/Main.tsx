@@ -1,10 +1,9 @@
-import React from 'react'
-import { View } from 'react-native'
+import React from 'react';
 
-export default function Main() {
-  return (
-    <View>
-      Hello, World!
-    </View>
-  )
-}
+import { View } from 'react-native';
+
+const Main: React.FC = () => {
+  return <View>Hello, World!</View>;
+};
+
+export default Main;
