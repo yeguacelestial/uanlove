@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 import HelloWorld from '@components/HelloWorld';
 
-const Main: React.FC = () => {
+const App: React.FC = () => {
   return (
     <View>
       <HelloWorld />
@@ -11,4 +11,4 @@ const Main: React.FC = () => {
   );
 };
 
-export default Main;
+export default App;
