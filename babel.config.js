@@ -9,8 +9,9 @@ module.exports = function (api) {
         {
           alias: {
             '~': './src',
+            '@domain': './src/domain',
             '@components': './src/components',
-            '@views': './src/views',
+            '@screens': './src/screens',
             '@hooks': './src/hooks',
             '@services': './src/sevices',
             '@utils': './src/utils'

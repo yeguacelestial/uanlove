@@ -1,9 +1,3 @@
-import React from 'react';
-
-import Main from './src/components/Main';
-
-const App: React.FC = () => {
-  return <Main />;
-};
+import App from '@domain/App';
 
 export default App;
