@@ -1,11 +1,22 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 
 const Home: React.FC = () => {
   return (
-    <View>
-      <Text>Home Screen</Text>
-    </View>
+    <ScrollView
+      style={{
+        paddingBottom: 60
+      }}
+    >
+      <Text
+        style={{
+          height: 1000
+        }}
+      >
+        Home Screen
+      </Text>
+      <Text>Long Content</Text>
+    </ScrollView>
   );
 };
 
