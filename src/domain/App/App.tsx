@@ -1,14 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
 
-import HelloWorld from '@components/HelloWorld';
+import Navigation from '@domain/Navigation';
 
 const App: React.FC = () => {
-  return (
-    <View>
-      <HelloWorld />
-    </View>
-  );
+  return <Navigation />;
 };
 
 export default App;
