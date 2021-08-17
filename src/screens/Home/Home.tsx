@@ -1,13 +1,10 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Text } from 'react-native';
+import ScrollView from '@components/ScrollView/ScrollView';
 
 const Home: React.FC = () => {
   return (
-    <ScrollView
-      style={{
-        paddingBottom: 60
-      }}
-    >
+    <ScrollView>
       <Text
         style={{
           height: 1000
