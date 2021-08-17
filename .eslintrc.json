@@ -14,6 +14,9 @@
     "plugin:react-hooks/recommended"
   ],
   "rules": {
+    "react-native/no-inline-styles": "warn",
+    "react-native/no-color-literals": "warn",
+    "react-native/sort-styles": "off",
     "no-empty-function": "off",
     "@typescript-eslint/no-empty-function": "off",
     "max-len": [
