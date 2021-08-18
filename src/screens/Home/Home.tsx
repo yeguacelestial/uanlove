@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import ScrollView from '@components/ScrollView/ScrollView';
+import ScrollView from '@components/ScrollView';
 
 const Home: React.FC = () => {
   return (
