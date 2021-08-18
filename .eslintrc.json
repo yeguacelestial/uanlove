@@ -33,6 +33,7 @@
         "reservedFirst": true,
         "shorthandFirst": true
       }
-    ]
+    ],
+    "react/display-name": "off"
   }
 }
