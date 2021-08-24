@@ -1,7 +1,9 @@
-# uanlove
 
-uanlove busca alentar la flama del amor (y de la verdad) entre la raza matriculada en la UANL.
+<p align="center">
+  <image src="logo.svg"/>
+</p>
 
+____
 ## Structure
 
 | Codebase              |      Description          |
