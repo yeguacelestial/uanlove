@@ -1,3 +1,12 @@
-# uanlove
 
-uanlove es lo de hoy para chavos y chavas.
+<p align="center">
+  <image src="logo.svg"/>
+</p>
+
+____
+## Structure
+
+| Codebase              |      Description          |
+| :-------------------- | :-----------------------: |
+| [pride](pride)        |      React Native App     |
+| [affair](affair)      |     Python Server         |
