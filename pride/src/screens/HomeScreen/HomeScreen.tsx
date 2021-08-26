@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import ScrollView from '@components/ScrollView';
 
-const Home: React.FC = () => {
+const HomeScreen: React.FC = () => {
   return (
     <ScrollView>
       <Text
@@ -17,4 +17,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default HomeScreen;

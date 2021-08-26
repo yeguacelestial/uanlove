@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, ScrollView, Button } from 'react-native';
 import { useAuth } from '@context/Auth/hooks';
 
-const SignIn: React.FC = () => {
+const SignInScreen: React.FC = () => {
   const auth = useAuth();
 
   return (
@@ -13,4 +13,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default SignInScreen;

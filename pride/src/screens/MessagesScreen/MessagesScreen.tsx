@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import ScrollView from '@components/ScrollView';
 
-const Messages: React.FC = () => {
+const MessagesScreen: React.FC = () => {
   return (
     <ScrollView>
       <Text>Messages Screen</Text>
@@ -10,4 +10,4 @@ const Messages: React.FC = () => {
   );
 };
 
-export default Messages;
+export default MessagesScreen;

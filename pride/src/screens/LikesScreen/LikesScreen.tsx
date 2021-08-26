@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import ScrollView from '@components/ScrollView';
 
-const Likes: React.FC = () => {
+const LikesScreen: React.FC = () => {
   return (
     <ScrollView>
       <Text>Likes Screen</Text>
@@ -10,4 +10,4 @@ const Likes: React.FC = () => {
   );
 };
 
-export default Likes;
+export default LikesScreen;

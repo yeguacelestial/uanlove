@@ -6,7 +6,7 @@ export interface AuthContextState {
 }
 
 const contextDefaultState: AuthContextState = {
-  authenticated: false,
+  authenticated: true,
   setAuthenticated: () => {}
 };
 
