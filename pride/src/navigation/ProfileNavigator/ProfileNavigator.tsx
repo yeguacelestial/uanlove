@@ -31,7 +31,9 @@ const ProfileNavigator: React.FC = () => {
         component={ProfileDetailScreen}
         name="profile-detail"
         options={{
-          headerShown: false
+          // TODO: Add close button to detail screen.
+          //headerShown: false
+          title: 'Detail'
         }}
       />
       <Screen
