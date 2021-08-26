@@ -5,10 +5,11 @@ import { Ionicons } from '@expo/vector-icons';
 
 import FloatingTabBar from '@components/FloatingTabBar';
 
-import Home from '@screens/Home';
-import Messages from '@screens/Messages';
-import Profile from '@screens/Profile';
-import Likes from '@screens/Likes';
+import HomeScreen from '@screens/HomeScreen';
+import MessagesScreen from '@screens/MessagesScreen';
+import LikesScreen from '@screens/LikesScreen';
+
+import ProfileNavigator from '@navigation/ProfileNavigator';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -23,7 +24,7 @@ const AppNavigator: React.FC = () => {
   return (
     <Navigator tabBar={FloatingTabBar}>
       <Screen
-        component={Home}
+        component={HomeScreen}
         name="home"
         options={{
           title: 'Home',
@@ -31,7 +32,7 @@ const AppNavigator: React.FC = () => {
         }}
       />
       <Screen
-        component={Likes}
+        component={LikesScreen}
         name="likes"
         options={{
           title: 'Likes',
@@ -39,7 +40,7 @@ const AppNavigator: React.FC = () => {
         }}
       />
       <Screen
-        component={Messages}
+        component={MessagesScreen}
         name="messages"
         options={{
           title: 'Messages',
@@ -47,11 +48,11 @@ const AppNavigator: React.FC = () => {
         }}
       />
       <Screen
-        component={Profile}
-        name="profile"
+        component={ProfileNavigator}
+        name="profile-navigator"
         options={{
-          title: 'Profile',
-          tabBarIcon: getTabBarIcon('person')
+          tabBarIcon: getTabBarIcon('person'),
+          headerShown: false
         }}
       />
     </Navigator>

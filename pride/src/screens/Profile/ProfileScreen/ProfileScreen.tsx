@@ -1,8 +1,8 @@
-import { useAuth } from '@context/Auth/hooks';
 import React from 'react';
 import { Text, View, Button } from 'react-native';
+import { useAuth } from '@context/Auth/hooks';
 
-const Profile: React.FC = () => {
+const ProfileScreen: React.FC = () => {
   const auth = useAuth();
 
   return (
@@ -13,4 +13,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+export default ProfileScreen;
