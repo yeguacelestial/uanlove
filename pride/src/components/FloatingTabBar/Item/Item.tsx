@@ -1,7 +1,6 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
-import styles from './Item.styles';
 
 export interface FloatingTabBarItemProps {
   options: BottomTabNavigationOptions;
@@ -16,7 +15,8 @@ const FloatingTabBarItem: React.FC<FloatingTabBarItemProps> = ({
   onLongPress,
   onPress
 }: FloatingTabBarItemProps) => {
-  const color = focused ? '#27aae3' : 'inherit';
+  // TODO: Pass colors on props.
+  const color = focused ? '#27aae3' : '#000';
 
   const icon =
     options.tabBarIcon &&
@@ -40,5 +40,13 @@ const FloatingTabBarItem: React.FC<FloatingTabBarItemProps> = ({
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});
 
 export default FloatingTabBarItem;
