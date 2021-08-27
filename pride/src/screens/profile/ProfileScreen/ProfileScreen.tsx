@@ -1,12 +1,14 @@
 import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useAuth } from '@context/Auth/hooks';
-import { Button, Text, View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import ScreenView from '@components/ScreenView';
 import { MaterialIcons } from '@expo/vector-icons';
 import FloatingActionButton, {
   IconProps
 } from '@components/FloatingActionButton';
+import UserCard from '@components/UserCard';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 // TODO: Move this to navigator file.
 type ProfileNavigatorParamList = {
@@ -37,7 +39,12 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
   return (
     <ScreenView style={styles.root}>
       <View style={styles.card}>
-        <Text>Card</Text>
+        <UserCard
+          age={34}
+          description="Soy un goleador nato"
+          name="Lionel"
+          pictures={[]}
+        />
       </View>
       <View style={styles.actions}>
         <FloatingActionButton
@@ -55,12 +62,11 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   root: {},
   card: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexGrow: 1
+    flexGrow: 1,
+    padding: '2rem'
   },
   actions: {
     justifyContent: 'center',
