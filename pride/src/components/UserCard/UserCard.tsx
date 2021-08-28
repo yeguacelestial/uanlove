@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import {
   View,
   Text,
   ImageBackground,
   GestureResponderEvent,
-  FlatList
+  FlatList,
+  Pressable
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -27,10 +28,42 @@ const UserCard: React.FC<UserCardProps> = ({
   onPressInfo,
   children
 }: UserCardProps) => {
+  const [currIndex, setCurrIndex] = useState(0);
+
+  const flatListRef = useRef<FlatList<string> | undefined>();
+
   const [layout, setLayout] = useState({
     width: 0,
     height: 0
   });
+
+  const getItemLayout = useCallback(
+    (_, index: number) => ({
+      length: layout.width,
+      offset: layout.width * index,
+      index
+    }),
+    [layout]
+  );
+
+  const onPressNext = useCallback(() => {
+    if (currIndex >= pictures.length - 1) return;
+    setCurrIndex(currIndex + 1);
+  }, [currIndex, pictures]);
+
+  const onPressPrevious = useCallback(() => {
+    if (currIndex <= 0) return;
+    setCurrIndex(currIndex - 1);
+  }, [currIndex]);
+
+  useEffect(() => {
+    if (flatListRef.current)
+      try {
+        flatListRef.current.scrollToIndex({ index: currIndex });
+      } catch (e) {
+        console.error(e);
+      }
+  }, [currIndex, flatListRef]);
 
   return (
     <View style={styles.root}>
@@ -38,10 +71,14 @@ const UserCard: React.FC<UserCardProps> = ({
         style={styles.pictures}
         onLayout={e => setLayout(e.nativeEvent.layout)}
       >
+        <Pressable style={styles.prevPicture} onPress={onPressPrevious} />
+        <Pressable style={styles.nextPicture} onPress={onPressNext} />
         <FlatList
+          ref={flatListRef}
           horizontal
           pagingEnabled
           data={pictures}
+          getItemLayout={getItemLayout}
           keyExtractor={(_, index) => index.toString()}
           renderItem={({ item }) => {
             return (
@@ -57,6 +94,7 @@ const UserCard: React.FC<UserCardProps> = ({
               />
             );
           }}
+          scrollEnabled={false}
         />
       </View>
       <LinearGradient
@@ -85,7 +123,6 @@ const UserCard: React.FC<UserCardProps> = ({
 
 const backgroundColor = 'black';
 const color = 'white';
-
 const styles = ScaledSheet.create({
   root: {
     backgroundColor,
@@ -95,6 +132,22 @@ const styles = ScaledSheet.create({
   },
   pictures: {
     flexGrow: 1
+  },
+  nextPicture: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: '50%',
+    right: 0,
+    zIndex: 1
+  },
+  prevPicture: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: '50%',
+    zIndex: 1
   },
   bottom: {
     position: 'absolute',
