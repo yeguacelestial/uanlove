@@ -46,7 +46,10 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
         age={34}
         description="Soy un goleador nato"
         name="Lionel"
-        pictures={[]}
+        pictures={[
+          'https://image.shutterstock.com/image-photo/head-shot-portrait-smiling-middle-600w-1339318991.jpg',
+          'https://image.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1640944705.jpg'
+        ]}
         onPressInfo={() => navigation.push('profile-detail')}
       >
         <View style={styles.actions}>
