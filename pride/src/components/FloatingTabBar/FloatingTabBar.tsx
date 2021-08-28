@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import FloatingTabBarItem from './Item';
+import scale from '@utils/scale';
 
 export type FloatingTabBarProps = BottomTabBarProps;
 
@@ -47,9 +48,9 @@ const FloatingTabBar: React.FC<FloatingTabBarProps> = ({
   );
 };
 
-const backgroundColor = 'white';
-const margin = 20;
-const height = 70;
+const backgroundColor = 'black';
+const margin = 16;
+const height = 65;
 
 // Content padding-bottom = 2 * margin + height
 
@@ -59,9 +60,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    margin: margin,
-    height: height,
-    borderRadius: height * 2,
+    margin: scale(margin),
+    height: scale(height),
+    borderRadius: 100,
     backgroundColor: backgroundColor,
     flexDirection: 'row',
     overflow: 'hidden'
