@@ -1,67 +1,104 @@
 import React from 'react';
-import { View, Text, ImageBackground } from 'react-native';
-import EStyleSheet from 'react-native-extended-stylesheet';
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  GestureResponderEvent
+} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import scale from '@utils/scale';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export interface UserCardProps {
   name: string;
   age: number;
   pictures: string[];
   description: string;
+  onPressInfo?: (e: GestureResponderEvent) => void;
+  children?: React.ReactNode;
 }
 
 const UserCard: React.FC<UserCardProps> = ({
   name,
   age,
   pictures,
-  description
+  description,
+  onPressInfo,
+  children
 }: UserCardProps) => {
   return (
     <View style={styles.root}>
       <View style={styles.pictures}>
         <ImageBackground
-          style={styles.picture}
           source={require('./emilio.jpg')}
+          style={styles.picture}
         />
       </View>
-      <View style={styles.info}>
-        <Text style={styles.infoText}>
-          {name}, {age}
-        </Text>
-        <Text style={styles.infoDesc}>{description}</Text>
-      </View>
+      <LinearGradient
+        colors={['#00000000', '#000000']}
+        locations={[0, 0.6]}
+        style={styles.bottom}
+      >
+        <View style={styles.information}>
+          <Text style={styles.name}>
+            {name}, {age}
+          </Text>
+          <Text style={styles.description}>{description}</Text>
+          <MaterialIcons
+            color="white"
+            name="info"
+            size={scale(24)}
+            style={styles.detail}
+            onPress={onPressInfo}
+          />
+        </View>
+        {children && <View style={styles.actions}>{children}</View>}
+      </LinearGradient>
     </View>
   );
 };
 
-const styles = EStyleSheet.create({
+const color = 'white';
+
+const styles = StyleSheet.create({
   root: {
-    backgroundColor: 'red',
     flexGrow: 1,
-    borderRadius: 30,
+    borderRadius: scale(15),
     overflow: 'hidden'
   },
   pictures: {
-    backgroundColor: 'green',
     flexGrow: 1
   },
-  info: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  bottom: {
     position: 'absolute',
     bottom: 0,
     left: 0,
-    right: 0,
-    padding: '2rem'
+    right: 0
   },
-  infoText: {
-    fontSize: '2rem',
-    color: 'white'
+  information: {
+    padding: scale(16),
+    paddingBottom: 0
   },
-  infoDesc: {
-    fontSize: '1.1rem',
-    color: 'white'
+  name: {
+    fontSize: scale(20),
+    fontWeight: 'bold',
+    color
+  },
+  description: {
+    fontSize: scale(13),
+    color
   },
   picture: {
     flexGrow: 1
+  },
+  actions: {
+    padding: scale(8)
+  },
+  detail: {
+    position: 'absolute',
+    right: scale(16),
+    bottom: scale(10)
   }
 });
 

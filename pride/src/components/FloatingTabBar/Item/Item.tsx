@@ -1,10 +1,14 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
+import scale from '@utils/scale';
 
 export interface FloatingTabBarItemProps {
   options: BottomTabNavigationOptions;
   focused?: boolean;
+  backgroundColor?: string;
+  focusedColor?: string;
+  color?: string;
   onPress?: () => void;
   onLongPress?: () => void;
 }
@@ -12,18 +16,18 @@ export interface FloatingTabBarItemProps {
 const FloatingTabBarItem: React.FC<FloatingTabBarItemProps> = ({
   options,
   focused = false,
+  backgroundColor = 'black',
+  focusedColor = '#27aae3',
+  color = 'white',
   onLongPress,
   onPress
 }: FloatingTabBarItemProps) => {
-  // TODO: Pass colors on props.
-  const color = focused ? '#27aae3' : '#000';
-
   const icon =
     options.tabBarIcon &&
     options.tabBarIcon({
       focused,
-      color,
-      size: 24
+      color: focused ? focusedColor : color,
+      size: scale(20)
     });
 
   return (
@@ -31,18 +35,23 @@ const FloatingTabBarItem: React.FC<FloatingTabBarItemProps> = ({
       accessibilityLabel={options.tabBarAccessibilityLabel}
       accessibilityRole="button"
       accessibilityState={focused ? { selected: true } : {}}
-      style={styles.container}
+      style={[
+        styles.root,
+        {
+          backgroundColor
+        }
+      ]}
       testID={options.tabBarTestID}
       onLongPress={onLongPress}
       onPress={onPress}
     >
-      <Text>{icon}</Text>
+      {icon}
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'

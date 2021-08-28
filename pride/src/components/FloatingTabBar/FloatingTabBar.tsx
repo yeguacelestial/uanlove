@@ -1,8 +1,8 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import styles from './FloatingTabBar.styles';
 import FloatingTabBarItem from './Item';
+import scale from '@utils/scale';
 
 export type FloatingTabBarProps = BottomTabBarProps;
 
@@ -12,7 +12,7 @@ const FloatingTabBar: React.FC<FloatingTabBarProps> = ({
   navigation
 }: FloatingTabBarProps) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.root}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const focused = state.index === index;
@@ -47,5 +47,26 @@ const FloatingTabBar: React.FC<FloatingTabBarProps> = ({
     </View>
   );
 };
+
+const backgroundColor = 'black';
+const margin = 16;
+const height = 65;
+
+// Content padding-bottom = 2 * margin + height
+
+const styles = StyleSheet.create({
+  root: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    margin: scale(margin),
+    height: scale(height),
+    borderRadius: 100,
+    backgroundColor: backgroundColor,
+    flexDirection: 'row',
+    overflow: 'hidden'
+  }
+});
 
 export default FloatingTabBar;
