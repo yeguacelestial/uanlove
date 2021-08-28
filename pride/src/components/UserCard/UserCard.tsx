@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   ImageBackground,
-  GestureResponderEvent
+  GestureResponderEvent,
+  FlatList
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -26,13 +27,36 @@ const UserCard: React.FC<UserCardProps> = ({
   onPressInfo,
   children
 }: UserCardProps) => {
+  const [layout, setLayout] = useState({
+    width: 0,
+    height: 0
+  });
+
   return (
     <View style={styles.root}>
-      <View style={styles.pictures}>
-        <ImageBackground
-          resizeMode="contain"
-          source={require('./emilio.jpg')}
-          style={styles.picture}
+      <View
+        style={styles.pictures}
+        onLayout={e => setLayout(e.nativeEvent.layout)}
+      >
+        <FlatList
+          horizontal
+          pagingEnabled
+          data={pictures}
+          keyExtractor={(_, index) => index.toString()}
+          renderItem={({ item }) => {
+            return (
+              <ImageBackground
+                resizeMode="contain"
+                source={{
+                  uri: item
+                }}
+                style={{
+                  width: layout.width,
+                  height: layout.height
+                }}
+              />
+            );
+          }}
         />
       </View>
       <LinearGradient
