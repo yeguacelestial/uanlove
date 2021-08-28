@@ -1,14 +1,14 @@
 import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useAuth } from '@context/Auth/hooks';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import ScreenView from '@components/ScreenView';
 import { MaterialIcons } from '@expo/vector-icons';
 import FloatingActionButton, {
   IconProps
 } from '@components/FloatingActionButton';
 import UserCard from '@components/UserCard';
-import scale from '@utils/scale';
+import { ms, ScaledSheet } from 'react-native-size-matters';
 
 // TODO: Move this to navigator file.
 type ProfileNavigatorParamList = {
@@ -58,7 +58,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
           <FloatingActionButton
             color="#de4b4b"
             getIcon={getSignOutIcon}
-            size={scale(50)}
+            size={ms(50)}
             style={styles.action}
             onPress={() => setAuthenticated(false)}
           />
@@ -73,9 +73,9 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   root: {
-    padding: scale(16)
+    padding: '16@ms'
   },
   actions: {
     flexDirection: 'row',
@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   action: {
-    marginStart: scale(10),
-    marginEnd: scale(10)
+    marginStart: '10@ms',
+    marginEnd: '10@ms'
   }
 });
 

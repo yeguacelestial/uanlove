@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, PressableProps } from 'react-native';
-import scale from '@utils/scale';
+import { ms } from 'react-native-size-matters';
 
 export interface IconProps {
   color: string;
@@ -17,7 +17,7 @@ const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
   style,
   getIcon,
   color,
-  size = scale(55),
+  size = ms(55),
   ...props
 }: FloatingActionButtonProps) => {
   const icon = getIcon({
