@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
-import scale from '@utils/scale';
+import { ms } from 'react-native-size-matters';
 
 export interface FloatingTabBarItemProps {
   options: BottomTabNavigationOptions;
@@ -27,7 +27,7 @@ const FloatingTabBarItem: React.FC<FloatingTabBarItemProps> = ({
     options.tabBarIcon({
       focused,
       color: focused ? focusedColor : color,
-      size: scale(20)
+      size: ms(20)
     });
 
   return (

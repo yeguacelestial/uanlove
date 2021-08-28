@@ -1,6 +1,6 @@
-import scale from '@utils/scale';
 import React from 'react';
 import { View, ViewProps } from 'react-native';
+import { ms } from 'react-native-size-matters';
 
 const ScreenView: React.FC<ViewProps> = ({ style, ...props }: ViewProps) => {
   return (
@@ -11,7 +11,7 @@ const ScreenView: React.FC<ViewProps> = ({ style, ...props }: ViewProps) => {
         {
           flexGrow: 1,
           // TODO: Get paddingBottom value from a variable.
-          paddingBottom: scale(32 + 65)
+          paddingBottom: ms(32 + 65)
         }
       ]}
       {...props}

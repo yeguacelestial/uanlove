@@ -3,12 +3,11 @@ import {
   View,
   Text,
   ImageBackground,
-  StyleSheet,
   GestureResponderEvent
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import scale from '@utils/scale';
 import { MaterialIcons } from '@expo/vector-icons';
+import { ScaledSheet, ms } from 'react-native-size-matters';
 
 export interface UserCardProps {
   name: string;
@@ -31,6 +30,7 @@ const UserCard: React.FC<UserCardProps> = ({
     <View style={styles.root}>
       <View style={styles.pictures}>
         <ImageBackground
+          resizeMode="contain"
           source={require('./emilio.jpg')}
           style={styles.picture}
         />
@@ -48,7 +48,7 @@ const UserCard: React.FC<UserCardProps> = ({
           <MaterialIcons
             color="white"
             name="info"
-            size={scale(24)}
+            size={ms(24)}
             style={styles.detail}
             onPress={onPressInfo}
           />
@@ -59,12 +59,14 @@ const UserCard: React.FC<UserCardProps> = ({
   );
 };
 
+const backgroundColor = 'black';
 const color = 'white';
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   root: {
+    backgroundColor,
     flexGrow: 1,
-    borderRadius: scale(15),
+    borderRadius: '15@ms',
     overflow: 'hidden'
   },
   pictures: {
@@ -77,28 +79,28 @@ const styles = StyleSheet.create({
     right: 0
   },
   information: {
-    padding: scale(16),
+    padding: '16@ms',
     paddingBottom: 0
   },
   name: {
-    fontSize: scale(20),
+    fontSize: '20@ms',
     fontWeight: 'bold',
     color
   },
   description: {
-    fontSize: scale(13),
+    fontSize: '13@ms',
     color
   },
   picture: {
     flexGrow: 1
   },
   actions: {
-    padding: scale(8)
+    padding: '8@ms'
   },
   detail: {
     position: 'absolute',
-    right: scale(16),
-    bottom: scale(10)
+    right: '16@ms',
+    bottom: 0
   }
 });
 
