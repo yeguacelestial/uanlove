@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import UserProfileDetail from '@components/UserProfileDetail';
 
 const ProfileDetailScreen: React.FC = () => {
@@ -15,13 +15,13 @@ const ProfileDetailScreen: React.FC = () => {
         
         Sed arcu odio, egestas ac eros sit amet, elementum mattis nibh. In euismod porta tortor vel fringilla. Proin ac erat a purus euismod maximus. Fusce auctor, dui ornare porta cursus, nisl quam maximus ligula, eu rhoncus purus ligula a libero. Nullam dictum felis felis, vitae lacinia lacus hendrerit nec. Praesent mi ligula, pulvinar eu tellus a, commodo tincidunt orci. Etiam massa tellus, consequat ut pharetra sed, ullamcorper at risus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean in ante nisl. Sed accumsan nunc enim, sit amet placerat purus eleifend a. Phasellus euismod ligula ligula, sed dapibus leo placerat eget."
         facultad="Facultad de Ingenieria Mecánica y Eléctrica"
-        nivel="Estudiante Superior"
         name="Lionel"
+        nivel="Estudiante Superior"
         pictures={[
           'https://image.shutterstock.com/image-photo/head-shot-portrait-smiling-middle-600w-1339318991.jpg',
           'https://image.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1640944705.jpg'
         ]}
-        // onPressInfo={() => navigation.push('profile-detail')}
+      // onPressInfo={() => navigation.push('profile-detail')}
       ></UserProfileDetail>
     </View>
   );

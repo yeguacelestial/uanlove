@@ -1,58 +1,47 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { Ionicons } from '@expo/vector-icons';
+import TabNavigator from '@navigation/TabNavigator';
 
-import FloatingTabBar from '@components/FloatingTabBar';
+import {
+  ProfileDetailScreen,
+  ProfileEditScreen,
+  SettingsScreen
+} from '@screens/profile';
 
-import HomeScreen from '@screens/HomeScreen';
-import MessagesScreen from '@screens/MessagesScreen';
-import LikesScreen from '@screens/LikesScreen';
-
-import ProfileNavigator from '@navigation/ProfileNavigator';
-
-const { Navigator, Screen } = createBottomTabNavigator();
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getTabBarIcon = (icon: any) => {
-  return ({ color, size }: { color: string; size: number }) => (
-    <Ionicons color={color} name={icon} size={size} />
-  );
-};
+const { Navigator, Screen } = createNativeStackNavigator();
 
 const AppNavigator: React.FC = () => {
   return (
-    <Navigator tabBar={FloatingTabBar}>
+    <Navigator>
+      {/* Tab Navigator */}
       <Screen
-        component={HomeScreen}
-        name="home"
+        component={TabNavigator}
+        name="tab-navigator"
+        options={{ headerShown: false }}
+      />
+      {/* Profile Screens */}
+      <Screen
+        component={ProfileEditScreen}
+        name="profile-edit"
         options={{
-          title: 'Home',
-          tabBarIcon: getTabBarIcon('home')
+          title: 'Edit'
         }}
       />
       <Screen
-        component={LikesScreen}
-        name="likes"
+        component={ProfileDetailScreen}
+        name="profile-detail"
         options={{
-          title: 'Likes',
-          tabBarIcon: getTabBarIcon('heart')
+          // TODO: Add close button to detail screen.
+          headerShown: false,
+          title: 'Detail'
         }}
       />
       <Screen
-        component={MessagesScreen}
-        name="messages"
+        component={SettingsScreen}
+        name="settings"
         options={{
-          title: 'Messages',
-          tabBarIcon: getTabBarIcon('chatbox')
-        }}
-      />
-      <Screen
-        component={ProfileNavigator}
-        name="profile-navigator"
-        options={{
-          tabBarIcon: getTabBarIcon('person'),
-          headerShown: false
+          title: 'Settings'
         }}
       />
     </Navigator>
