@@ -7,7 +7,9 @@ export interface AuthContextState {
 
 const contextDefaultState: AuthContextState = {
   authenticated: true,
-  setAuthenticated: () => {}
+  setAuthenticated: () => {
+    return;
+  }
 };
 
 export const AuthContext = createContext<AuthContextState>(contextDefaultState);
