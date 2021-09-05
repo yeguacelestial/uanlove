@@ -76,6 +76,7 @@ const styles = ScaledSheet.create({
     backgroundColor
   },
   next: {
+    opacity: 0,
     position: 'absolute',
     top: 0,
     bottom: 0,
@@ -84,6 +85,7 @@ const styles = ScaledSheet.create({
     zIndex: 1
   },
   prev: {
+    opacity: 0,
     position: 'absolute',
     top: 0,
     bottom: 0,
