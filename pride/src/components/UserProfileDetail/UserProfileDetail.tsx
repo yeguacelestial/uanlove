@@ -2,21 +2,20 @@ import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
-  ImageBackground,
   GestureResponderEvent,
-  Dimensions
+  Dimensions,
+  ScrollView
 } from 'react-native';
 import { ms, ScaledSheet } from 'react-native-size-matters';
-import ScrollView from '@components/ScrollView';
 import { Ionicons } from '@expo/vector-icons';
+import Pictures from '@components/Pictures';
 
 export interface UserProfileDetailProps {
   name: string;
   age: number;
   pictures?: string[];
+  initialPicture?: number;
   description: string;
-  facultad: string;
-  nivel: string;
   onPressExit?: (e: GestureResponderEvent) => void;
   children?: React.ReactNode;
 }
@@ -24,10 +23,9 @@ export interface UserProfileDetailProps {
 const UserProfileDetail: React.FC<UserProfileDetailProps> = ({
   name,
   age,
-  pictures,
+  pictures = [],
+  initialPicture,
   description,
-  facultad,
-  nivel,
   onPressExit,
   children
 }: UserProfileDetailProps) => {
@@ -40,26 +38,21 @@ const UserProfileDetail: React.FC<UserProfileDetailProps> = ({
 
   return (
     <ScrollView style={styles.root}>
-      <View style={styles.pictures}>
-        <ImageBackground
-          source={{
-            uri: 'https://upload.wikimedia.org/wikipedia/commons/4/40/Alejandro_Sanz_-_Cap_Roig_2016.jpg'
-          }}
-          style={{
-            height
-          }}
-        />
-      </View>
+      <Pictures
+        initialIndex={initialPicture}
+        pictures={pictures}
+        style={{
+          height
+        }}
+      />
       <View style={styles.information}>
         <View>
           <Text style={styles.name}>
             {name}, {age}
           </Text>
-          <Text>{facultad}</Text>
-          <Text>{nivel}</Text>
           <Ionicons
             color="black"
-            name="close-circle"
+            name="arrow-back-circle"
             size={ms(26)}
             style={styles.exit}
             onPress={onPressExit}
