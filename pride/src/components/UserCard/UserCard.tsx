@@ -26,7 +26,7 @@ const UserCard: React.FC<UserCardProps> = ({
 }: UserCardProps) => {
   return (
     <View style={styles.root}>
-      <Pictures initialIndex={initialPicture} pictures={pictures} />
+      <Pictures initialPicture={initialPicture} pictures={pictures} />
       <LinearGradient
         colors={['#00000000', '#000000']}
         locations={[0, 0.6]}

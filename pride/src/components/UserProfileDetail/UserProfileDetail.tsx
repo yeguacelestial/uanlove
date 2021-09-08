@@ -39,7 +39,7 @@ const UserProfileDetail: React.FC<UserProfileDetailProps> = ({
   return (
     <ScrollView style={styles.root}>
       <Pictures
-        initialIndex={initialPicture}
+        initialPicture={initialPicture}
         pictures={pictures}
         style={{
           height

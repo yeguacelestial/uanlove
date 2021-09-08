@@ -13,14 +13,13 @@ export { usePictures };
 
 export interface PicturesProps {
   pictures?: string[];
-  initialIndex?: number;
+  initialPicture?: number;
   style?: ViewStyle;
 }
 
-// TODO: Test component.
 const Pictures: React.FC<PicturesProps> = ({
   pictures = [],
-  initialIndex = 0,
+  initialPicture = 0,
   style = {}
 }: PicturesProps) => {
   const {
@@ -30,26 +29,36 @@ const Pictures: React.FC<PicturesProps> = ({
     getItemLayout,
     onPressNext,
     onPressPrevious
-  } = usePictures(pictures, initialIndex);
+  } = usePictures(pictures, initialPicture);
 
   return (
     <View
       style={[styles.root, style]}
       onLayout={e => setLayout(e.nativeEvent.layout)}
     >
-      <Pressable style={styles.prev} onPress={onPressPrevious} />
-      <Pressable style={styles.next} onPress={onPressNext} />
+      <Pressable
+        accessibilityLabel="previous-picture"
+        style={styles.prev}
+        onPress={onPressPrevious}
+      />
+      <Pressable
+        accessibilityLabel="next-picture"
+        style={styles.next}
+        onPress={onPressNext}
+      />
       <FlatList
         ref={flatList => setFlatList(flatList)}
         horizontal
         pagingEnabled
         data={pictures}
         getItemLayout={getItemLayout}
-        initialScrollIndex={initialIndex}
+        initialScrollIndex={initialPicture}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
           return (
             <ImageBackground
+              accessibilityLabel={`picture-${index + 1}`}
+              accessibilityRole="image"
               resizeMode="contain"
               source={{
                 uri: item
