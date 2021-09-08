@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text } from 'react-native';
-import ScrollView from '@components/ScrollView';
+import ScreenScrollView from '@components/ScreenScrollView';
 
 const MessagesScreen: React.FC = () => {
   return (
-    <ScrollView>
+    <ScreenScrollView>
       <Text>Messages Screen</Text>
-    </ScrollView>
+    </ScreenScrollView>
   );
 };
 

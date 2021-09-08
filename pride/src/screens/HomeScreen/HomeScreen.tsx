@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text } from 'react-native';
-import ScrollView from '@components/ScrollView';
+import ScreenScrollView from '@components/ScreenScrollView';
 
 const HomeScreen: React.FC = () => {
   return (
-    <ScrollView>
+    <ScreenScrollView>
       <Text
         style={{
           height: 1000
@@ -13,7 +13,7 @@ const HomeScreen: React.FC = () => {
         Home Screen
       </Text>
       <Text>Long Content</Text>
-    </ScrollView>
+    </ScreenScrollView>
   );
 };
 
