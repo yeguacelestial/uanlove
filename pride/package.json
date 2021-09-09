@@ -20,7 +20,9 @@
       "js",
       "jsx"
     ],
-    "setupFilesAfterEnv": ["@testing-library/jest-native/extend-expect"]
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ]
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
@@ -32,6 +34,7 @@
     "expo-status-bar": "~1.0.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-hook-form": "^7.15.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
