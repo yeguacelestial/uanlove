@@ -1,45 +1,15 @@
 import React from 'react';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import useAuth from '@hooks/useAuth';
 import { View, Text } from 'react-native';
+import { ProfileScreenProps } from '../props';
 import ScreenView from '@components/ScreenView';
-import { MaterialIcons } from '@expo/vector-icons';
-import FloatingActionButton, {
-  IconProps
-} from '@components/FloatingActionButton';
-import UserCard from '@components/UserCard';
-import { ms, ScaledSheet } from 'react-native-size-matters';
+import { ScaledSheet } from 'react-native-size-matters';
+import ProfileCard from './ProfileCard';
+import useProfileScreen from './useProfileScreen';
 
-// TODO: Move this to navigator file.
-type ProfileNavigatorParamList = {
-  profile: undefined;
-  'profile-edit': undefined;
-  'profile-detail': undefined;
-  settings: undefined;
-};
-
-type ProfileScreenProps = NativeStackScreenProps<
-  ProfileNavigatorParamList,
-  'profile'
->;
-
-// TODO: Move logic to custom hook.
 const ProfileScreen: React.FC<ProfileScreenProps> = ({
   navigation
 }: ProfileScreenProps) => {
-  const { signOut, user } = useAuth();
-
-  const getEditIcon = ({ color, size }: IconProps) => (
-    <MaterialIcons color={color} name="edit" size={size} />
-  );
-
-  const getSignOutIcon = ({ color, size }: IconProps) => (
-    <MaterialIcons color={color} name="logout" size={size} />
-  );
-
-  const getSettingsIcon = ({ color, size }: IconProps) => (
-    <MaterialIcons color={color} name="settings" size={size} />
-  );
+  const { signOut, user, picture, onChangePicture } = useProfileScreen();
 
   // TODO: Handle without user.
   if (!user)
@@ -51,7 +21,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
 
   return (
     <ScreenView style={styles.root}>
-      <UserCard
+      <ProfileCard
         age={user.age}
         description={user.description}
         name={user.name}
@@ -59,28 +29,16 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
           'https://image.shutterstock.com/image-photo/head-shot-portrait-smiling-middle-600w-1339318991.jpg',
           'https://image.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1640944705.jpg'
         ]}
-        onPressInfo={() => navigation.push('profile-detail')}
-      >
-        <View style={styles.actions}>
-          <FloatingActionButton
-            getIcon={getSettingsIcon}
-            style={styles.action}
-            onPress={() => navigation.push('settings')}
-          />
-          <FloatingActionButton
-            color="#de4b4b"
-            getIcon={getSignOutIcon}
-            size={ms(50)}
-            style={styles.action}
-            onPress={() => signOut()}
-          />
-          <FloatingActionButton
-            getIcon={getEditIcon}
-            style={styles.action}
-            onPress={() => navigation.push('profile-edit')}
-          />
-        </View>
-      </UserCard>
+        onChangePicture={onChangePicture}
+        onPressEdit={() => navigation.push('profile-edit')}
+        onPressInfo={() =>
+          navigation.push('profile-detail', {
+            initialPicture: picture
+          })
+        }
+        onPressSettings={() => navigation.push('settings')}
+        onPressSignOut={() => signOut()}
+      />
     </ScreenView>
   );
 };
@@ -88,15 +46,6 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
 const styles = ScaledSheet.create({
   root: {
     padding: '16@ms'
-  },
-  actions: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  action: {
-    marginStart: '10@ms',
-    marginEnd: '10@ms'
   }
 });
 
