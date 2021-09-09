@@ -32,7 +32,6 @@ const AppNavigator: React.FC = () => {
         component={ProfileDetailScreen}
         name="profile-detail"
         options={{
-          // TODO: Add close button to detail screen.
           headerShown: false,
           title: 'Detail'
         }}

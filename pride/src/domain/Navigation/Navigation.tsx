@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { useAuth } from '@context/Auth/hooks';
+import useAuth from '@hooks/useAuth';
 
 import AppNavigator from '@navigation/AppNavigator';
 import AuthNavigator from '@navigation/AuthNavigator';
@@ -10,7 +10,7 @@ import AuthNavigator from '@navigation/AuthNavigator';
 const { Navigator, Screen } = createNativeStackNavigator();
 
 const Navigation: React.FC = () => {
-  const { authenticated } = useAuth();
+  const { user } = useAuth();
 
   return (
     <NavigationContainer>
@@ -19,7 +19,7 @@ const Navigation: React.FC = () => {
           headerShown: false
         }}
       >
-        {authenticated ? (
+        {user ? (
           <Screen component={AppNavigator} name="app-navigator" />
         ) : (
           <Screen component={AuthNavigator} name="auth-navigator" />

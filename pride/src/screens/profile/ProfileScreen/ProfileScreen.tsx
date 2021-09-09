@@ -1,7 +1,7 @@
 import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useAuth } from '@context/Auth/hooks';
-import { View } from 'react-native';
+import useAuth from '@hooks/useAuth';
+import { View, Text } from 'react-native';
 import ScreenView from '@components/ScreenView';
 import { MaterialIcons } from '@expo/vector-icons';
 import FloatingActionButton, {
@@ -23,10 +23,11 @@ type ProfileScreenProps = NativeStackScreenProps<
   'profile'
 >;
 
+// TODO: Move logic to custom hook.
 const ProfileScreen: React.FC<ProfileScreenProps> = ({
   navigation
 }: ProfileScreenProps) => {
-  const { setAuthenticated } = useAuth();
+  const { signOut, user } = useAuth();
 
   const getEditIcon = ({ color, size }: IconProps) => (
     <MaterialIcons color={color} name="edit" size={size} />
@@ -40,12 +41,20 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
     <MaterialIcons color={color} name="settings" size={size} />
   );
 
+  // TODO: Handle without user.
+  if (!user)
+    return (
+      <View>
+        <Text>Without User</Text>
+      </View>
+    );
+
   return (
     <ScreenView style={styles.root}>
       <UserCard
-        age={34}
-        description="Soy un goleador nato"
-        name="Lionel"
+        age={user.age}
+        description={user.description}
+        name={user.name}
         pictures={[
           'https://image.shutterstock.com/image-photo/head-shot-portrait-smiling-middle-600w-1339318991.jpg',
           'https://image.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1640944705.jpg'
@@ -63,7 +72,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
             getIcon={getSignOutIcon}
             size={ms(50)}
             style={styles.action}
-            onPress={() => setAuthenticated(false)}
+            onPress={() => signOut()}
           />
           <FloatingActionButton
             getIcon={getEditIcon}
