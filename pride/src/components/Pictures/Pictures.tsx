@@ -9,18 +9,20 @@ import {
 import { ScaledSheet } from 'react-native-size-matters';
 import usePictures from './usePictures';
 
-export { usePictures };
-
 export interface PicturesProps {
   pictures?: string[];
   initialPicture?: number;
   style?: ViewStyle;
+  onPictureChange?: (index: number) => void;
 }
+
+// TODO: Test onChangePicture callback.
 
 const Pictures: React.FC<PicturesProps> = ({
   pictures = [],
   initialPicture = 0,
-  style = {}
+  style = {},
+  onPictureChange
 }: PicturesProps) => {
   const {
     setFlatList,
@@ -29,7 +31,11 @@ const Pictures: React.FC<PicturesProps> = ({
     getItemLayout,
     onPressNext,
     onPressPrevious
-  } = usePictures(pictures, initialPicture);
+  } = usePictures({
+    pictures,
+    initialPicture,
+    onPictureChange
+  });
 
   return (
     <View

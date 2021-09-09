@@ -14,6 +14,7 @@ export interface UserCardProps {
   initialPicture?: number;
   description?: string;
   onPressInfo?: (e: GestureResponderEvent) => void;
+  onChangePicture?: (index: number) => void;
   children?: React.ReactNode;
 }
 
@@ -24,11 +25,16 @@ const UserCard: React.FC<UserCardProps> = ({
   initialPicture,
   description,
   onPressInfo,
+  onChangePicture,
   children
 }: UserCardProps) => {
   return (
     <View style={styles.root}>
-      <Pictures initialPicture={initialPicture} pictures={pictures} />
+      <Pictures
+        initialPicture={initialPicture}
+        pictures={pictures}
+        onPictureChange={onChangePicture}
+      />
       <LinearGradient
         colors={['#00000000', '#000000']}
         locations={[0, 0.6]}
