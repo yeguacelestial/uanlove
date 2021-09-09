@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 
 import Pictures from './Pictures';
+import { View, Text } from 'react-native';
 
 describe('<Pictures />', () => {
   const pictures = [
@@ -79,5 +80,37 @@ describe('<Pictures />', () => {
     expect(renderAPI.getByA11yLabel('picture-3').props.source.uri).toBe(
       pictures[2]
     );
+  });
+
+  // eslint-disable-next-line max-len
+  it('onPicturesChange callback receives updated picture index when pressing previous or next', () => {
+    const Component: React.FC = () => {
+      const [index, setIndex] = useState(0);
+
+      return (
+        <View>
+          <Pictures pictures={pictures} onPictureChange={setIndex} />
+          <Text accessibilityLabel="picture-index">{index}</Text>
+        </View>
+      );
+    };
+    const { getByA11yLabel } = render(<Component />);
+
+    const prev = getByA11yLabel('previous-picture'),
+      next = getByA11yLabel('next-picture');
+
+    expect(getByA11yLabel('picture-index').children[0]).toBe('0');
+
+    fireEvent.press(prev);
+    expect(getByA11yLabel('picture-index').children[0]).toBe('0');
+
+    fireEvent.press(next);
+    expect(getByA11yLabel('picture-index').children[0]).toBe('1');
+
+    fireEvent.press(next);
+    expect(getByA11yLabel('picture-index').children[0]).toBe('2');
+
+    fireEvent.press(next);
+    expect(getByA11yLabel('picture-index').children[0]).toBe('2');
   });
 });

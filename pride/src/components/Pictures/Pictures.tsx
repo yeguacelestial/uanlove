@@ -16,8 +16,6 @@ export interface PicturesProps {
   onPictureChange?: (index: number) => void;
 }
 
-// TODO: Test onChangePicture callback.
-
 const Pictures: React.FC<PicturesProps> = ({
   pictures = [],
   initialPicture = 0,
