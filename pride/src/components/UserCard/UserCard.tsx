@@ -5,12 +5,14 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { ScaledSheet, ms } from 'react-native-size-matters';
 import Pictures from '@components/Pictures';
 
+// TODO: Fix style when there is not a description.
+
 export interface UserCardProps {
   name: string;
-  age: number;
+  age: number | string;
   pictures?: string[];
   initialPicture?: number;
-  description: string;
+  description?: string;
   onPressInfo?: (e: GestureResponderEvent) => void;
   children?: React.ReactNode;
 }
@@ -36,7 +38,9 @@ const UserCard: React.FC<UserCardProps> = ({
           <Text style={styles.name}>
             {name}, {age}
           </Text>
-          <Text style={styles.description}>{description}</Text>
+          {description ? (
+            <Text style={styles.description}>{description}</Text>
+          ) : null}
           <MaterialIcons
             color="white"
             name="info"
@@ -45,7 +49,7 @@ const UserCard: React.FC<UserCardProps> = ({
             onPress={onPressInfo}
           />
         </View>
-        {children && <View style={styles.actions}>{children}</View>}
+        {children ? <View style={styles.actions}>{children}</View> : null}
       </LinearGradient>
     </View>
   );

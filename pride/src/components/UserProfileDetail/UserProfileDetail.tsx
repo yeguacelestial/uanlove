@@ -12,13 +12,15 @@ import Pictures from '@components/Pictures';
 
 export interface UserProfileDetailProps {
   name: string;
-  age: number;
+  age: number | string;
   pictures?: string[];
   initialPicture?: number;
-  description: string;
+  description?: string;
   onPressExit?: (e: GestureResponderEvent) => void;
   children?: React.ReactNode;
 }
+
+// TODO: Fix style when there is not a description.
 
 const UserProfileDetail: React.FC<UserProfileDetailProps> = ({
   name,
@@ -58,9 +60,11 @@ const UserProfileDetail: React.FC<UserProfileDetailProps> = ({
             onPress={onPressExit}
           />
         </View>
-        <Text style={styles.description}>{description}</Text>
+        {description ? (
+          <Text style={styles.description}>{description}</Text>
+        ) : null}
       </View>
-      {children && <View style={styles.children}>{children}</View>}
+      {children ? <View style={styles.children}>{children}</View> : null}
     </ScrollView>
   );
 };
