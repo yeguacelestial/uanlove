@@ -94,6 +94,7 @@ describe('<Pictures />', () => {
         </View>
       );
     };
+
     const { getByA11yLabel } = render(<Component />);
 
     const prev = getByA11yLabel('previous-picture'),
