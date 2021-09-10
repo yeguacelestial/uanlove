@@ -6,6 +6,7 @@ import { ScaledSheet, ms } from 'react-native-size-matters';
 import Pictures from '@components/Pictures';
 
 // TODO: Fix style when there is not a description.
+// TODO: Fix style when description is too long.
 
 export interface UserCardProps {
   name: string;

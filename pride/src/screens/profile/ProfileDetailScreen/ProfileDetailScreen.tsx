@@ -1,5 +1,5 @@
 import React from 'react';
-import UserProfileDetail from '@components/UserProfileDetail';
+import UserCardDetail from '@components/UserCardDetail';
 import useAuth from '@hooks/useAuth';
 import { Text, View } from 'react-native';
 import { ProfileDetailScreenProps } from '../props';
@@ -20,7 +20,7 @@ const ProfileDetailScreen: React.FC<ProfileDetailScreenProps> = ({
     );
 
   return (
-    <UserProfileDetail
+    <UserCardDetail
       age={user.age}
       description={user.description}
       initialPicture={initialPicture}
@@ -30,7 +30,7 @@ const ProfileDetailScreen: React.FC<ProfileDetailScreenProps> = ({
         'https://image.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1640944705.jpg'
       ]}
       onPressExit={() => navigation.goBack()}
-    />
+    ></UserCardDetail>
   );
 };
 

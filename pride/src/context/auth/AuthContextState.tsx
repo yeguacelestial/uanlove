@@ -11,7 +11,16 @@ interface AuthContextState {
 export const authContextDefaultState: AuthContextState = {
   user: {
     name: 'Gabriel Emilio',
-    age: '21'
+    age: '21',
+    description:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod harum distinctio ad id ut quas inventore, perferendis sed consequatur deserunt eius corrupti minus illo. Perspiciatis iste blanditiis quidem sit mollitia?' +
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod harum distinctio ad id ut quas inventore, perferendis sed consequatur deserunt eius corrupti minus illo. Perspiciatis iste blanditiis quidem sit mollitia?' +
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod harum distinctio ad id ut quas inventore, perferendis sed consequatur deserunt eius corrupti minus illo. Perspiciatis iste blanditiis quidem sit mollitia?' +
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod harum distinctio ad id ut quas inventore, perferendis sed consequatur deserunt eius corrupti minus illo. Perspiciatis iste blanditiis quidem sit mollitia?' +
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod harum distinctio ad id ut quas inventore, perferendis sed consequatur deserunt eius corrupti minus illo. Perspiciatis iste blanditiis quidem sit mollitia?' +
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod harum distinctio ad id ut quas inventore, perferendis sed consequatur deserunt eius corrupti minus illo. Perspiciatis iste blanditiis quidem sit mollitia?' +
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod harum distinctio ad id ut quas inventore, perferendis sed consequatur deserunt eius corrupti minus illo. Perspiciatis iste blanditiis quidem sit mollitia?' +
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod harum distinctio ad id ut quas inventore, perferendis sed consequatur deserunt eius corrupti minus illo. Perspiciatis iste blanditiis quidem sit mollitia?'
   },
   signUp: async () => {
     return;
