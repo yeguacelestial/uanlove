@@ -38,8 +38,9 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
 
   useEffect(() => {
     const window = Dimensions.get('window');
-    setHeight(window.height * 0.7);
+    setHeight(window.height);
   }, []);
+
   return (
     <View style={styles.root}>
       <ScrollView
@@ -55,10 +56,17 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
           initialPicture={initialPicture}
           pictures={pictures}
           style={{
-            height
+            height: height * 0.7
           }}
         />
-        <View style={styles.information}>
+        <View
+          style={[
+            styles.information,
+            {
+              minHeight: height * 0.3
+            }
+          ]}
+        >
           <View>
             <Text style={styles.name}>
               {name}, {age}
