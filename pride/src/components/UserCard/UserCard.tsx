@@ -6,7 +6,6 @@ import { ScaledSheet, ms } from 'react-native-size-matters';
 import Pictures from '@components/Pictures';
 
 // TODO: Fix style when there is not a description.
-// TODO: Fix style when description is too long.
 
 export interface UserCardProps {
   name: string;
@@ -46,7 +45,9 @@ const UserCard: React.FC<UserCardProps> = ({
             {name}, {age}
           </Text>
           {description ? (
-            <Text style={styles.description}>{description}</Text>
+            <Text numberOfLines={3} style={styles.description}>
+              {description}
+            </Text>
           ) : null}
           <MaterialIcons
             color="white"
@@ -80,7 +81,8 @@ const styles = ScaledSheet.create({
   },
   information: {
     padding: '16@ms',
-    paddingBottom: 0
+    paddingBottom: 0,
+    paddingEnd: '48@ms'
   },
   name: {
     fontSize: '20@ms',
