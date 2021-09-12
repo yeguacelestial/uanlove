@@ -31,6 +31,7 @@ const UserCard: React.FC<UserCardProps> = ({
   return (
     <View style={styles.root}>
       <Pictures
+        indicatorsHorizontalPadding={ms(16)}
         initialPicture={initialPicture}
         pictures={pictures}
         onPictureChange={onChangePicture}

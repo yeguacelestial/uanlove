@@ -61,6 +61,7 @@ const usePictures = ({
   }, [index, onPictureChange]);
 
   return {
+    picture: index,
     setFlatList,
     layout,
     setLayout,
