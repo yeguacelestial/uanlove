@@ -22,8 +22,6 @@ export interface UserCardDetailProps {
   childrenHeight?: number;
 }
 
-// TODO: Fix style when there is not a description.
-
 const UserCardDetail: React.FC<UserCardDetailProps> = ({
   name,
   age,
@@ -59,14 +57,7 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
             height: height * 0.7
           }}
         />
-        <View
-          style={[
-            styles.information,
-            {
-              minHeight: height * 0.3
-            }
-          ]}
-        >
+        <View style={styles.information}>
           <View>
             <Text style={styles.name}>
               {name}, {age}
@@ -94,7 +85,8 @@ const backgroundColor = 'white';
 const styles = ScaledSheet.create({
   root: {
     flexGrow: 1,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    backgroundColor
   },
   container: {
     position: 'absolute',
@@ -129,8 +121,7 @@ const styles = ScaledSheet.create({
     position: 'absolute',
     bottom: '16@ms',
     left: '16@ms',
-    right: '16@ms',
-    backgroundColor: 'red'
+    right: '16@ms'
   }
 });
 
