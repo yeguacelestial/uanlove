@@ -1,32 +1,94 @@
+// @refresh reset
 import React from 'react';
 import { Pressable, Text, PressableProps, View } from 'react-native';
 import { ScaledSheet, ms } from 'react-native-size-matters';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming
+} from 'react-native-reanimated';
 
 export interface Button3DProps extends PressableProps {
   text: string;
+  animationDuration?: number;
+  backdropHeight?: number;
+  backgroundColor?: string;
+  color?: string;
+  backdropColor?: string;
+  fontSize?: number;
+  loading?: boolean;
 }
 
+// TODO: Add loading animation.
+
 const Button3D: React.FC<Button3DProps> = ({
+  animationDuration = 70,
+  backdropHeight = ms(7),
+  backgroundColor = '#fbc02e',
+  backdropColor = '#e1a205',
+  color = 'white',
+  fontSize = ms(12),
+  loading = false,
   text,
   style,
-  onPress,
+  onPressIn,
+  onPressOut,
   ...props
 }: Button3DProps) => {
+  const translateY = useSharedValue(0);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: translateY.value
+        }
+      ]
+    };
+  });
+
   return (
     <Pressable
-      style={[style, { paddingBottom: ms(7) }]}
-      onPress={e => {
-        console.log('kktua');
-        if (onPress) onPress(e);
+      disabled={loading}
+      style={[style, { paddingBottom: backdropHeight }]}
+      onPressIn={e => {
+        translateY.value = withTiming(backdropHeight, {
+          duration: animationDuration
+        });
+
+        if (onPressIn) onPressIn(e);
+      }}
+      onPressOut={e => {
+        translateY.value = withTiming(0, {
+          duration: animationDuration
+        });
+
+        if (onPressOut) onPressOut(e);
       }}
       {...props}
     >
-      <View style={styles.button}>
-        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: ms(12) }}>
-          {text}
+      <Animated.View
+        style={[
+          {
+            backgroundColor
+          },
+          styles.button,
+          animatedStyle
+        ]}
+      >
+        <Text style={[{ color, fontSize }, styles.text]}>
+          {loading ? 'Loading...' : text}
         </Text>
-      </View>
-      <View style={styles.backdrop}></View>
+      </Animated.View>
+      <View
+        style={[
+          {
+            top: backdropHeight,
+            backgroundColor: backdropColor
+          },
+          styles.backdrop
+        ]}
+      />
     </Pressable>
   );
 };
@@ -34,17 +96,17 @@ const Button3D: React.FC<Button3DProps> = ({
 const styles = ScaledSheet.create({
   button: {
     width: '100%',
-    backgroundColor: '#FBC02E',
-    padding: '15@ms',
+    padding: '10@ms',
     borderRadius: '5@ms',
     alignItems: 'center'
   },
+  text: {
+    fontWeight: 'bold'
+  },
   backdrop: {
-    top: '7@ms',
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: '#e1a205',
     position: 'absolute',
     zIndex: -1,
     borderRadius: '5@ms'
