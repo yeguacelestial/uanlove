@@ -4,6 +4,7 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
+      "@shared/*": ["src/shared/*"],
       "@navigation/*": ["./src/navigation/*"],
       "@domain/*": ["./src/domain/*"],
       "@components/*": ["./src/components/*"],

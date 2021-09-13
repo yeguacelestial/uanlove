@@ -6,43 +6,64 @@ import {
   View,
   ViewStyle
 } from 'react-native';
-import { ScaledSheet } from 'react-native-size-matters';
+import { ms, ScaledSheet } from 'react-native-size-matters';
 import usePictures from './usePictures';
-
-export { usePictures };
+import Indicators from './Indicators';
 
 export interface PicturesProps {
   pictures?: string[];
   initialPicture?: number;
   style?: ViewStyle;
+  onPictureChange?: (index: number) => void;
+  indicatorColor?: string;
+  indicatorsHorizontalPadding?: number;
+  indicatorsTopPadding?: number;
 }
 
 const Pictures: React.FC<PicturesProps> = ({
   pictures = [],
   initialPicture = 0,
-  style = {}
+  style = {},
+  indicatorColor = 'rgba(255, 255, 255, 0.6)',
+  indicatorsHorizontalPadding = ms(4),
+  indicatorsTopPadding = ms(4),
+  onPictureChange
 }: PicturesProps) => {
   const {
+    picture,
     setFlatList,
     layout,
     setLayout,
     getItemLayout,
     onPressNext,
     onPressPrevious
-  } = usePictures(pictures, initialPicture);
+  } = usePictures({
+    pictures,
+    initialPicture,
+    onPictureChange
+  });
 
   return (
     <View
       style={[styles.root, style]}
       onLayout={e => setLayout(e.nativeEvent.layout)}
     >
+      <Indicators
+        color={indicatorColor}
+        horizontalPadding={indicatorsHorizontalPadding}
+        picture={picture}
+        pictures={pictures}
+        topPadding={indicatorsTopPadding}
+      />
       <Pressable
         accessibilityLabel="previous-picture"
+        focusable={false}
         style={styles.prev}
         onPress={onPressPrevious}
       />
       <Pressable
         accessibilityLabel="next-picture"
+        focusable={false}
         style={styles.next}
         onPress={onPressNext}
       />

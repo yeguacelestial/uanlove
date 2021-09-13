@@ -11,7 +11,7 @@
     "plugin:react-hooks/recommended"
   ],
   "rules": {
-    "react-native/no-inline-styles": "warn",
+    "react-native/no-inline-styles": "off",
     "react-native/no-unused-styles": "warn",
     "react-native/no-color-literals": "warn",
     "react-native/sort-styles": "off",

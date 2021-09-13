@@ -22,13 +22,13 @@ const FloatingTabBarItem: React.FC<FloatingTabBarItemProps> = ({
   onLongPress,
   onPress
 }: FloatingTabBarItemProps) => {
-  const icon =
-    options.tabBarIcon &&
-    options.tabBarIcon({
-      focused,
-      color: focused ? focusedColor : color,
-      size: ms(20)
-    });
+  const icon = options.tabBarIcon
+    ? options.tabBarIcon({
+        focused,
+        color: focused ? focusedColor : color,
+        size: ms(20)
+      })
+    : null;
 
   return (
     <TouchableOpacity

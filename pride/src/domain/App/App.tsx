@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Navigation from '@domain/Navigation';
-import { AuthProvider } from '@context/Auth';
+import { AuthProvider } from '@context/auth';
 
 const App: React.FC = () => {
   return (

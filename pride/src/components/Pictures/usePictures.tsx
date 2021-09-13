@@ -1,9 +1,21 @@
 // @refresh reset
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 
+export interface usePicturesProps {
+  pictures?: string[];
+  initialPicture?: number;
+  onPictureChange?: (index: number) => void;
+}
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const usePictures = (pictures: string[], initialIndex = 0) => {
+const usePictures = ({
+  pictures = [],
+  initialPicture = 0,
+  onPictureChange = () => {
+    return;
+  }
+}: usePicturesProps) => {
   const [layout, setLayout] = useState({
     width: 0,
     height: 0
@@ -20,7 +32,7 @@ const usePictures = (pictures: string[], initialIndex = 0) => {
 
   const [flatList, setFlatList] = useState<FlatList<string> | null>(null);
 
-  const [index, setIndex] = useState(initialIndex);
+  const [index, setIndex] = useState(initialPicture);
 
   const scrollToIndex = useCallback(
     (index: number) => {
@@ -44,7 +56,12 @@ const usePictures = (pictures: string[], initialIndex = 0) => {
     scrollToIndex(index - 1);
   }, [index, scrollToIndex]);
 
+  useEffect(() => {
+    onPictureChange(index);
+  }, [index, onPictureChange]);
+
   return {
+    picture: index,
     setFlatList,
     layout,
     setLayout,
