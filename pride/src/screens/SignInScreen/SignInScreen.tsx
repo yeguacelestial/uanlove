@@ -1,77 +1,64 @@
+// @refresh reset
 import React from 'react';
-import { Text, View, TouchableOpacity, FlatList } from 'react-native';
+import { View } from 'react-native';
 import useAuth from '@hooks/useAuth';
-import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ScaledSheet } from 'react-native-size-matters';
-import { BackgroundSignIn } from './BackgroundSignIn';
-
-const DATA = [
-  {
-    id: '0',
-    bottomColor: 'yellow',
-    topColor: 'blue'
-  },
-  {
-    id: '1',
-    bottomColor: 'yellow',
-    topColor: 'blue'
-  },
-  {
-    id: '2',
-    bottomColor: 'red',
-    topColor: 'yellow'
-  }
-];
+import { ms } from 'react-native-size-matters';
+import Button3D from '@components/Button3D';
+import {
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent
+} from 'react-native-gesture-handler';
+import Animated, {
+  useAnimatedGestureHandler,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+  interpolateColor
+} from 'react-native-reanimated';
 
 const SignInScreen: React.FC = () => {
-  const { signIn } = useAuth();
+  const left = useSharedValue(false);
+  const value = useSharedValue(0);
 
   const { top } = useSafeAreaInsets();
 
-  //TODO: properties
-  const renderItem = ({ item }: any) => {
-    console.log(item);
-    return (
-      <BackgroundSignIn
-        bottomColor={item.bottomColor}
-        topColor={item.topColor}
-      />
-    );
-  };
+  const { signIn } = useAuth();
+
+  const panGestureHandler =
+    useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
+      onEnd: e => {
+        left.value = e.translationX < 0;
+        value.value = withTiming(left.value ? 1 : 0);
+      }
+    });
+
+  const animatedStyle = useAnimatedStyle(() => {
+    const color = interpolateColor(value.value, [0, 1], ['yellow', 'blue']);
+
+    return {
+      backgroundColor: color
+    };
+  });
 
   // TODO: Handle sign in error.
   return (
     <View style={{ flex: 1, top }}>
-      <StatusBar />
-      {/* <BackgroundSignIn bottomColor="orange" topColor="green" /> */}
-      <FlatList
-        horizontal
-        data={DATA}
-        keyExtractor={item => item.id}
-        renderItem={renderItem}
-      />
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={signIn}>
-          <Text>Sign In</Text>
-        </TouchableOpacity>
-      </View>
+      <PanGestureHandler onGestureEvent={panGestureHandler}>
+        <Animated.View
+          style={[
+            animatedStyle,
+            {
+              padding: ms(16),
+              flex: 1
+            }
+          ]}
+        >
+          <Button3D text="Sign In" onPress={() => signIn()} />
+        </Animated.View>
+      </PanGestureHandler>
     </View>
   );
 };
-
-const styles = ScaledSheet.create({
-  buttonContainer: {
-    flex: 1,
-    marginHorizontal: 30,
-    position: 'absolute'
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
-    position: 'absolute'
-  }
-});
 
 export default SignInScreen;
