@@ -1,9 +1,13 @@
-from fastapi import FastAPI
+import graphene
 
-from api.items.usecase.update import update_item
-from api.items.usecase.read import read_item
+from fastapi import FastAPI
+from starlette.graphql import GraphQLApp
+
+class Query(graphene.ObjectType):
+    hello = graphene.String(name=graphene.String(default_value="stranger"))
+
+    def resolve_hello(self, info, name):
+        return f"Hello {name}"
 
 app = FastAPI()
-
-app.add_api_route("/items/{item_id}", update_item)
-app.add_api_route("/items/{item_id}", read_item)
+app.add_route("/", GraphQLApp(schema=graphene.Schema(query=Query)))
