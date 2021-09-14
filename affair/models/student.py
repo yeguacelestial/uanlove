@@ -10,7 +10,7 @@ class Student(BaseModel):
     pictures: List[str] = []
     hobbies: List[str] = []
     level: str
-    orientation: List[str] = []
+    orientations: List[str] = []
     gender: str
     preference: str
     email: str
