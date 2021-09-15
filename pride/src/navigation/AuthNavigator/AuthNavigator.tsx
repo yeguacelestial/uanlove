@@ -12,7 +12,8 @@ const AuthNavigator: React.FC = () => {
         component={SignInScreen}
         name="sign-in"
         options={{
-          title: 'Sign In'
+          title: 'Sign In',
+          headerShown: false
         }}
       />
     </Navigator>
