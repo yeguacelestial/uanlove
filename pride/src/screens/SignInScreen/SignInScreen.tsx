@@ -11,12 +11,12 @@ const messages = [
     subtitle: 'Y de la verdad...'
   },
   {
-    title: 'OOOOOOOOOOOOOOO.',
-    subtitle: 'Y de la verdad...'
+    title: 'Hola mundo.',
+    subtitle: 'Hello world...'
   },
   {
-    title: 'AAAAAAAAAAAAAAAAAAA.',
-    subtitle: 'AAAAAAAAAAAA...'
+    title: 'Te la.',
+    subtitle: 'Comes...'
   }
 ];
 
@@ -31,7 +31,6 @@ const SignInScreen: React.FC = () => {
         bottomColors={['#7F7B83', '#FE436D', '#2E409F']}
         messages={messages}
         topColors={['#26C0A4', '#FAFAFA', '#FBC02E']}
-        onSignInPress={() => signIn()}
       />
     </View>
   );

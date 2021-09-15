@@ -9,6 +9,7 @@ import {
 import Animated, {
   interpolateColor,
   useAnimatedGestureHandler,
+  useAnimatedProps,
   useAnimatedStyle,
   useSharedValue,
   withSpring
@@ -31,6 +32,37 @@ const MAX_ROTATION = 10;
 // TODO: Add page indicator.
 // TODO: Refactor component.
 // TODO: Add color interpolation.
+
+interface IndicatorProps {
+  currentIndex: Animated.SharedValue<number>;
+  index: number;
+}
+
+const Indicator: React.FC<IndicatorProps> = ({
+  currentIndex,
+  index
+}: IndicatorProps) => {
+  const style = useAnimatedStyle(() => ({
+    backgroundColor: `rgba(255, 255, 255, ${
+      index === currentIndex.value ? '1' : '0.5'
+    })`
+  }));
+
+  return (
+    <Animated.View
+      style={[
+        {
+          height: 12,
+          width: 12,
+          borderRadius: 6,
+          marginEnd: ms(6),
+          marginStart: ms(6)
+        },
+        style
+      ]}
+    />
+  );
+};
 
 type ContextType = {
   startRotate: number;
@@ -64,7 +96,7 @@ const Onboarding: React.FC<OnboardingProps> = ({
       x.value = context.startX + e.translationX;
 
       /*
-      const angle = context.startRotate + e.translationX * 0.08;
+      const angle = context.startRotate + e.translationX * 0.1;
       rotate.value = Math.min(Math.max(angle, -MAX_ROTATION), MAX_ROTATION);
       */
     },
@@ -72,11 +104,15 @@ const Onboarding: React.FC<OnboardingProps> = ({
       if (e.translationX < 0) {
         index.value =
           index.value === messages.length - 1 ? index.value : index.value + 1;
+        //rotate.value = withSpring(MAX_ROTATION);
       } else {
         index.value = index.value === 0 ? index.value : index.value - 1;
+        //rotate.value = withSpring(-MAX_ROTATION);
       }
 
-      x.value = withSpring(-width * index.value);
+      x.value = withSpring(-width * index.value, {
+        damping: 15
+      });
 
       //rotate.value = withSpring(0);
     }
@@ -183,30 +219,9 @@ const Onboarding: React.FC<OnboardingProps> = ({
                 marginTop: ms(32)
               }}
             >
-              {messages.map((_, i) => {
-                // TODO: Create a component for this.
-                const style = useAnimatedStyle(() => ({
-                  backgroundColor: `rgba(255, 255, 255, ${
-                    index.value === i ? '1' : '0.5'
-                  })`
-                }));
-
-                return (
-                  <Animated.View
-                    key={i}
-                    style={[
-                      {
-                        height: 12,
-                        width: 12,
-                        borderRadius: 6,
-                        marginEnd: ms(6),
-                        marginStart: ms(6)
-                      },
-                      style
-                    ]}
-                  />
-                );
-              })}
+              {messages.map((_, i) => (
+                <Indicator key={i} currentIndex={index} index={i} />
+              ))}
             </View>
           </View>
         </View>
