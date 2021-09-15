@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { ScaledSheet, ms } from 'react-native-size-matters';
 import Animated, {
-  interpolateColor,
   useAnimatedStyle,
   useSharedValue,
   withTiming
@@ -19,37 +18,41 @@ import { FontAwesome } from '@expo/vector-icons';
 export interface Button3DProps extends PressableProps {
   text: string;
   animationDuration?: number;
-  backdropHeight?: number;
-  backgroundColor?: string;
-  color?: string;
-  backdropColor?: string;
+  elevation?: number;
+  topColor?: string;
+  textColor?: string;
+  bottomColor?: string;
+  overrideColors?: boolean;
   fontSize?: number;
-  loading?: boolean;
-  success?: boolean;
+  state?: 'success' | 'error' | 'busy' | 'default';
 }
 
-// TODO: Add loading animation.
+// TODO: Add color interpolation.
 
 const Button3D: React.FC<Button3DProps> = ({
   animationDuration = 70,
-  backdropHeight = ms(7),
-  backgroundColor = '#fbc02e',
-  backdropColor = '#e1a205',
-  color = 'white',
+  elevation = ms(7),
+  topColor = '#fbc02e',
+  bottomColor = '#e1a205',
+  textColor = 'white',
+  overrideColors = false,
   fontSize = ms(12),
-  loading = false,
+  state = 'default',
   text,
   style,
   onPressIn,
   onPressOut,
-  success,
   ...props
 }: Button3DProps) => {
   const translateY = useSharedValue(0);
 
-  const [bgColor, setbgColor] = useState({ backgroundColor, backdropColor });
+  const [colors, setColors] = useState({
+    topColor,
+    bottomColor,
+    textColor
+  });
 
-  const animatedStyle = useAnimatedStyle(() => {
+  const topStyle = useAnimatedStyle(() => {
     return {
       transform: [
         {
@@ -59,39 +62,76 @@ const Button3D: React.FC<Button3DProps> = ({
     };
   });
 
-  // const animatedColor = useAnimatedStyle(() => {
-  //  const color = interpolateColor(
-  //  value.value, [0, 1], ['#fbc02e', 'green']);
+  const getContent = () => {
+    switch (state) {
+      case 'success':
+        return (
+          <FontAwesome
+            color={colors.textColor}
+            name="check"
+            size={fontSize * 2}
+          />
+        );
 
-  //   return {
-  //     backgroundColor: color
-  //   };
-  // });
+      case 'error':
+        return (
+          <FontAwesome
+            color={colors.textColor}
+            name="close"
+            size={fontSize * 2}
+          />
+        );
 
-  const loadingAnim = () => {
-    if (loading) {
-      return <ActivityIndicator color="#FFFFFF" size="small" />;
-    } else if (success) {
-      return <FontAwesome color="white" name="check" size={24} />;
-    } else {
-      return <Text style={[{ color, fontSize }, styles.text]}>{text}</Text>;
+      case 'busy':
+        return (
+          <ActivityIndicator color={colors.textColor} size={fontSize * 2} />
+        );
+
+      default:
+        return (
+          <Text style={[{ color: colors.textColor, fontSize }, styles.text]}>
+            {text}
+          </Text>
+        );
     }
   };
 
   useEffect(() => {
-    if (success) {
-      setbgColor({ backgroundColor: '#52B542', backdropColor: '#539B47' });
+    let colors = {
+      topColor,
+      bottomColor,
+      textColor
+    };
+
+    if (!overrideColors) {
+      switch (state) {
+        case 'success':
+          colors = {
+            topColor: '#52B542',
+            bottomColor: '#539B47',
+            textColor: 'white'
+          };
+          break;
+
+        case 'error':
+          colors = {
+            topColor: '#e83333',
+            bottomColor: '#bd2a2a',
+            textColor: 'white'
+          };
+          break;
+      }
     }
-  }, [success]);
+
+    setColors(colors);
+  }, [state, overrideColors, topColor, bottomColor, textColor]);
 
   return (
     <Pressable
-      disabled={loading}
-      //TODO: style={[style, { paddingBottom: backdropHeight }]}
-      //Da error en style
-      style={[{}, { paddingBottom: backdropHeight }]}
+      disabled={state === 'busy'}
+      style={[style, { paddingBottom: elevation }]}
       onPressIn={e => {
-        translateY.value = withTiming(backdropHeight, {
+        translateY.value = withTiming(elevation, {
           duration: animationDuration
         });
 
@@ -108,20 +148,23 @@ const Button3D: React.FC<Button3DProps> = ({
     >
       <Animated.View
         style={[
-          { backgroundColor: bgColor.backgroundColor },
-          styles.button,
-          animatedStyle
+          styles.top,
+          topStyle,
+          {
+            height: fontSize * 2.5,
+            backgroundColor: colors.topColor
+          }
         ]}
       >
-        <View style={styles.textContainer}>{loadingAnim()}</View>
+        {getContent()}
       </Animated.View>
       <View
         style={[
           {
-            top: backdropHeight,
-            backgroundColor: bgColor.backdropColor
+            top: elevation,
+            backgroundColor: colors.bottomColor
           },
-          styles.backdrop
+          styles.bottom
         ]}
       />
     </Pressable>
@@ -129,16 +172,13 @@ const Button3D: React.FC<Button3DProps> = ({
 };
 
 const styles = ScaledSheet.create({
-  button: {
+  top: {
     width: '100%',
-    padding: '10@ms',
     borderRadius: '5@ms',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  text: {
-    fontWeight: 'bold'
-  },
-  backdrop: {
+  bottom: {
     left: 0,
     right: 0,
     bottom: 0,
@@ -146,8 +186,8 @@ const styles = ScaledSheet.create({
     zIndex: -1,
     borderRadius: '5@ms'
   },
-  textContainer: {
-    height: '17@ms'
+  text: {
+    fontWeight: 'bold'
   }
 });
 
