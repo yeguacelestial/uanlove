@@ -3,7 +3,6 @@ import useAuth from '@hooks/useAuth';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { ImageSourcePropType, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Onboarding from './Onboarding';
 
 const messages = [
