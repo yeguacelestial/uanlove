@@ -1,7 +1,14 @@
 // @refresh reset
 import Button3D from '@components/Button3D';
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Dimensions } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Dimensions,
+  ImageSourcePropType,
+  ImageBackground
+} from 'react-native';
 import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent
@@ -9,7 +16,6 @@ import {
 import Animated, {
   interpolateColor,
   useAnimatedGestureHandler,
-  useAnimatedProps,
   useAnimatedStyle,
   useSharedValue,
   withSpring
@@ -21,17 +27,14 @@ export interface OnboardingProps {
     title: string;
     subtitle?: string;
   }>;
+  images: ImageSourcePropType[];
   topColors: string[];
   bottomColors: string[];
   onSignInPress?: () => void;
 }
 
-const MAX_ROTATION = 10;
-
-// TODO: Fix top background rotation.
-// TODO: Add page indicator.
-// TODO: Refactor component.
-// TODO: Add color interpolation.
+const MAX_ROTATION = 4;
+const VELOCITY = 100;
 
 interface IndicatorProps {
   currentIndex: Animated.SharedValue<number>;
@@ -71,6 +74,7 @@ type ContextType = {
 
 const Onboarding: React.FC<OnboardingProps> = ({
   messages,
+  images,
   topColors,
   bottomColors,
   onSignInPress
@@ -100,14 +104,23 @@ const Onboarding: React.FC<OnboardingProps> = ({
       rotate.value = Math.min(Math.max(angle, -MAX_ROTATION), MAX_ROTATION);
       */
     },
-    onEnd: e => {
-      if (e.translationX < 0) {
-        index.value =
-          index.value === messages.length - 1 ? index.value : index.value + 1;
-        //rotate.value = withSpring(MAX_ROTATION);
-      } else {
-        index.value = index.value === 0 ? index.value : index.value - 1;
-        //rotate.value = withSpring(-MAX_ROTATION);
+    onEnd: (e, context) => {
+      if (Math.abs(e.velocityX) >= VELOCITY) {
+        if (e.translationX < 0) {
+          index.value =
+            index.value === messages.length - 1 ? index.value : index.value + 1;
+          //rotate.value = withSpring(MAX_ROTATION);
+        } else {
+          index.value = index.value === 0 ? index.value : index.value - 1;
+          //rotate.value = withSpring(-MAX_ROTATION);
+        }
+
+        rotate.value = withSpring(
+          -Math.sign(context.startRotate) * MAX_ROTATION,
+          {
+            damping: 6
+          }
+        );
       }
 
       x.value = withSpring(-width * index.value, {
@@ -150,7 +163,7 @@ const Onboarding: React.FC<OnboardingProps> = ({
     };
   });
 
-  const bottomStyle2 = useAnimatedStyle(() => {
+  const rootStyle = useAnimatedStyle(() => {
     const inputRange = messages.map((_, index) => -width * index).reverse();
     const bgColor = interpolateColor(x.value, inputRange, bottomColors);
 
@@ -171,58 +184,62 @@ const Onboarding: React.FC<OnboardingProps> = ({
 
   return (
     <PanGestureHandler onGestureEvent={panGestureHandler}>
-      <Animated.View style={[styles.root, bottomStyle2]}>
+      <Animated.View style={[styles.root, rootStyle]}>
         <Animated.View
           style={[StyleSheet.absoluteFill, styles.top, topStyle]}
         />
         <Animated.View
           style={[StyleSheet.absoluteFill, styles.bottom, bottomStyle]}
         />
-        <View style={styles.section}></View>
-        <View style={styles.section}>
-          <Animated.View style={[styles.message, messageStyle]}>
-            <View
-              style={[
-                StyleSheet.absoluteFill,
-                {
-                  flexDirection: 'row'
-                }
-              ]}
-            >
-              {messages.map((message, index) => {
-                return (
-                  <View
-                    key={index}
+        <Animated.View style={[styles.content, messageStyle]}>
+          <View style={styles.pictures}>
+            {images.map((source, index) => {
+              return (
+                <View
+                  key={index}
+                  style={{
+                    padding: ms(32),
+                    overflow: 'visible',
+                    width
+                  }}
+                >
+                  <ImageBackground
+                    resizeMode="center"
+                    source={source}
                     style={{
-                      width,
-                      padding: ms(64)
+                      width: '100%',
+                      height: '100%'
                     }}
-                  >
-                    <Text style={styles.title}>{message.title}</Text>
-                    <Text style={styles.subtitle}>{message.subtitle}</Text>
-                  </View>
-                );
-              })}
-            </View>
-          </Animated.View>
-          <View
-            style={{
-              padding: ms(64),
-              paddingTop: 0
-            }}
-          >
-            <Button3D text="Sign In" onPress={onSignInPress} />
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                marginTop: ms(32)
-              }}
-            >
-              {messages.map((_, i) => (
-                <Indicator key={i} currentIndex={index} index={i} />
-              ))}
-            </View>
+                  />
+                </View>
+              );
+            })}
+          </View>
+          <View style={styles.messages}>
+            {messages.map((message, index) => {
+              return (
+                <View
+                  key={index}
+                  style={[
+                    styles.message,
+                    {
+                      width
+                    }
+                  ]}
+                >
+                  <Text style={styles.title}>{message.title}</Text>
+                  <Text style={styles.subtitle}>{message.subtitle}</Text>
+                </View>
+              );
+            })}
+          </View>
+        </Animated.View>
+        <View style={styles.static}>
+          <Button3D text="Ingresar" onPress={onSignInPress} />
+          <View style={styles.indicators}>
+            {messages.map((_, i) => (
+              <Indicator key={i} currentIndex={index} index={i} />
+            ))}
           </View>
         </View>
       </Animated.View>
@@ -236,10 +253,6 @@ const styles = ScaledSheet.create({
     flexDirection: 'column',
     overflow: 'hidden'
   },
-  section: {
-    flex: 1,
-    overflow: 'visible'
-  },
   top: {
     bottom: '50%'
   },
@@ -247,8 +260,15 @@ const styles = ScaledSheet.create({
     zIndex: -1,
     top: '50%'
   },
+  content: {
+    flex: 1,
+    justifyContent: 'space-evenly'
+  },
+  messages: {
+    flexDirection: 'row'
+  },
   message: {
-    flex: 1
+    padding: '64@ms'
   },
   title: {
     fontWeight: 'bold',
@@ -259,6 +279,19 @@ const styles = ScaledSheet.create({
     fontStyle: 'italic',
     fontSize: '14@ms',
     color: 'white'
+  },
+  pictures: {
+    flexDirection: 'row',
+    flex: 1
+  },
+  static: {
+    padding: ms(64),
+    paddingTop: ms(32)
+  },
+  indicators: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: ms(32)
   }
 });
 
