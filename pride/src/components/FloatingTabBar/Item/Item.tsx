@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { ms } from 'react-native-size-matters';
+import { Colors } from '@styles';
 
 export interface FloatingTabBarItemProps {
   options: BottomTabNavigationOptions;
@@ -16,9 +17,9 @@ export interface FloatingTabBarItemProps {
 const FloatingTabBarItem: React.FC<FloatingTabBarItemProps> = ({
   options,
   focused = false,
-  backgroundColor = 'black',
-  focusedColor = '#27aae3',
-  color = 'white',
+  backgroundColor = Colors.tabBarItemBackground,
+  focusedColor = Colors.tabBarItemFocusedColor,
+  color = Colors.tabBarItemColor,
   onLongPress,
   onPress
 }: FloatingTabBarItemProps) => {
