@@ -1,21 +1,35 @@
 import React from 'react';
 import { View, ViewProps } from 'react-native';
-import { ms } from 'react-native-size-matters';
+import { Layout } from '@styles';
+import { StatusBar, StatusBarProps } from 'expo-status-bar';
 
-const ScreenView: React.FC<ViewProps> = ({ style, ...props }: ViewProps) => {
+export interface ScreenViewProps extends ViewProps {
+  children?: React.ReactNode;
+  fullHeight?: boolean;
+  statusBarProps?: StatusBarProps;
+}
+
+const ScreenView: React.FC<ScreenViewProps> = ({
+  style,
+  fullHeight = false,
+  statusBarProps = {},
+  children,
+  ...props
+}: ScreenViewProps) => {
   return (
     <View
       style={[
-        style,
-        // eslint-disable-next-line react-native/no-inline-styles
         {
           flexGrow: 1,
-          // TODO: Get paddingBottom value from a variable.
-          paddingBottom: ms(32 + 65)
-        }
+          paddingBottom: fullHeight ? 0 : Layout.screenTabBarHeight
+        },
+        style
       ]}
       {...props}
-    />
+    >
+      <StatusBar {...statusBarProps} />
+      {children}
+    </View>
   );
 };
 
