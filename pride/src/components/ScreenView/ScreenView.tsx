@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ViewProps } from 'react-native';
-import { Layout } from '@styles';
+import { Colors, Layout } from '@styles';
 import { StatusBar, StatusBarProps } from 'expo-status-bar';
 
 export interface ScreenViewProps extends ViewProps {
@@ -21,7 +21,8 @@ const ScreenView: React.FC<ScreenViewProps> = ({
       style={[
         {
           flexGrow: 1,
-          paddingBottom: fullHeight ? 0 : Layout.screenTabBarHeight
+          paddingBottom: fullHeight ? 0 : Layout.screenTabBarHeight,
+          backgroundColor: Colors.screenBackgroundColor
         },
         style
       ]}

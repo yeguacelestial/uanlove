@@ -4,8 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ScaledSheet, ms } from 'react-native-size-matters';
 import Pictures from '@components/Pictures';
-
-// TODO: Fix style when there is not a description.
+import { Colors } from '@styles';
 
 export interface UserCardProps {
   name: string;
@@ -37,7 +36,7 @@ const UserCard: React.FC<UserCardProps> = ({
         onPictureChange={onChangePicture}
       />
       <LinearGradient
-        colors={['#00000000', '#000000']}
+        colors={Colors.userCardLinearGradientColors}
         locations={[0, 0.6]}
         style={styles.bottom}
       >
@@ -64,12 +63,9 @@ const UserCard: React.FC<UserCardProps> = ({
   );
 };
 
-const backgroundColor = 'black';
-const color = 'white';
-
 const styles = ScaledSheet.create({
   root: {
-    backgroundColor,
+    backgroundColor: Colors.userCardBackgroundColor,
     flexGrow: 1,
     borderRadius: '15@ms',
     overflow: 'hidden'
@@ -88,11 +84,11 @@ const styles = ScaledSheet.create({
   name: {
     fontSize: '20@ms',
     fontWeight: 'bold',
-    color
+    color: Colors.userCardColor
   },
   description: {
     fontSize: '13@ms',
-    color
+    color: Colors.userCardColor
   },
   actions: {
     padding: '8@ms'

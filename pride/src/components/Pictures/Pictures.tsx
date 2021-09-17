@@ -9,6 +9,7 @@ import {
 import { ms, ScaledSheet } from 'react-native-size-matters';
 import usePictures from './usePictures';
 import Indicators from './Indicators';
+import { Colors } from '@styles';
 
 export interface PicturesProps {
   pictures?: string[];
@@ -24,7 +25,7 @@ const Pictures: React.FC<PicturesProps> = ({
   pictures = [],
   initialPicture = 0,
   style = {},
-  indicatorColor = 'rgba(255, 255, 255, 0.6)',
+  indicatorColor = Colors.picturesIndicatorColor,
   indicatorsHorizontalPadding = ms(4),
   indicatorsTopPadding = ms(4),
   onPictureChange
@@ -98,12 +99,10 @@ const Pictures: React.FC<PicturesProps> = ({
   );
 };
 
-const backgroundColor = 'black';
-
 const styles = ScaledSheet.create({
   root: {
     flexGrow: 1,
-    backgroundColor
+    backgroundColor: Colors.picturesBackgroundColor
   },
   next: {
     opacity: 0,

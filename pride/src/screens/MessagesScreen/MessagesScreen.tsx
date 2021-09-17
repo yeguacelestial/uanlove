@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import Text from '@components/Text';
 import ScreenScrollView from '@components/ScreenScrollView';
 
 const MessagesScreen: React.FC = () => {

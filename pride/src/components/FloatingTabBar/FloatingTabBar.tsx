@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     margin: Layout.tabBarMargin,
     height: Layout.tabBarHeight,
     borderRadius: Layout.tabBarHeight / 2,
-    backgroundColor: Colors.tabBarBackground,
+    backgroundColor: Colors.tabBarBackgroundColor,
     flexDirection: 'row',
     overflow: 'hidden'
   }

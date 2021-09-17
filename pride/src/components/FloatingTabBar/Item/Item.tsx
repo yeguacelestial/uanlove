@@ -17,7 +17,7 @@ export interface FloatingTabBarItemProps {
 const FloatingTabBarItem: React.FC<FloatingTabBarItemProps> = ({
   options,
   focused = false,
-  backgroundColor = Colors.tabBarItemBackground,
+  backgroundColor = Colors.tabBarItemBackgroundColor,
   focusedColor = Colors.tabBarItemFocusedColor,
   color = Colors.tabBarItemColor,
   onLongPress,

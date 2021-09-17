@@ -10,6 +10,7 @@ import {
 import { ms, ScaledSheet } from 'react-native-size-matters';
 import { Ionicons } from '@expo/vector-icons';
 import Pictures from '@components/Pictures';
+import { Colors } from '@styles';
 
 export interface UserCardDetailProps {
   name: string;
@@ -42,7 +43,6 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
   return (
     <View style={styles.root}>
       <ScrollView
-        // eslint-disable-next-line react-native/no-inline-styles
         contentContainerStyle={{
           paddingBottom: childrenHeight ? childrenHeight + ms(32) : 0
         }}
@@ -63,10 +63,10 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
               {name}, {age}
             </Text>
             <Ionicons
-              color="black"
+              color={Colors.userCardDetailBackColor}
               name="arrow-back-circle"
               size={ms(26)}
-              style={styles.exit}
+              style={styles.back}
               onPress={onPressExit}
             />
           </View>
@@ -80,13 +80,11 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
   );
 };
 
-const color = 'black';
-const backgroundColor = 'white';
 const styles = ScaledSheet.create({
   root: {
     flexGrow: 1,
     overflow: 'hidden',
-    backgroundColor
+    backgroundColor: Colors.userCardDetailBackgroundColor
   },
   container: {
     position: 'absolute',
@@ -95,24 +93,20 @@ const styles = ScaledSheet.create({
     left: 0,
     right: 0
   },
-  pictures: {
-    backgroundColor: 'black'
-  },
   information: {
-    padding: '16@ms',
-    backgroundColor
+    padding: '16@ms'
   },
   name: {
     fontSize: '20@ms',
     fontWeight: 'bold',
-    color
+    color: Colors.userCardDetailColor
   },
   description: {
     marginTop: '13@ms',
     fontSize: '13@ms',
-    color
+    color: Colors.userCardDetailColor
   },
-  exit: {
+  back: {
     position: 'absolute',
     right: 0,
     top: 0

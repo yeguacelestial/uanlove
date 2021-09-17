@@ -1,4 +1,4 @@
-import { Layout } from '@styles';
+import { Colors, Layout } from '@styles';
 import { StatusBar, StatusBarProps } from 'expo-status-bar';
 import React from 'react';
 import { ScrollView, ScrollViewProps } from 'react-native';
@@ -21,7 +21,8 @@ const ScreenScrollView: React.FC<ScreenScrollViewProps> = ({
       contentContainerStyle={[
         {
           flexGrow: 1,
-          paddingBottom: fullHeight ? 0 : Layout.screenTabBarHeight
+          paddingBottom: fullHeight ? 0 : Layout.screenTabBarHeight,
+          backgroundColor: Colors.screenBackgroundColor
         },
         contentContainerStyle
       ]}

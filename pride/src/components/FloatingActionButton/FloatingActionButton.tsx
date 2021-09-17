@@ -1,3 +1,4 @@
+import { Colors } from '@styles';
 import React from 'react';
 import { Pressable, StyleSheet, PressableProps } from 'react-native';
 import { ms } from 'react-native-size-matters';
@@ -10,18 +11,20 @@ export interface IconProps {
 export interface FloatingActionButtonProps extends PressableProps {
   getIcon: (props: IconProps) => React.ReactNode;
   color?: string;
+  backgroundColor?: string;
   size?: number;
 }
 
 const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
   style,
   getIcon,
-  color,
+  backgroundColor = Colors.floatingActionButtonBackgroundColor,
+  color = Colors.floatingActionButtonColor,
   size = ms(55),
   ...props
 }: FloatingActionButtonProps) => {
   const icon = getIcon({
-    color: color || 'white',
+    color: color,
     size: size / 2.3
   });
 
@@ -29,12 +32,9 @@ const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
     <Pressable
       style={StyleSheet.flatten([
         styles.root,
-        color
-          ? {
-              borderColor: color
-            }
-          : {},
         {
+          borderColor: color,
+          backgroundColor,
           width: size,
           height: size
         },
@@ -48,7 +48,6 @@ const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
 };
 
 const backgroundColor = 'transparent';
-const borderColor = 'white';
 
 const styles = StyleSheet.create({
   root: {
@@ -56,7 +55,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor,
     borderWidth: 1,
-    borderColor,
     borderRadius: 100
   }
 });
