@@ -9,6 +9,7 @@ module.exports = function (api) {
         {
           alias: {
             '~': './src',
+            '@styles': './src/styles',
             '@shared': './src/shared',
             '@navigation': './src/navigation',
             '@domain': './src/domain',
