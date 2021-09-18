@@ -10,7 +10,6 @@ import {
 import { ms, ScaledSheet } from 'react-native-size-matters';
 import { Ionicons } from '@expo/vector-icons';
 import Pictures from '@components/Pictures';
-import { Colors } from '@styles';
 
 export interface UserCardDetailProps {
   name: string;
@@ -63,7 +62,7 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
               {name}, {age}
             </Text>
             <Ionicons
-              color={Colors.userCardDetailBackColor}
+              color="black"
               name="arrow-back-circle"
               size={ms(26)}
               style={styles.back}
@@ -84,7 +83,7 @@ const styles = ScaledSheet.create({
   root: {
     flexGrow: 1,
     overflow: 'hidden',
-    backgroundColor: Colors.userCardDetailBackgroundColor
+    backgroundColor: 'white'
   },
   container: {
     position: 'absolute',
@@ -99,12 +98,12 @@ const styles = ScaledSheet.create({
   name: {
     fontSize: '20@ms',
     fontWeight: 'bold',
-    color: Colors.userCardDetailColor
+    color: 'black'
   },
   description: {
     marginTop: '13@ms',
     fontSize: '13@ms',
-    color: Colors.userCardDetailColor
+    color: 'black'
   },
   back: {
     position: 'absolute',

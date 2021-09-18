@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Navigation from '@domain/Navigation';
-import { AuthProvider } from '@context/auth';
+import Providers from '@domain/Providers';
 
 const App: React.FC = () => {
   return (
-    <AuthProvider>
+    <Providers>
       <Navigation />
-    </AuthProvider>
+    </Providers>
   );
 };
 

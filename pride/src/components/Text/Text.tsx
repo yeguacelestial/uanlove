@@ -1,15 +1,17 @@
 import React from 'react';
-import { Text, TextProps } from 'react-native';
-import { Colors, Typography } from '@styles';
+import { Text, TextProps, TextStyle } from 'react-native';
+import { ms } from 'react-native-size-matters';
 
 export interface TextWrapperProps extends TextProps {
   size?: number;
   color?: string;
+  weight?: TextStyle['fontWeight'];
 }
 
 const TextWrapper: React.FC<TextWrapperProps> = ({
-  size = Typography.textSize,
-  color = Colors.textColor,
+  size = ms(12),
+  color = 'black',
+  weight = 'normal',
   style,
   ...props
 }: TextWrapperProps) => {
@@ -18,6 +20,7 @@ const TextWrapper: React.FC<TextWrapperProps> = ({
       style={[
         {
           fontSize: size,
+          fontWeight: weight,
           color
         },
         style

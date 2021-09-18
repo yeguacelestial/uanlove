@@ -6,6 +6,7 @@ import FloatingActionButton, {
 import UserCard from '@components/UserCard';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ms, ScaledSheet } from 'react-native-size-matters';
+import useTheme from '@hooks/useTheme';
 
 export interface ProfileCardProps {
   age: string | number;
@@ -30,6 +31,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   onPressEdit,
   onChangePicture
 }: ProfileCardProps) => {
+  const { theme } = useTheme();
+
   const getEditIcon = ({ color, size }: IconProps) => (
     <MaterialIcons color={color} name="edit" size={size} />
   );
@@ -45,27 +48,34 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   return (
     <UserCard
       age={age}
+      backgroundColor={theme.userCard.backgroundColor}
       description={description}
+      detailIconColor={theme.userCard.detailIconColor}
+      gradientColors={theme.userCard.gradientColors}
+      gradientLocations={theme.userCard.gradientLocations}
       name={name}
       pictures={pictures}
+      picturesIndicatorColor={theme.userCard.indicatorColor}
+      textColor={theme.userCard.color}
       onChangePicture={onChangePicture}
       onPressInfo={onPressInfo}
     >
       <View style={styles.actions}>
         <FloatingActionButton
+          color={theme.profileUserCard.settingsIconColor}
           getIcon={getSettingsIcon}
           style={styles.action}
           onPress={onPressSettings}
         />
-        {/* TODO: Get icon color from variable. */}
         <FloatingActionButton
-          color="#de4b4b"
+          color={theme.profileUserCard.signOutIconColor}
           getIcon={getSignOutIcon}
           size={ms(50)}
           style={styles.action}
           onPress={onPressSignOut}
         />
         <FloatingActionButton
+          color={theme.profileUserCard.editIconColor}
           getIcon={getEditIcon}
           style={styles.action}
           onPress={onPressEdit}

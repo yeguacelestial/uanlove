@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import FloatingTabBarItem from './Item';
-import { Layout, Colors } from '@styles';
+import useTheme from '@hooks/useTheme';
 
 export type FloatingTabBarProps = BottomTabBarProps;
 
@@ -11,8 +11,20 @@ const FloatingTabBar: React.FC<FloatingTabBarProps> = ({
   descriptors,
   navigation
 }: FloatingTabBarProps) => {
+  const { theme } = useTheme();
+
   return (
-    <View style={styles.root}>
+    <View
+      style={[
+        {
+          margin: theme.tabBar.margin,
+          height: theme.tabBar.height,
+          borderRadius: theme.tabBar.height / 2,
+          backgroundColor: theme.tabBar.backgroundColor
+        },
+        styles.root
+      ]}
+    >
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const focused = state.index === index;
@@ -20,7 +32,10 @@ const FloatingTabBar: React.FC<FloatingTabBarProps> = ({
         return (
           <FloatingTabBarItem
             key={route.key}
+            backgroundColor={theme.tabBar.backgroundColor}
+            color={theme.tabBar.item.color}
             focused={focused}
+            focusedColor={theme.tabBar.item.focusedColor}
             options={options}
             onLongPress={() => {
               navigation.emit({
@@ -54,10 +69,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    margin: Layout.tabBarMargin,
-    height: Layout.tabBarHeight,
-    borderRadius: Layout.tabBarHeight / 2,
-    backgroundColor: Colors.tabBarBackgroundColor,
     flexDirection: 'row',
     overflow: 'hidden'
   }

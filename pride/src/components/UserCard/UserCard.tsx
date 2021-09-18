@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, GestureResponderEvent } from 'react-native';
+import { View, GestureResponderEvent, ViewStyle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ScaledSheet, ms } from 'react-native-size-matters';
 import Pictures from '@components/Pictures';
-import { Colors } from '@styles';
+import Text from '@components/Text';
 
 export interface UserCardProps {
   name: string;
@@ -15,6 +15,13 @@ export interface UserCardProps {
   onPressInfo?: (e: GestureResponderEvent) => void;
   onChangePicture?: (index: number) => void;
   children?: React.ReactNode;
+  style?: ViewStyle;
+  gradientColors?: string[];
+  gradientLocations?: number[];
+  textColor?: string;
+  detailIconColor?: string;
+  backgroundColor?: string;
+  picturesIndicatorColor?: string;
 }
 
 const UserCard: React.FC<UserCardProps> = ({
@@ -25,32 +32,49 @@ const UserCard: React.FC<UserCardProps> = ({
   description,
   onPressInfo,
   onChangePicture,
-  children
+  style,
+  children,
+  gradientColors = ['#00000000', '#000000'],
+  gradientLocations = [0, 0.6],
+  textColor = 'white',
+  detailIconColor = 'white',
+  backgroundColor = 'black',
+  picturesIndicatorColor
 }: UserCardProps) => {
   return (
-    <View style={styles.root}>
+    <View
+      style={[
+        {
+          backgroundColor
+        },
+        styles.root,
+        style
+      ]}
+    >
       <Pictures
+        backgroundColor={backgroundColor}
+        indicatorColor={picturesIndicatorColor}
         indicatorsHorizontalPadding={ms(16)}
         initialPicture={initialPicture}
         pictures={pictures}
         onPictureChange={onChangePicture}
       />
       <LinearGradient
-        colors={Colors.userCardLinearGradientColors}
-        locations={[0, 0.6]}
+        colors={gradientColors}
+        locations={gradientLocations}
         style={styles.bottom}
       >
         <View style={styles.information}>
-          <Text style={styles.name}>
+          <Text color={textColor} size={ms(20)} weight="bold">
             {name}, {age}
           </Text>
           {description ? (
-            <Text numberOfLines={3} style={styles.description}>
+            <Text color={textColor} numberOfLines={3} size={ms(13)}>
               {description}
             </Text>
           ) : null}
           <MaterialIcons
-            color="white"
+            color={detailIconColor}
             name="info"
             size={ms(24)}
             style={styles.detail}
@@ -65,7 +89,6 @@ const UserCard: React.FC<UserCardProps> = ({
 
 const styles = ScaledSheet.create({
   root: {
-    backgroundColor: Colors.userCardBackgroundColor,
     flexGrow: 1,
     borderRadius: '15@ms',
     overflow: 'hidden'
@@ -83,12 +106,10 @@ const styles = ScaledSheet.create({
   },
   name: {
     fontSize: '20@ms',
-    fontWeight: 'bold',
-    color: Colors.userCardColor
+    fontWeight: 'bold'
   },
   description: {
-    fontSize: '13@ms',
-    color: Colors.userCardColor
+    fontSize: '13@ms'
   },
   actions: {
     padding: '8@ms'

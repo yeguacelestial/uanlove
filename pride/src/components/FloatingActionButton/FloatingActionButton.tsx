@@ -1,4 +1,3 @@
-import { Colors } from '@styles';
 import React from 'react';
 import { Pressable, StyleSheet, PressableProps } from 'react-native';
 import { ms } from 'react-native-size-matters';
@@ -18,8 +17,8 @@ export interface FloatingActionButtonProps extends PressableProps {
 const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
   style,
   getIcon,
-  backgroundColor = Colors.floatingActionButtonBackgroundColor,
-  color = Colors.floatingActionButtonColor,
+  backgroundColor = 'transparent',
+  color = 'white',
   size = ms(55),
   ...props
 }: FloatingActionButtonProps) => {

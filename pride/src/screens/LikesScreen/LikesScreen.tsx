@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import ScreenScrollView from '@components/ScreenScrollView';
+import ScreenScrollView from '@domain/ScreenScrollView';
 import Text from '@components/Text';
 import Interest from '@components/Interest/Interest';
 import { ms } from 'react-native-size-matters';
