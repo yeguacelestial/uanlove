@@ -5,6 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { ScaledSheet, ms } from 'react-native-size-matters';
 import Pictures from '@components/Pictures';
 import Text from '@components/Text';
+import useTheme from '@hooks/useTheme';
 
 export interface UserCardProps {
   name: string;
@@ -16,12 +17,6 @@ export interface UserCardProps {
   onChangePicture?: (index: number) => void;
   children?: React.ReactNode;
   style?: ViewStyle;
-  gradientColors?: string[];
-  gradientLocations?: number[];
-  textColor?: string;
-  detailIconColor?: string;
-  backgroundColor?: string;
-  picturesIndicatorColor?: string;
 }
 
 const UserCard: React.FC<UserCardProps> = ({
@@ -33,48 +28,44 @@ const UserCard: React.FC<UserCardProps> = ({
   onPressInfo,
   onChangePicture,
   style,
-  children,
-  gradientColors = ['#00000000', '#000000'],
-  gradientLocations = [0, 0.6],
-  textColor = 'white',
-  detailIconColor = 'white',
-  backgroundColor = 'black',
-  picturesIndicatorColor
+  children
 }: UserCardProps) => {
+  const { theme } = useTheme();
+
   return (
     <View
       style={[
         {
-          backgroundColor
+          backgroundColor: theme.userCard.backgroundColor
         },
         styles.root,
         style
       ]}
     >
       <Pictures
-        backgroundColor={backgroundColor}
-        indicatorColor={picturesIndicatorColor}
+        backgroundColor={theme.userCard.backgroundColor}
+        indicatorColor={theme.userCard.indicatorColor}
         indicatorsHorizontalPadding={ms(16)}
         initialPicture={initialPicture}
         pictures={pictures}
         onPictureChange={onChangePicture}
       />
       <LinearGradient
-        colors={gradientColors}
-        locations={gradientLocations}
+        colors={theme.userCard.gradientColors}
+        locations={theme.userCard.gradientLocations}
         style={styles.bottom}
       >
         <View style={styles.information}>
-          <Text color={textColor} size={ms(20)} weight="bold">
+          <Text color={theme.userCard.color} size={ms(20)} weight="bold">
             {name}, {age}
           </Text>
           {description ? (
-            <Text color={textColor} numberOfLines={3} size={ms(13)}>
+            <Text color={theme.userCard.color} numberOfLines={3} size={ms(13)}>
               {description}
             </Text>
           ) : null}
           <MaterialIcons
-            color={detailIconColor}
+            color={theme.userCard.detailIconColor}
             name="info"
             size={ms(24)}
             style={styles.detail}

@@ -1,5 +1,5 @@
 import React from 'react';
-import UserCardDetail from '@components/UserCardDetail';
+import UserCardDetail from '@domain/UserCardDetail';
 import useAuth from '@hooks/useAuth';
 import { Text, View } from 'react-native';
 import { ProfileDetailScreenProps } from '../props';

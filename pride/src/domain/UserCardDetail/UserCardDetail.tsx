@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   View,
-  Text,
   GestureResponderEvent,
   Dimensions,
   ScrollView
@@ -10,6 +9,8 @@ import {
 import { ms, ScaledSheet } from 'react-native-size-matters';
 import { Ionicons } from '@expo/vector-icons';
 import Pictures from '@components/Pictures';
+import useTheme from '@hooks/useTheme';
+import Text from '@components/Text';
 
 export interface UserCardDetailProps {
   name: string;
@@ -32,6 +33,8 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
   children,
   childrenHeight
 }: UserCardDetailProps) => {
+  const { theme } = useTheme();
+
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
@@ -40,7 +43,13 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
   }, []);
 
   return (
-    <View style={styles.root}>
+    <View
+      style={{
+        flexGrow: 1,
+        overflow: 'hidden',
+        backgroundColor: theme.navigation.colors.background
+      }}
+    >
       <ScrollView
         contentContainerStyle={{
           paddingBottom: childrenHeight ? childrenHeight + ms(32) : 0
@@ -50,19 +59,29 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
         style={styles.container}
       >
         <Pictures
+          backgroundColor={theme.userCard.backgroundColor}
+          indicatorColor={theme.userCard.indicatorColor}
           initialPicture={initialPicture}
           pictures={pictures}
           style={{
             height: height * 0.7
           }}
         />
-        <View style={styles.information}>
+        <View
+          style={{
+            padding: ms(16)
+          }}
+        >
           <View>
-            <Text style={styles.name}>
+            <Text
+              color={theme.navigation.colors.text}
+              size={ms(20)}
+              weight="bold"
+            >
               {name}, {age}
             </Text>
             <Ionicons
-              color="black"
+              color={theme.navigation.colors.text}
               name="arrow-back-circle"
               size={ms(26)}
               style={styles.back}
@@ -70,7 +89,15 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
             />
           </View>
           {description ? (
-            <Text style={styles.description}>{description}</Text>
+            <Text
+              color={theme.navigation.colors.text}
+              size={ms(13)}
+              style={{
+                marginTop: ms(13)
+              }}
+            >
+              {description}
+            </Text>
           ) : null}
         </View>
       </ScrollView>
@@ -80,30 +107,12 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
 };
 
 const styles = ScaledSheet.create({
-  root: {
-    flexGrow: 1,
-    overflow: 'hidden',
-    backgroundColor: 'white'
-  },
   container: {
     position: 'absolute',
     top: 0,
     bottom: 0,
     left: 0,
     right: 0
-  },
-  information: {
-    padding: '16@ms'
-  },
-  name: {
-    fontSize: '20@ms',
-    fontWeight: 'bold',
-    color: 'black'
-  },
-  description: {
-    marginTop: '13@ms',
-    fontSize: '13@ms',
-    color: 'black'
   },
   back: {
     position: 'absolute',

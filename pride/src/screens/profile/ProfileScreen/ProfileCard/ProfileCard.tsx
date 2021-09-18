@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import FloatingActionButton, {
   IconProps
 } from '@components/FloatingActionButton';
-import UserCard from '@components/UserCard';
+import UserCard from '@domain/UserCard';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ms, ScaledSheet } from 'react-native-size-matters';
 import useTheme from '@hooks/useTheme';
@@ -48,15 +48,9 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   return (
     <UserCard
       age={age}
-      backgroundColor={theme.userCard.backgroundColor}
       description={description}
-      detailIconColor={theme.userCard.detailIconColor}
-      gradientColors={theme.userCard.gradientColors}
-      gradientLocations={theme.userCard.gradientLocations}
       name={name}
       pictures={pictures}
-      picturesIndicatorColor={theme.userCard.indicatorColor}
-      textColor={theme.userCard.color}
       onChangePicture={onChangePicture}
       onPressInfo={onPressInfo}
     >
