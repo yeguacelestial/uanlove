@@ -6,14 +6,16 @@ import useAuth from '@hooks/useAuth';
 
 import AppNavigator from '@navigation/AppNavigator';
 import AuthNavigator from '@navigation/AuthNavigator';
+import useTheme from '@hooks/useTheme';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
 const Navigation: React.FC = () => {
   const { user } = useAuth();
+  const { theme } = useTheme();
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={theme.navigation}>
       <Navigator
         screenOptions={{
           headerShown: false

@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Ionicons } from '@expo/vector-icons';
 
-import FloatingTabBar from '@components/FloatingTabBar';
+import FloatingTabBar from '@domain/FloatingTabBar';
 
 import HomeScreen from '@screens/HomeScreen';
 import MessagesScreen from '@screens/MessagesScreen';

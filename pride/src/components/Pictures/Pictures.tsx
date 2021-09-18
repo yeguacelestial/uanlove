@@ -18,12 +18,14 @@ export interface PicturesProps {
   indicatorColor?: string;
   indicatorsHorizontalPadding?: number;
   indicatorsTopPadding?: number;
+  backgroundColor?: string;
 }
 
 const Pictures: React.FC<PicturesProps> = ({
   pictures = [],
   initialPicture = 0,
   style = {},
+  backgroundColor = 'black',
   indicatorColor = 'rgba(255, 255, 255, 0.6)',
   indicatorsHorizontalPadding = ms(4),
   indicatorsTopPadding = ms(4),
@@ -45,7 +47,13 @@ const Pictures: React.FC<PicturesProps> = ({
 
   return (
     <View
-      style={[styles.root, style]}
+      style={[
+        {
+          backgroundColor,
+          flexGrow: 1
+        },
+        style
+      ]}
       onLayout={e => setLayout(e.nativeEvent.layout)}
     >
       <Indicators
@@ -98,13 +106,7 @@ const Pictures: React.FC<PicturesProps> = ({
   );
 };
 
-const backgroundColor = 'black';
-
 const styles = ScaledSheet.create({
-  root: {
-    flexGrow: 1,
-    backgroundColor
-  },
   next: {
     opacity: 0,
     position: 'absolute',

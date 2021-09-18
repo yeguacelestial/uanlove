@@ -17,7 +17,7 @@ const FloatingTabBarItem: React.FC<FloatingTabBarItemProps> = ({
   options,
   focused = false,
   backgroundColor = 'black',
-  focusedColor = '#27aae3',
+  focusedColor = 'blue',
   color = 'white',
   onLongPress,
   onPress

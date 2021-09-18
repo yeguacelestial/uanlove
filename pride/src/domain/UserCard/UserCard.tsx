@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, GestureResponderEvent } from 'react-native';
+import { View, GestureResponderEvent, ViewStyle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ScaledSheet, ms } from 'react-native-size-matters';
 import Pictures from '@components/Pictures';
-
-// TODO: Fix style when there is not a description.
+import Text from '@components/Text';
+import useTheme from '@hooks/useTheme';
 
 export interface UserCardProps {
   name: string;
@@ -16,6 +16,7 @@ export interface UserCardProps {
   onPressInfo?: (e: GestureResponderEvent) => void;
   onChangePicture?: (index: number) => void;
   children?: React.ReactNode;
+  style?: ViewStyle;
 }
 
 const UserCard: React.FC<UserCardProps> = ({
@@ -26,32 +27,45 @@ const UserCard: React.FC<UserCardProps> = ({
   description,
   onPressInfo,
   onChangePicture,
+  style,
   children
 }: UserCardProps) => {
+  const { theme } = useTheme();
+
   return (
-    <View style={styles.root}>
+    <View
+      style={[
+        {
+          backgroundColor: theme.userCard.backgroundColor
+        },
+        styles.root,
+        style
+      ]}
+    >
       <Pictures
+        backgroundColor={theme.userCard.backgroundColor}
+        indicatorColor={theme.userCard.indicatorColor}
         indicatorsHorizontalPadding={ms(16)}
         initialPicture={initialPicture}
         pictures={pictures}
         onPictureChange={onChangePicture}
       />
       <LinearGradient
-        colors={['#00000000', '#000000']}
-        locations={[0, 0.6]}
+        colors={theme.userCard.gradientColors}
+        locations={theme.userCard.gradientLocations}
         style={styles.bottom}
       >
         <View style={styles.information}>
-          <Text style={styles.name}>
+          <Text color={theme.userCard.color} size={ms(20)} weight="bold">
             {name}, {age}
           </Text>
           {description ? (
-            <Text numberOfLines={3} style={styles.description}>
+            <Text color={theme.userCard.color} numberOfLines={3} size={ms(13)}>
               {description}
             </Text>
           ) : null}
           <MaterialIcons
-            color="white"
+            color={theme.userCard.detailIconColor}
             name="info"
             size={ms(24)}
             style={styles.detail}
@@ -64,12 +78,8 @@ const UserCard: React.FC<UserCardProps> = ({
   );
 };
 
-const backgroundColor = 'black';
-const color = 'white';
-
 const styles = ScaledSheet.create({
   root: {
-    backgroundColor,
     flexGrow: 1,
     borderRadius: '15@ms',
     overflow: 'hidden'
@@ -87,12 +97,10 @@ const styles = ScaledSheet.create({
   },
   name: {
     fontSize: '20@ms',
-    fontWeight: 'bold',
-    color
+    fontWeight: 'bold'
   },
   description: {
-    fontSize: '13@ms',
-    color
+    fontSize: '13@ms'
   },
   actions: {
     padding: '8@ms'

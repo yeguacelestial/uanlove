@@ -27,8 +27,6 @@ export interface Button3DProps extends PressableProps {
   state?: 'success' | 'error' | 'busy' | 'default';
 }
 
-// TODO: Add color interpolation.
-
 const Button3D: React.FC<Button3DProps> = ({
   animationDuration = 70,
   elevation = ms(7),

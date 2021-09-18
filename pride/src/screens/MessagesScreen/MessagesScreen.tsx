@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text } from 'react-native';
-import ScreenScrollView from '@components/ScreenScrollView';
+import Text from '@components/Text';
+import ScreenScrollView from '@domain/ScreenScrollView';
 
 const MessagesScreen: React.FC = () => {
   return (

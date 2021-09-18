@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import Text from '@components/Text';
 import { ScaledSheet } from 'react-native-size-matters';
 
 interface InterestProps {
@@ -27,13 +28,7 @@ const Interest: React.FC<InterestProps> = ({
         }
       ]}
     >
-      <Text
-        style={{
-          color: coincide ? coincideColor : color
-        }}
-      >
-        {text}
-      </Text>
+      <Text color={coincide ? coincideColor : color}>{text}</Text>
     </View>
   );
 };
