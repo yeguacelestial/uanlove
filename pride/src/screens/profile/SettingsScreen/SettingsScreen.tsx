@@ -1,10 +1,12 @@
+import Setting from '@components/Setting';
 import React from 'react';
 import { Text, View } from 'react-native';
 
 const SettingsScreen: React.FC = () => {
   return (
     <View>
-      <Text>Settings Screen</Text>
+      <Setting label="KKTUA" />
+      <Setting label="KKTUA" />
     </View>
   );
 };
