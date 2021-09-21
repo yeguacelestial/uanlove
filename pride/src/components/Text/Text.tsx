@@ -6,12 +6,14 @@ export interface TextWrapperProps extends TextProps {
   size?: number;
   color?: string;
   weight?: TextStyle['fontWeight'];
+  transform?: TextStyle['textTransform'];
 }
 
 const TextWrapper: React.FC<TextWrapperProps> = ({
   size = ms(12),
   color = 'black',
   weight = 'normal',
+  transform = 'none',
   style,
   ...props
 }: TextWrapperProps) => {
@@ -21,6 +23,7 @@ const TextWrapper: React.FC<TextWrapperProps> = ({
         {
           fontSize: size,
           fontWeight: weight,
+          textTransform: transform,
           color
         },
         style
