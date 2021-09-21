@@ -1,13 +1,15 @@
-import graphene
+# import graphene
 
-from fastapi import FastAPI
-from starlette.graphql import GraphQLApp
+# import uvicorn
+# from fastapi import FastAPI
 
-class Query(graphene.ObjectType):
-    hello = graphene.String(name=graphene.String(default_value="stranger"))
+# from starlette.graphql import GraphQLApp
 
-    def resolve_hello(self, info, name):
-        return f"Hello {name}"
+# class Query(graphene.ObjectType):
+#     hello = graphene.String(name=graphene.String(default_value="stranger"))
 
-app = FastAPI()
-app.add_route("/", GraphQLApp(schema=graphene.Schema(query=Query)))
+#     def resolve_hello(self, info, name):
+#         return f"Hello {name}"
+
+# app = FastAPI()
+# app.add_route("/", GraphQLApp(schema=graphene.Schema(query=Query)))
