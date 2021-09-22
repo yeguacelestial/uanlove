@@ -21,6 +21,18 @@ function reducer(state: Settings, action: SettingsAction): Settings {
         ...state,
         showMe: action.value
       };
+
+    case SettingsActionName.Schools:
+      return {
+        ...state,
+        schools: action.value
+      };
+
+    case SettingsActionName.AgeRange:
+      return {
+        ...state,
+        ageRange: action.value
+      };
   }
 }
 

@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import {
   SettingsContainer,
   SettingSwitch,
-  SettingValue
+  SettingValue,
+  SettingRange
 } from '@components/settings';
 import useSettings, { SettingName } from '@hooks/useSettings';
 
 const SettingsScreen: React.FC = () => {
   const [settings, setSetting] = useSettings();
+  const [low, setLow] = useState(18);
+  const [high, setHigh] = useState(25);
+
+  console.log(settings);
 
   return (
     <View>
@@ -21,10 +26,19 @@ const SettingsScreen: React.FC = () => {
         />
       </SettingsContainer>
       <SettingsContainer title="Discovery">
-        <SettingValue
-          label="Show Me"
+        <SettingValue label="Show Me" value={settings.showMe} />
+        <SettingValue label="Schools" value={settings.showMe} />
+        <SettingRange
+          high={settings.ageRange.high}
+          label="Range"
+          low={settings.ageRange.low}
           separator={false}
-          value={settings.showMe}
+          onValueChange={(low, high) => {
+            setSetting({
+              name: SettingName.AgeRange,
+              value: { low, high }
+            });
+          }}
         />
       </SettingsContainer>
       <SettingsContainer title="Notifications">
