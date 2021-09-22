@@ -7,13 +7,14 @@ import {
   SettingRange
 } from '@components/settings';
 import useSettings, { SettingName } from '@hooks/useSettings';
+import { SettingsScreenProps } from '@navigation/AppNavigator';
 
-const SettingsScreen: React.FC = () => {
+const SettingsScreen: React.FC<SettingsScreenProps> = ({
+  navigation
+}: SettingsScreenProps) => {
   const [settings, setSetting] = useSettings();
   const [low, setLow] = useState(18);
   const [high, setHigh] = useState(25);
-
-  console.log(settings);
 
   return (
     <View>
@@ -26,7 +27,11 @@ const SettingsScreen: React.FC = () => {
         />
       </SettingsContainer>
       <SettingsContainer title="Discovery">
-        <SettingValue label="Show Me" value={settings.showMe} />
+        <SettingValue
+          label="Show Me"
+          value={settings.showMe}
+          onPress={() => {}}
+        />
         <SettingValue label="Schools" value={settings.showMe} />
         <SettingRange
           high={settings.ageRange.high}
@@ -34,10 +39,12 @@ const SettingsScreen: React.FC = () => {
           low={settings.ageRange.low}
           separator={false}
           onValueChange={(low, high) => {
+            /*
             setSetting({
               name: SettingName.AgeRange,
               value: { low, high }
             });
+            */
           }}
         />
       </SettingsContainer>

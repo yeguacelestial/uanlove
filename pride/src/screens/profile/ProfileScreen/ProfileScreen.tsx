@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { ProfileScreenProps } from '../props';
+import { ProfileScreenProps } from '@navigation/AppNavigator';
 import ScreenView from '@domain/ScreenView';
 import { ScaledSheet } from 'react-native-size-matters';
 import ProfileCard from './ProfileCard';

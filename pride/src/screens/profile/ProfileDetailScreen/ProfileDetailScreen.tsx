@@ -2,7 +2,7 @@ import React from 'react';
 import UserCardDetail from '@domain/UserCardDetail';
 import useAuth from '@hooks/useAuth';
 import { Text, View } from 'react-native';
-import { ProfileDetailScreenProps } from '../props';
+import { ProfileDetailScreenProps } from '@navigation/AppNavigator';
 import { StatusBar } from 'expo-status-bar';
 
 const ProfileDetailScreen: React.FC<ProfileDetailScreenProps> = ({
