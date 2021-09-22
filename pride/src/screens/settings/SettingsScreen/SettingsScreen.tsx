@@ -30,7 +30,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
         <SettingValue
           label="Show Me"
           value={settings.showMe}
-          onPress={() => {}}
+          onPress={() => navigation.push('settings-show-me')}
         />
         <SettingValue label="Schools" value={settings.showMe} />
         <SettingRange
