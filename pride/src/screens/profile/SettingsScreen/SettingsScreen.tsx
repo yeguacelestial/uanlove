@@ -1,44 +1,42 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
-import Text from '@components/Text';
-import Setting from '@components/Setting';
 import SettingValue from '@components/SettingValue';
 import SettingSwitch from '@components/SettingSwitch';
-import SettingArrow from '@components/SettingArrow';
 import SettingsContainer from '@components/SettingsContainer';
+import useSettings, { SettingName } from '@hooks/useSettings';
 
 const SettingsScreen: React.FC = () => {
-  const [value, setValue] = useState(false);
+  const [settings, setSetting] = useSettings();
 
   return (
     <View>
-      <SettingsContainer title="Title">
-        <SettingValue label="Label" value="Test" />
-
-        <SettingSwitch
-          label="Switch"
-          value={value}
-          onValueChange={() => setValue(prev => !prev)}
+      <SettingsContainer title="Account">
+        <SettingValue
+          arrow={false}
+          label="Email"
+          separation={false}
+          value="test@test.com"
         />
-
-        <SettingArrow label="Arrow" separation={false} />
       </SettingsContainer>
-      <SettingsContainer title="Title">
-        <SettingValue label="Label" value="Test" />
-
-        <SettingSwitch
-          label="Switch"
-          value={value}
-          onValueChange={() => setValue(prev => !prev)}
+      <SettingsContainer title="Discovery">
+        <SettingValue
+          label="Show Me"
+          separation={false}
+          value={settings.showMe}
         />
-
-        <SettingArrow label="Arrow" separation={false} />
       </SettingsContainer>
-      <SettingsContainer spacing={0} title="Title">
-        <Setting label="KKTUA" separation={false}>
-          <Text>KKuate</Text>
-          <Text>Slider</Text>
-        </Setting>
+      <SettingsContainer title="Notifications">
+        <SettingSwitch
+          label="Notifications"
+          separation={false}
+          value={settings.notifications}
+          onValueChange={() =>
+            setSetting({
+              name: SettingName.Notifications,
+              value: !settings.notifications
+            })
+          }
+        />
       </SettingsContainer>
     </View>
   );
