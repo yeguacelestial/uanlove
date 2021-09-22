@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { ms } from 'react-native-size-matters';
 import Text from '@components/Text';
-import Setting, { SettingProps } from '@components/Setting';
+import Setting, { SettingProps } from '../Setting';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export interface SettingValueProps extends SettingProps {

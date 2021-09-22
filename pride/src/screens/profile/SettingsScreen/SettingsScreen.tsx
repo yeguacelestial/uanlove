@@ -1,8 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
-import SettingValue from '@components/SettingValue';
-import SettingSwitch from '@components/SettingSwitch';
-import SettingsContainer from '@components/SettingsContainer';
+import {
+  SettingsContainer,
+  SettingSwitch,
+  SettingValue
+} from '@components/settings';
 import useSettings, { SettingName } from '@hooks/useSettings';
 
 const SettingsScreen: React.FC = () => {

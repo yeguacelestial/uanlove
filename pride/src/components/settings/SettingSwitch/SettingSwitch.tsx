@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch } from 'react-native';
-import Setting, { SettingProps } from '@components/Setting';
+import Setting, { SettingProps } from '../Setting';
 
 export interface SettingSwitchProps extends SettingProps {
   value: boolean;

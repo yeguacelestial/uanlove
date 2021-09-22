@@ -1,5 +1,5 @@
 import React from 'react';
-import Setting, { SettingProps } from '@components/Setting';
+import Setting, { SettingProps } from '../Setting';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ms } from 'react-native-size-matters';
 
