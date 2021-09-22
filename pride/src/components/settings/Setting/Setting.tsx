@@ -7,7 +7,7 @@ export interface SettingProps extends PressableProps {
   label: string;
   renderValue?: () => JSX.Element;
   children?: React.ReactNode;
-  separation?: boolean;
+  separator?: boolean;
   height?: number;
   padding?: number;
   sepatatorColor?: string;
@@ -17,7 +17,7 @@ const Setting: React.FC<SettingProps> = ({
   label,
   renderValue,
   children,
-  separation = true,
+  separator = true,
   height = ms(45),
   padding = ms(15),
   sepatatorColor = '#dedede',
@@ -55,7 +55,7 @@ const Setting: React.FC<SettingProps> = ({
           {children}
         </View>
       ) : null}
-      {separation ? (
+      {separator ? (
         <View
           style={{
             paddingHorizontal: padding

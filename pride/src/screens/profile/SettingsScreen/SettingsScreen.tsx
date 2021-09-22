@@ -16,21 +16,21 @@ const SettingsScreen: React.FC = () => {
         <SettingValue
           arrow={false}
           label="Email"
-          separation={false}
+          separator={false}
           value="test@test.com"
         />
       </SettingsContainer>
       <SettingsContainer title="Discovery">
         <SettingValue
           label="Show Me"
-          separation={false}
+          separator={false}
           value={settings.showMe}
         />
       </SettingsContainer>
       <SettingsContainer title="Notifications">
         <SettingSwitch
           label="Notifications"
-          separation={false}
+          separator={false}
           value={settings.notifications}
           onValueChange={() =>
             setSetting({
