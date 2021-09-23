@@ -1,15 +1,13 @@
-import Gender from './Gender';
-
 type Settings = {
   notifications: boolean;
-  showMe: Gender | 'All';
+  showMe: 'Everyone' | 'Men' | 'Women';
   schools: string[];
   ageRange: { low: number; high: number };
 };
 
 export const DefaultSettings: Settings = {
   notifications: true,
-  showMe: 'All',
+  showMe: 'Everyone',
   schools: [],
   ageRange: { low: 18, high: 100 }
 };
