@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { Switch, View } from 'react-native';
 import {
   SettingsContainer,
   SettingSwitch,
@@ -8,6 +8,7 @@ import {
 } from '@components/settings';
 import useSettings, { SettingName } from '@hooks/useSettings';
 import { SettingsScreenProps } from '@navigation/AppNavigator';
+import Text from '@components/Text';
 
 const SettingsScreen: React.FC<SettingsScreenProps> = ({
   navigation
@@ -32,10 +33,9 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
           value={settings.showMe}
           onPress={() => navigation.push('settings-show-me')}
         />
-        <SettingValue label="Schools" value={settings.showMe} />
         <SettingRange
           high={settings.ageRange.high}
-          label="Range"
+          label="Age"
           low={settings.ageRange.low}
           separator={false}
           onValueChange={(low, high) => {
@@ -44,7 +44,33 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
               value: { low, high }
             });
           }}
-        />
+        >
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}
+          >
+            <Text
+              // eslint-disable-next-line react-native/no-color-literals
+              style={{
+                color: '#525252'
+              }}
+            >
+              Only Show People Of This Age
+            </Text>
+            <Switch
+              value={settings.onlyShowAgeRange}
+              onValueChange={() =>
+                setSetting({
+                  name: SettingName.OnlyShowAgeRange,
+                  value: !settings.onlyShowAgeRange
+                })
+              }
+            />
+          </View>
+        </SettingRange>
       </SettingsContainer>
       <SettingsContainer title="Notifications">
         <SettingSwitch

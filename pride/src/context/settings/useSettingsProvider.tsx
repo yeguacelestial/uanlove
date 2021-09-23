@@ -33,6 +33,12 @@ function reducer(state: Settings, action: SettingsAction): Settings {
         ...state,
         ageRange: action.value
       };
+
+    case SettingsActionName.OnlyShowAgeRange:
+      return {
+        ...state,
+        onlyShowAgeRange: action.value
+      };
   }
 }
 

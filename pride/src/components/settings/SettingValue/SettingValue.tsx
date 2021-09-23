@@ -10,6 +10,8 @@ export interface SettingValueProps extends SettingProps {
   arrow?: boolean;
 }
 
+// TODO: Add color prop.
+
 const SettingValue: React.FC<SettingValueProps> = ({
   value,
   arrow = true,
@@ -26,7 +28,14 @@ const SettingValue: React.FC<SettingValueProps> = ({
               alignItems: 'center'
             }}
           >
-            <Text>{value}</Text>
+            <Text
+              // eslint-disable-next-line react-native/no-color-literals
+              style={{
+                color: '#525252'
+              }}
+            >
+              {value}
+            </Text>
             {arrow ? (
               <MaterialIcons
                 name="navigate-next"

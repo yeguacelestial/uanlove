@@ -3,15 +3,18 @@ import Setting, { SettingProps } from '../Setting';
 import { ms } from 'react-native-size-matters';
 import Text from '@components/Text';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import { View } from 'react-native';
 
 export interface SettingRangeProps extends SettingProps {
   onValueChange?: (low: number, high: number) => void;
+  children?: React.ReactNode;
   low: number;
   high: number;
 }
 
 const SettingRange: React.FC<SettingRangeProps> = ({
   onValueChange = () => {},
+  children,
   low,
   high,
   ...props
@@ -41,6 +44,7 @@ const SettingRange: React.FC<SettingRangeProps> = ({
         values={[low, high]}
         onValuesChange={value => onValueChange(value[0], value[1])}
       />
+      {children}
     </Setting>
   );
 };

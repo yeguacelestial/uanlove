@@ -5,7 +5,8 @@ export enum SettingsActionName {
   Notifications = 'NOTIFICATIONS',
   ShowMe = 'SHOW_ME',
   Schools = 'SCHOOLS',
-  AgeRange = 'AGE_RANGE'
+  AgeRange = 'AGE_RANGE',
+  OnlyShowAgeRange = 'ONLY_SHOW_AGE_RANGE'
 }
 
 export type SettingsAction =
@@ -28,6 +29,10 @@ export type SettingsAction =
   | {
       name: SettingsActionName.AgeRange;
       value: Settings['ageRange'];
+    }
+  | {
+      name: SettingsActionName.OnlyShowAgeRange;
+      value: Settings['onlyShowAgeRange'];
     };
 
 type SettingsContextState = [Settings, (action: SettingsAction) => void];
