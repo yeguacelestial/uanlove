@@ -10,7 +10,7 @@ export interface TextWrapperProps extends TextProps {
 }
 
 const TextWrapper: React.FC<TextWrapperProps> = ({
-  size = ms(12),
+  size = ms(14),
   color = 'black',
   weight = 'normal',
   transform = 'none',
