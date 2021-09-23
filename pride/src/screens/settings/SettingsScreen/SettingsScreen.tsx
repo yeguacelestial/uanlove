@@ -39,12 +39,10 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
           low={settings.ageRange.low}
           separator={false}
           onValueChange={(low, high) => {
-            /*
             setSetting({
               name: SettingName.AgeRange,
               value: { low, high }
             });
-            */
           }}
         />
       </SettingsContainer>
