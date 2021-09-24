@@ -20,7 +20,7 @@ type SettingsActions =
     }
   | {
       name: SettingsActionKind.SET_SHOW_ME;
-      value: DiscoverySettings['shomMe'];
+      value: DiscoverySettings['showMe'];
     }
   | {
       name: SettingsActionKind.SET_SCHOOLS;
