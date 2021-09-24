@@ -10,6 +10,7 @@ interface AuthContextState {
 
 export const DefaultAuthContextState: AuthContextState = {
   user: {
+    gender: 'Man',
     name: 'Gabriel Emilio',
     age: '21',
     description: 'Mi descripcion',

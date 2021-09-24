@@ -12,6 +12,7 @@ const useAuthProvider = (): AuthContextState => {
   // TODO: Implement sign in.
   const signIn = useCallback(async () => {
     setUser({
+      gender: 'Man',
       name: 'Gabriel Emilio',
       description: 'Mi descripcion',
       age: '21',
