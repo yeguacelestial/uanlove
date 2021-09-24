@@ -1,52 +1,76 @@
-import React from 'react';
+/* eslint-disable react-native/no-color-literals */
+import React, { useState } from 'react';
 import Setting, { SettingProps } from '../Setting';
 import { ms } from 'react-native-size-matters';
 import Text from '@components/Text';
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import MultiSlider, {
+  MultiSliderProps
+} from '@ptomasroos/react-native-multi-slider';
+import { View } from 'react-native';
 
 export interface SettingRangeProps extends SettingProps {
-  onValueChange?: (low: number, high: number) => void;
+  onValuesChange?: (value: [number, number]) => void;
   children?: React.ReactNode;
-  low: number;
-  high: number;
+  values: [number, number];
+  sliderProps?: MultiSliderProps;
 }
 
 const SettingRange: React.FC<SettingRangeProps> = ({
-  onValueChange = () => {},
+  onValuesChange,
   children,
-  low,
-  high,
+  values,
+  sliderProps = {},
   ...props
 }: SettingRangeProps) => {
+  const [width, setWidth] = useState(0);
+  const paddingHorizontal = ms(8);
+
+  let containerStyle = sliderProps.containerStyle || {};
+  containerStyle = {
+    height: 0,
+    paddingVertical: ms(12),
+    paddingHorizontal,
+    ...containerStyle
+  };
+
   return (
     <Setting
       {...props}
       renderValue={() => {
         return (
           <Text>
-            {low} - {high}
+            {values[0]} - {values[1]}
           </Text>
         );
       }}
     >
-      <MultiSlider
-        enabledOne
-        enabledTwo
-        containerStyle={{
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-          height: ms(20)
+      <View
+        style={{
+          marginTop: ms(8),
+          marginBottom: children ? ms(15) : 0
         }}
-        isMarkersSeparated={true}
-        markerStyle={{ backgroundColor: '#5783D7', height: 20, width: 20 }}
-        max={100}
-        min={18}
-        selectedStyle={{ backgroundColor: '#5783D7' }}
-        sliderLength={ms(350)}
-        unselectedStyle={{ borderRadius: 100 }}
-        values={[low, high]}
-        onValuesChange={value => onValueChange(value[0], value[1])}
-      />
+        onLayout={e =>
+          setWidth(e.nativeEvent.layout.width - 2 * paddingHorizontal)
+        }
+      >
+        <MultiSlider
+          enabledOne
+          enabledTwo
+          isMarkersSeparated={true}
+          markerStyle={{ backgroundColor: '#5783D7', height: 20, width: 20 }}
+          max={100}
+          min={18}
+          selectedStyle={{ backgroundColor: '#5783D7' }}
+          sliderLength={width}
+          unselectedStyle={{ borderRadius: 10 }}
+          {...sliderProps}
+          containerStyle={containerStyle}
+          values={values}
+          onValuesChange={values =>
+            onValuesChange && onValuesChange([values[0], values[1]])
+          }
+        />
+      </View>
       {children}
     </Setting>
   );

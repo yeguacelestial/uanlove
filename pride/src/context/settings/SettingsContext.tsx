@@ -1,10 +1,14 @@
-import { createContext } from 'react';
-import SettingsContextState, {
-  DefaultSettingsContextState
-} from './SettingsContextState';
+import Settings, { DefaultSettings } from '@shared/Settings';
+import React, { createContext } from 'react';
+import SettingsActions from './SettingsActions';
 
-const SettingsContext = createContext<SettingsContextState>(
-  DefaultSettingsContextState
-);
+export type SettingsContextType = [Settings, React.Dispatch<SettingsActions>];
+
+const SettingsContext = createContext<SettingsContextType>([
+  DefaultSettings,
+  () => {
+    return;
+  }
+]);
 
 export default SettingsContext;

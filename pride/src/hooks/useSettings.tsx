@@ -1,12 +1,9 @@
-import {
-  SettingsContext,
-  SettingsContextState,
-  SettingsActionName
-} from '@context/settings';
+import { SettingsContext } from '@context/settings';
+import { SettingsActionKind, SettingsActions } from '@context/settings';
 import { useContext } from 'react';
 
-export { SettingsActionName as SettingName };
+export { SettingsActionKind, SettingsActions };
 
-const useSettings = (): SettingsContextState => useContext(SettingsContext);
+const useSettings = () => useContext(SettingsContext);
 
 export default useSettings;

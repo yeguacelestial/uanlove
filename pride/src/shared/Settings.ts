@@ -1,17 +1,29 @@
+export type AgeSettings = {
+  range: [number, number];
+  active: boolean;
+};
+
+export type DiscoverySettings = {
+  schools: string[];
+  showMe: 'Everyone' | 'Men' | 'Women';
+  age: AgeSettings;
+};
+
 type Settings = {
   notifications: boolean;
-  showMe: 'Everyone' | 'Men' | 'Women';
-  schools: string[];
-  ageRange: { low: number; high: number };
-  onlyShowAgeRange: boolean;
+  discovery: DiscoverySettings;
 };
 
 export const DefaultSettings: Settings = {
   notifications: true,
-  showMe: 'Everyone',
-  schools: [],
-  ageRange: { low: 18, high: 100 },
-  onlyShowAgeRange: false
+  discovery: {
+    schools: [],
+    showMe: 'Everyone',
+    age: {
+      range: [18, 100],
+      active: false
+    }
+  }
 };
 
 export default Settings;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Switch, View } from 'react-native';
 import {
   SettingsContainer,
@@ -6,16 +6,14 @@ import {
   SettingValue,
   SettingRange
 } from '@components/settings';
-import useSettings, { SettingName } from '@hooks/useSettings';
+import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import { SettingsScreenProps } from '@navigation/AppNavigator';
 import Text from '@components/Text';
 
 const SettingsScreen: React.FC<SettingsScreenProps> = ({
   navigation
 }: SettingsScreenProps) => {
-  const [settings, setSetting] = useSettings();
-  const [low, setLow] = useState(18);
-  const [high, setHigh] = useState(25);
+  const [{ discovery, notifications }, dispatch] = useSettings();
 
   return (
     <View>
@@ -30,18 +28,17 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
       <SettingsContainer title="Discovery">
         <SettingValue
           label="Show Me"
-          value={settings.showMe}
+          value={discovery.showMe}
           onPress={() => navigation.push('settings-show-me')}
         />
         <SettingRange
-          high={settings.ageRange.high}
           label="Age"
-          low={settings.ageRange.low}
           separator={false}
-          onValueChange={(low, high) => {
-            setSetting({
-              name: SettingName.AgeRange,
-              value: { low, high }
+          values={discovery.age.range}
+          onValuesChange={values => {
+            dispatch({
+              name: SettingsActionKind.SET_AGE_RANGE,
+              value: values
             });
           }}
         >
@@ -58,14 +55,14 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
                 color: '#525252'
               }}
             >
-              Only Show People Of This Age
+              Only show people of this age
             </Text>
             <Switch
-              value={settings.onlyShowAgeRange}
+              value={discovery.age.active}
               onValueChange={() =>
-                setSetting({
-                  name: SettingName.OnlyShowAgeRange,
-                  value: !settings.onlyShowAgeRange
+                dispatch({
+                  name: SettingsActionKind.SET_AGE_RANGE_ACTIVE,
+                  value: !discovery.age.active
                 })
               }
             />
@@ -76,11 +73,11 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
         <SettingSwitch
           label="Notifications"
           separator={false}
-          value={settings.notifications}
+          value={notifications}
           onValueChange={() =>
-            setSetting({
-              name: SettingName.Notifications,
-              value: !settings.notifications
+            dispatch({
+              name: SettingsActionKind.SET_NOTIFICATIONS,
+              value: !notifications
             })
           }
         />

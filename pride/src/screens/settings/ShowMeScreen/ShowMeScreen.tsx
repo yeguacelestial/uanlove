@@ -1,23 +1,28 @@
 import React from 'react';
 import { View, Pressable } from 'react-native';
 import Text from '@components/Text';
-import useSettings, { SettingName } from '@hooks/useSettings';
+import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import { ms } from 'react-native-size-matters';
-import Settings from '@shared/Settings';
+import { DiscoverySettings } from '@shared/Settings';
 import { SettingsShowMeScreenProps } from '@navigation/AppNavigator';
 import { SettingsContainer } from '@components/settings';
 import { FontAwesome } from '@expo/vector-icons';
 
-const showMe: Settings['showMe'][] = ['Women', 'Men', 'Everyone'];
+const showMeText: DiscoverySettings['showMe'][] = ['Women', 'Men', 'Everyone'];
 
 const ShowMeScreen: React.FC<SettingsShowMeScreenProps> = ({
   navigation
 }: SettingsShowMeScreenProps) => {
-  const [settings, setSetting] = useSettings();
+  const [
+    {
+      discovery: { showMe }
+    },
+    setSetting
+  ] = useSettings();
 
-  const onPress = (value: Settings['showMe']) => {
+  const onPress = (value: DiscoverySettings['showMe']) => {
     setSetting({
-      name: SettingName.ShowMe,
+      name: SettingsActionKind.SET_SHOW_ME,
       value
     });
     navigation.goBack();
@@ -26,7 +31,7 @@ const ShowMeScreen: React.FC<SettingsShowMeScreenProps> = ({
   return (
     <View>
       <SettingsContainer spacing={0} title="Show Me">
-        {showMe.map((value, i) => {
+        {showMeText.map((value, i) => {
           return (
             <Pressable key={i} onPress={() => onPress(value)}>
               <View
@@ -38,7 +43,7 @@ const ShowMeScreen: React.FC<SettingsShowMeScreenProps> = ({
                 }}
               >
                 <Text>{value}</Text>
-                {settings.showMe === value ? (
+                {showMe === value ? (
                   <FontAwesome color="#4f6bf7" name="check" size={16} />
                 ) : null}
               </View>
@@ -47,7 +52,7 @@ const ShowMeScreen: React.FC<SettingsShowMeScreenProps> = ({
                 style={{
                   marginHorizontal: ms(15),
                   backgroundColor: '#dedede',
-                  height: i === showMe.length - 1 ? 0 : 1
+                  height: i === showMeText.length - 1 ? 0 : 1
                 }}
               />
             </Pressable>

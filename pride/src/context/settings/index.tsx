@@ -1,14 +1,10 @@
 import SettingsProvider from './SettingsProvider';
 import SettingsContext from './SettingsContext';
-import SettingsContextState, {
-  SettingsAction,
-  SettingsActionName
-} from './SettingsContextState';
+import SettingsActions, { SettingsActionKind } from './SettingsActions';
 
 export {
   SettingsProvider,
   SettingsContext,
-  SettingsContextState,
-  SettingsAction,
-  SettingsActionName
+  SettingsActions,
+  SettingsActionKind
 };
