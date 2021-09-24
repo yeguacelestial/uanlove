@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 import ThemeContextState, {
-  themeContextDefaultState
+  DefaultThemeContextState
 } from './ThemeContextState';
 
-const ThemeContext = createContext<ThemeContextState>(themeContextDefaultState);
+const ThemeContext = createContext<ThemeContextState>(DefaultThemeContextState);
 
 export default ThemeContext;

@@ -7,13 +7,23 @@ import {
   SettingRange
 } from '@components/settings';
 import useSettings, { SettingsActionKind } from '@hooks/useSettings';
+import useAuth from '@hooks/useAuth';
 import { SettingsScreenProps } from '@navigation/AppNavigator';
 import Text from '@components/Text';
 
 const SettingsScreen: React.FC<SettingsScreenProps> = ({
   navigation
 }: SettingsScreenProps) => {
+  const { user } = useAuth();
   const [{ discovery, notifications }, dispatch] = useSettings();
+
+  // TODO: Handle without user.
+  if (!user)
+    return (
+      <View>
+        <Text>Without user</Text>
+      </View>
+    );
 
   return (
     <View>
@@ -22,7 +32,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
           arrow={false}
           label="Email"
           separator={false}
-          value="test@test.com"
+          value={user.email}
         />
       </SettingsContainer>
       <SettingsContainer title="Discovery">

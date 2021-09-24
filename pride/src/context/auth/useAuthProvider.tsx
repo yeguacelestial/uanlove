@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
-import AuthContextState, { authContextDefaultState } from './AuthContextState';
+import AuthContextState, { DefaultAuthContextState } from './AuthContextState';
 
 const useAuthProvider = (): AuthContextState => {
   const [user, setUser] = useState<AuthContextState['user']>(
-    authContextDefaultState.user
+    DefaultAuthContextState.user
   );
 
   // TODO: Implement sign up.
@@ -13,7 +13,10 @@ const useAuthProvider = (): AuthContextState => {
   const signIn = useCallback(async () => {
     setUser({
       name: 'Gabriel Emilio',
-      age: '21'
+      description: 'Mi descripcion',
+      age: '21',
+      email: 'gabriel.emilio@uanl.edu.mx',
+      school: 'Facultad de Ingenieria Mecanica y Electrica'
     });
   }, [setUser]);
 

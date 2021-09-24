@@ -6,7 +6,7 @@ interface ThemeContextState {
   setTheme: (theme: Theme) => void;
 }
 
-export const themeContextDefaultState: ThemeContextState = {
+export const DefaultThemeContextState: ThemeContextState = {
   theme: Themes.DefaultTheme,
   setTheme: () => {
     return;
