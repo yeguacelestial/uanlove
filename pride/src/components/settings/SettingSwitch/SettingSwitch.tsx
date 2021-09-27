@@ -1,7 +1,6 @@
 import React from 'react';
 import Setting, { SettingProps } from '../Setting';
-
-import { Switch } from '@components/Switch/Switch';
+import Switch from '@components/Switch';
 
 export interface SettingSwitchProps extends SettingProps {
   value: boolean;
@@ -17,7 +16,6 @@ const SettingSwitch: React.FC<SettingSwitchProps> = ({
     <Setting
       {...props}
       renderValue={() => {
-        // return <Switch value={value} onValueChange={onValueChange} />;
         return <Switch isOn={value} onToggle={onValueChange} />;
       }}
     />

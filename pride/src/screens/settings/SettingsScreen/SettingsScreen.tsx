@@ -36,22 +36,34 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
         />
       </SettingsContainer>
       <SettingsContainer title="Discovery">
+        <SettingRange
+          color="#F3BFB3"
+          label="Maximum Distance"
+          value={discovery.distance.max}
+          onValuesChange={values => {
+            dispatch({
+              name: SettingsActionKind.SET_DISTANCE_MAX,
+              value: values
+            });
+          }}
+        />
         <SettingValue
           label="Show Me"
           value={discovery.showMe}
           onPress={() => navigation.push('settings-show-me')}
         />
         <SettingRange
+          ranged
           label="Age"
           separator={false}
-          values={discovery.age.range}
-          onValuesChange={values => {
+          valuesRanged={discovery.age.range}
+          onRangedValuesChange={values => {
             dispatch({
               name: SettingsActionKind.SET_AGE_RANGE,
               value: values
             });
           }}
-        ></SettingRange>
+        />
         <SettingSwitch
           label="Only show people of this age"
           separator={false}

@@ -6,22 +6,28 @@ import Text from '@components/Text';
 import MultiSlider, {
   MultiSliderProps
 } from '@ptomasroos/react-native-multi-slider';
-import { StyleProp, View } from 'react-native';
+import { View } from 'react-native';
 
 export interface SettingRangeProps extends SettingProps {
-  onValuesChange?: (value: [number, number]) => void;
+  onRangedValuesChange?: (value: [number, number]) => void;
+  onValuesChange?: (value: number) => void;
   children?: React.ReactNode;
-  values: [number, number];
+  value?: number;
+  valuesRanged?: [number, number];
   sliderProps?: MultiSliderProps;
   color?: string;
+  ranged?: boolean;
 }
 
 const SettingRange: React.FC<SettingRangeProps> = ({
   onValuesChange,
   children,
-  values,
+  value = 2,
   color = '#5783D7',
   sliderProps = {},
+  ranged = false,
+  valuesRanged = [0, 0],
+  onRangedValuesChange,
 
   ...props
 }: SettingRangeProps) => {
@@ -41,9 +47,15 @@ const SettingRange: React.FC<SettingRangeProps> = ({
       {...props}
       renderValue={() => {
         return (
-          <Text>
-            {values[0]} - {values[1]}
-          </Text>
+          <View>
+            {ranged ? (
+              <Text>
+                {valuesRanged[0]} - {valuesRanged[1]}
+              </Text>
+            ) : (
+              <Text>{value}Km.</Text>
+            )}
+          </View>
         );
       }}
     >
@@ -56,23 +68,42 @@ const SettingRange: React.FC<SettingRangeProps> = ({
           setWidth(e.nativeEvent.layout.width - 2 * paddingHorizontal)
         }
       >
-        <MultiSlider
-          enabledOne
-          enabledTwo
-          isMarkersSeparated={true}
-          markerStyle={{ backgroundColor: color, height: 20, width: 20 }}
-          max={100}
-          min={18}
-          selectedStyle={{ backgroundColor: color }}
-          sliderLength={width}
-          unselectedStyle={{ borderRadius: 10 }}
-          {...sliderProps}
-          containerStyle={containerStyle}
-          values={values}
-          onValuesChange={values =>
-            onValuesChange && onValuesChange([values[0], values[1]])
-          }
-        />
+        {ranged ? (
+          <MultiSlider
+            enabledOne
+            enabledTwo
+            isMarkersSeparated={true}
+            markerStyle={{ backgroundColor: color, height: 20, width: 20 }}
+            max={100}
+            min={18}
+            selectedStyle={{ backgroundColor: color }}
+            sliderLength={width}
+            unselectedStyle={{ borderRadius: 10 }}
+            {...sliderProps}
+            containerStyle={containerStyle}
+            values={valuesRanged}
+            onValuesChange={valuesRanged =>
+              onRangedValuesChange &&
+              onRangedValuesChange([valuesRanged[0], valuesRanged[1]])
+            }
+          />
+        ) : (
+          <MultiSlider
+            enabledOne={false}
+            isMarkersSeparated={true}
+            markerStyle={{ backgroundColor: color, height: 20, width: 20 }}
+            max={150}
+            selectedStyle={{ backgroundColor: color }}
+            sliderLength={width}
+            unselectedStyle={{ borderRadius: 10 }}
+            {...sliderProps}
+            containerStyle={containerStyle}
+            values={[2, value]}
+            onValuesChange={values =>
+              onValuesChange && onValuesChange(values[1])
+            }
+          />
+        )}
       </View>
       {children}
     </Setting>

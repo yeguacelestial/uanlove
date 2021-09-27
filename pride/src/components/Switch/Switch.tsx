@@ -13,7 +13,7 @@ interface SwitchProps {
   labelStyle?: ViewStyle;
 }
 
-export const Switch: React.FC<SwitchProps> = ({
+const Switch: React.FC<SwitchProps> = ({
   onColor = '#4cd137',
   offColor = '#ecf0f1',
   onToggle,
@@ -95,3 +95,5 @@ const styles = ScaledSheet.create({
     elevation: 1.5
   }
 });
+
+export default Switch;
