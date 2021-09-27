@@ -52,33 +52,18 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
               value: values
             });
           }}
-        >
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between'
-            }}
-          >
-            <Text
-              // eslint-disable-next-line react-native/no-color-literals
-              style={{
-                color: '#525252'
-              }}
-            >
-              Only show people of this age
-            </Text>
-            <Switch
-              isOn={discovery.age.active}
-              onToggle={() =>
-                dispatch({
-                  name: SettingsActionKind.SET_AGE_RANGE_ACTIVE,
-                  value: !discovery.age.active
-                })
-              }
-            />
-          </View>
-        </SettingRange>
+        ></SettingRange>
+        <SettingSwitch
+          label="Only show people of this age"
+          separator={false}
+          value={discovery.age.active}
+          onValueChange={() =>
+            dispatch({
+              name: SettingsActionKind.SET_AGE_RANGE_ACTIVE,
+              value: !discovery.age.active
+            })
+          }
+        />
       </SettingsContainer>
       <SettingsContainer title="Notifications">
         <SettingSwitch
