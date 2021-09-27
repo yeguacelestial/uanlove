@@ -6,20 +6,23 @@ import Text from '@components/Text';
 import MultiSlider, {
   MultiSliderProps
 } from '@ptomasroos/react-native-multi-slider';
-import { View } from 'react-native';
+import { StyleProp, View } from 'react-native';
 
 export interface SettingRangeProps extends SettingProps {
   onValuesChange?: (value: [number, number]) => void;
   children?: React.ReactNode;
   values: [number, number];
   sliderProps?: MultiSliderProps;
+  color?: string;
 }
 
 const SettingRange: React.FC<SettingRangeProps> = ({
   onValuesChange,
   children,
   values,
+  color = '#5783D7',
   sliderProps = {},
+
   ...props
 }: SettingRangeProps) => {
   const [width, setWidth] = useState(0);
@@ -57,10 +60,10 @@ const SettingRange: React.FC<SettingRangeProps> = ({
           enabledOne
           enabledTwo
           isMarkersSeparated={true}
-          markerStyle={{ backgroundColor: '#5783D7', height: 20, width: 20 }}
+          markerStyle={{ backgroundColor: color, height: 20, width: 20 }}
           max={100}
           min={18}
-          selectedStyle={{ backgroundColor: '#5783D7' }}
+          selectedStyle={{ backgroundColor: color }}
           sliderLength={width}
           unselectedStyle={{ borderRadius: 10 }}
           {...sliderProps}
