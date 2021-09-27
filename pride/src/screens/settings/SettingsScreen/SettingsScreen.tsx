@@ -10,7 +10,6 @@ import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import useAuth from '@hooks/useAuth';
 import { SettingsScreenProps } from '@navigation/AppNavigator';
 import Text from '@components/Text';
-import { Switch } from '@components/Switch/Switch';
 
 const SettingsScreen: React.FC<SettingsScreenProps> = ({
   navigation
