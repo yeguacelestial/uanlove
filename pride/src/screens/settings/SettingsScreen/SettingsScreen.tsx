@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, View } from 'react-native';
+import { View } from 'react-native';
 import {
   SettingsContainer,
   SettingSwitch,
@@ -10,6 +10,7 @@ import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import useAuth from '@hooks/useAuth';
 import { SettingsScreenProps } from '@navigation/AppNavigator';
 import Text from '@components/Text';
+import { Switch } from '@components/Switch/Switch';
 
 const SettingsScreen: React.FC<SettingsScreenProps> = ({
   navigation
@@ -68,8 +69,8 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
               Only show people of this age
             </Text>
             <Switch
-              value={discovery.age.active}
-              onValueChange={() =>
+              isOn={discovery.age.active}
+              onToggle={() =>
                 dispatch({
                   name: SettingsActionKind.SET_AGE_RANGE_ACTIVE,
                   value: !discovery.age.active
