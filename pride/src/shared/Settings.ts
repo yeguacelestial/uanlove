@@ -3,10 +3,16 @@ export type AgeSettings = {
   active: boolean;
 };
 
+export type DistanceSettings = {
+  max: number;
+  global: boolean;
+};
+
 export type DiscoverySettings = {
   schools: string[];
   showMe: 'Everyone' | 'Men' | 'Women';
   age: AgeSettings;
+  distance: DistanceSettings;
 };
 
 type Settings = {
@@ -22,6 +28,10 @@ export const DefaultSettings: Settings = {
     age: {
       range: [18, 100],
       active: false
+    },
+    distance: {
+      max: 150,
+      global: false
     }
   }
 };
