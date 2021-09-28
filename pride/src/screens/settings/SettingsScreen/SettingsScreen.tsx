@@ -38,12 +38,14 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
       <SettingsContainer title="Discovery">
         <SettingRange
           color="#F3BFB3"
+          endLabel="Km."
           label="Maximum Distance"
-          value={discovery.distance.max}
-          onValuesChange={values => {
+          rangeValue={[2, 151]}
+          valueSingle={discovery.distance.max}
+          onSingleValueChange={value => {
             dispatch({
               name: SettingsActionKind.SET_DISTANCE_MAX,
-              value: values
+              value: value
             });
           }}
         />
@@ -55,12 +57,13 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
         <SettingRange
           ranged
           label="Age"
+          rangeValue={[18, 100]}
           separator={false}
-          valuesRanged={discovery.age.range}
-          onRangedValuesChange={values => {
+          valueRanged={discovery.age.range}
+          onRangedValueChange={value => {
             dispatch({
               name: SettingsActionKind.SET_AGE_RANGE,
-              value: values
+              value: value
             });
           }}
         />
