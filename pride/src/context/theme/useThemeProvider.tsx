@@ -1,5 +1,5 @@
 import Theme, { DefaultTheme } from '@shared/Theme';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ThemeContextType } from './ThemeContext';
 
 export interface useThemeProviderProps {
@@ -8,6 +8,14 @@ export interface useThemeProviderProps {
 
 const useThemeProvider = ({
   initialTheme = DefaultTheme
-}: useThemeProviderProps): ThemeContextType => useState(initialTheme);
+}: useThemeProviderProps): ThemeContextType => {
+  const [theme, setTheme] = useState(initialTheme);
+
+  useEffect(() => {
+    if (theme.name !== initialTheme.name) setTheme(initialTheme);
+  }, [initialTheme, theme.name]);
+
+  return [theme, setTheme];
+};
 
 export default useThemeProvider;

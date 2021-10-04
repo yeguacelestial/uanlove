@@ -4,6 +4,13 @@ import { useContext } from 'react';
 
 export { SettingsActionKind, SettingsActions };
 
-const useSettings = () => useContext(SettingsContext);
+const useSettings = () => {
+  const [settings, dispatch] = useContext(SettingsContext);
+
+  return {
+    ...settings,
+    dispatch
+  };
+};
 
 export default useSettings;

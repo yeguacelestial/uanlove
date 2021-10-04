@@ -15,7 +15,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
   navigation
 }: SettingsScreenProps) => {
   const { user } = useAuth();
-  const [{ discovery, notifications }, dispatch] = useSettings();
+  const { discovery, notifications, general, dispatch } = useSettings();
 
   // TODO: Handle without user.
   if (!user)
@@ -33,6 +33,19 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
           label="Email"
           separator={false}
           value={user.email}
+        />
+      </SettingsContainer>
+      <SettingsContainer title="General">
+        <SettingSwitch
+          label="Dark theme"
+          separator={false}
+          value={general.darkTheme}
+          onValueChange={() =>
+            dispatch({
+              name: SettingsActionKind.SET_DARK_THEME,
+              value: !general.darkTheme
+            })
+          }
         />
       </SettingsContainer>
       <SettingsContainer title="Discovery">

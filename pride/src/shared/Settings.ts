@@ -15,9 +15,14 @@ export type DiscoverySettings = {
   distance: DistanceSettings;
 };
 
+export type GeneralSettings = {
+  darkTheme: boolean;
+};
+
 type Settings = {
   notifications: boolean;
   discovery: DiscoverySettings;
+  general: GeneralSettings;
 };
 
 export const DefaultSettings: Settings = {
@@ -33,6 +38,9 @@ export const DefaultSettings: Settings = {
       max: 150,
       global: false
     }
+  },
+  general: {
+    darkTheme: false
   }
 };
 

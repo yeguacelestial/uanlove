@@ -1,7 +1,8 @@
 import Settings, {
   DiscoverySettings,
   AgeSettings,
-  DistanceSettings
+  DistanceSettings,
+  GeneralSettings
 } from '@shared/Settings';
 
 export enum SettingsActionKind {
@@ -12,7 +13,8 @@ export enum SettingsActionKind {
   SET_AGE_RANGE = 'SET_AGE_RANGE',
   SET_AGE_RANGE_ACTIVE = 'SET_AGE_RANGE_ACTIVE',
   SET_DISTANCE_MAX = 'SET_DISTANCE_MAX',
-  SET_DISTANCE_GLOBAL = 'SET_DISTANCE_GLOBAL'
+  SET_DISTANCE_GLOBAL = 'SET_DISTANCE_GLOBAL',
+  SET_DARK_THEME = 'SET_DARK_THEME'
 }
 
 type SettingsActions =
@@ -47,6 +49,10 @@ type SettingsActions =
   | {
       name: SettingsActionKind.SET_DISTANCE_GLOBAL;
       value: DistanceSettings['global'];
+    }
+  | {
+      name: SettingsActionKind.SET_DARK_THEME;
+      value: GeneralSettings['darkTheme'];
     };
 
 export default SettingsActions;

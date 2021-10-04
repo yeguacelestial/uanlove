@@ -34,6 +34,10 @@ function SettingsReducer(state: Settings, action: SettingsActions): Settings {
     case SettingsActionKind.SET_DISTANCE_GLOBAL:
       newState.discovery.distance.global = action.value;
       break;
+
+    case SettingsActionKind.SET_DARK_THEME:
+      newState.general.darkTheme = action.value;
+      break;
   }
 
   return newState;
