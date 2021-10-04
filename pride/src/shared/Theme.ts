@@ -9,8 +9,16 @@ import Spacing, { DefaultSpacing } from './Spacing';
 
 import { ms } from 'react-native-size-matters';
 
+// TODO: Refactor, move type names and definitions to another file.
+
+export enum ThemeName {
+  DEFAULT = 'DEFAULT',
+  DARK = 'DARK'
+}
+
 type Theme = {
-  name: 'default' | 'dark';
+  name: ThemeName;
+  isDark: boolean;
   colors: Colors;
   spacing: Spacing;
   tabBar: {
@@ -47,7 +55,8 @@ const tabBar = {
 };
 
 export const DefaultTheme: Theme = {
-  name: 'default',
+  name: ThemeName.DEFAULT,
+  isDark: false,
   colors: DefaultColors,
   spacing: DefaultSpacing,
   navigation: DefaultThemeNavigation,
@@ -78,15 +87,16 @@ export const DefaultTheme: Theme = {
 };
 
 export const DarkTheme: Theme = {
-  name: 'dark',
+  name: ThemeName.DARK,
+  isDark: true,
   colors: DefaultColors,
   spacing: DefaultSpacing,
   navigation: DarkThemeNavigation,
   tabBar: {
     ...tabBar,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     item: {
-      color: 'white',
+      color: 'black',
       focusedColor: '#27aae3'
     }
   },

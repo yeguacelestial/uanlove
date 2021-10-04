@@ -1,22 +1,20 @@
 import React from 'react';
 import { View, ViewProps } from 'react-native';
-import { StatusBar, StatusBarProps } from 'expo-status-bar';
+import { StatusBar } from 'expo-status-bar';
 import useTheme from '@hooks/useTheme';
 
 export interface ScreenViewProps extends ViewProps {
   children?: React.ReactNode;
   fullHeight?: boolean;
-  statusBarProps?: StatusBarProps;
 }
 
 const ScreenView: React.FC<ScreenViewProps> = ({
   style,
   fullHeight = false,
-  statusBarProps = {},
   children,
   ...props
 }: ScreenViewProps) => {
-  const { screen, navigation } = useTheme();
+  const { screen, navigation, isDark } = useTheme();
 
   return (
     <View
@@ -30,7 +28,7 @@ const ScreenView: React.FC<ScreenViewProps> = ({
       ]}
       {...props}
     >
-      <StatusBar {...statusBarProps} />
+      <StatusBar style={isDark ? 'light' : 'dark'} />
       {children}
     </View>
   );

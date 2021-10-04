@@ -1,22 +1,20 @@
 import useTheme from '@hooks/useTheme';
-import { StatusBar, StatusBarProps } from 'expo-status-bar';
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { ScrollView, ScrollViewProps } from 'react-native';
 
 export interface ScreenScrollViewProps extends ScrollViewProps {
-  statusBarProps?: StatusBarProps;
   fullHeight?: boolean;
   children?: React.ReactNode;
 }
 
 const ScreenScrollView: React.FC<ScreenScrollViewProps> = ({
   contentContainerStyle,
-  statusBarProps = {},
   fullHeight = false,
   children,
   ...props
 }: ScreenScrollViewProps) => {
-  const { screen, navigation } = useTheme();
+  const { screen, navigation, isDark } = useTheme();
 
   return (
     <ScrollView
@@ -30,7 +28,7 @@ const ScreenScrollView: React.FC<ScreenScrollViewProps> = ({
       ]}
       {...props}
     >
-      <StatusBar {...statusBarProps} />
+      <StatusBar style={isDark ? 'light' : 'dark'} />
       {children}
     </ScrollView>
   );
