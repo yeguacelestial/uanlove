@@ -33,7 +33,7 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
   children,
   childrenHeight
 }: UserCardDetailProps) => {
-  const { theme } = useTheme();
+  const { userCard, navigation } = useTheme();
 
   const [height, setHeight] = useState(0);
 
@@ -47,7 +47,7 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
       style={{
         flexGrow: 1,
         overflow: 'hidden',
-        backgroundColor: theme.navigation.colors.background
+        backgroundColor: navigation.colors.background
       }}
     >
       <ScrollView
@@ -59,8 +59,8 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
         style={styles.container}
       >
         <Pictures
-          backgroundColor={theme.userCard.backgroundColor}
-          indicatorColor={theme.userCard.indicatorColor}
+          backgroundColor={userCard.backgroundColor}
+          indicatorColor={userCard.indicatorColor}
           initialPicture={initialPicture}
           pictures={pictures}
           style={{
@@ -73,15 +73,11 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
           }}
         >
           <View>
-            <Text
-              color={theme.navigation.colors.text}
-              size={ms(20)}
-              weight="bold"
-            >
+            <Text color={navigation.colors.text} size={ms(20)} weight="bold">
               {name}, {age}
             </Text>
             <Ionicons
-              color={theme.navigation.colors.text}
+              color={navigation.colors.text}
               name="arrow-back-circle"
               size={ms(26)}
               style={styles.back}
@@ -90,7 +86,7 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
           </View>
           {description ? (
             <Text
-              color={theme.navigation.colors.text}
+              color={navigation.colors.text}
               size={ms(13)}
               style={{
                 marginTop: ms(13)

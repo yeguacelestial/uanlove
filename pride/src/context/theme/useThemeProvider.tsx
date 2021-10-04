@@ -1,21 +1,13 @@
-import Theme from '@shared/Theme';
-import { Themes } from '@styles';
+import Theme, { DefaultTheme } from '@shared/Theme';
 import { useState } from 'react';
-import ThemeContextState from './ThemeContextState';
+import { ThemeContextType } from './ThemeContext';
 
 export interface useThemeProviderProps {
   initialTheme?: Theme;
 }
 
 const useThemeProvider = ({
-  initialTheme = Themes.DefaultTheme
-}: useThemeProviderProps): ThemeContextState => {
-  const [theme, setTheme] = useState(initialTheme);
-
-  return {
-    theme,
-    setTheme
-  };
-};
+  initialTheme = DefaultTheme
+}: useThemeProviderProps): ThemeContextType => useState(initialTheme);
 
 export default useThemeProvider;

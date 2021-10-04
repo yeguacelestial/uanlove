@@ -31,7 +31,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   onPressEdit,
   onChangePicture
 }: ProfileCardProps) => {
-  const { theme } = useTheme();
+  const { profileUserCard } = useTheme();
 
   const getEditIcon = ({ color, size }: IconProps) => (
     <MaterialIcons color={color} name="edit" size={size} />
@@ -56,20 +56,20 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     >
       <View style={styles.actions}>
         <FloatingActionButton
-          color={theme.profileUserCard.settingsIconColor}
+          color={profileUserCard.settingsIconColor}
           getIcon={getSettingsIcon}
           style={styles.action}
           onPress={onPressSettings}
         />
         <FloatingActionButton
-          color={theme.profileUserCard.signOutIconColor}
+          color={profileUserCard.signOutIconColor}
           getIcon={getSignOutIcon}
           size={ms(50)}
           style={styles.action}
           onPress={onPressSignOut}
         />
         <FloatingActionButton
-          color={theme.profileUserCard.editIconColor}
+          color={profileUserCard.editIconColor}
           getIcon={getEditIcon}
           style={styles.action}
           onPress={onPressEdit}

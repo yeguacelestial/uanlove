@@ -12,10 +12,10 @@ const { Navigator, Screen } = createNativeStackNavigator();
 
 const Navigation: React.FC = () => {
   const { user } = useAuth();
-  const { theme } = useTheme();
+  const { navigation } = useTheme();
 
   return (
-    <NavigationContainer theme={theme.navigation}>
+    <NavigationContainer theme={navigation}>
       <Navigator
         screenOptions={{
           headerShown: false

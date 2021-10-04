@@ -23,7 +23,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
     <ScreenView style={styles.root}>
       <ProfileCard
         age={user.age}
-        description={user.description}
+        description={user.bio}
         name={user.name}
         pictures={[
           'https://image.shutterstock.com/image-photo/head-shot-portrait-smiling-middle-600w-1339318991.jpg',

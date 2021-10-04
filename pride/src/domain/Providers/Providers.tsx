@@ -3,7 +3,7 @@ import React from 'react';
 import { AuthProvider } from '@context/auth';
 import { SettingsProvider } from '@context/settings';
 import { ThemeProvider } from '@context/theme';
-import { Themes } from '@styles';
+import { DefaultTheme } from '@shared/Theme';
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -13,7 +13,7 @@ const Providers: React.FC<ProvidersProps> = ({ children }: ProvidersProps) => {
   return (
     <AuthProvider>
       <SettingsProvider>
-        <ThemeProvider theme={Themes.DefaultTheme}>{children}</ThemeProvider>
+        <ThemeProvider theme={DefaultTheme}>{children}</ThemeProvider>
       </SettingsProvider>
     </AuthProvider>
   );

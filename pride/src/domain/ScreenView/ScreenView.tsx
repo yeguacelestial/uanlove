@@ -16,15 +16,15 @@ const ScreenView: React.FC<ScreenViewProps> = ({
   children,
   ...props
 }: ScreenViewProps) => {
-  const { theme } = useTheme();
+  const { screen, navigation } = useTheme();
 
   return (
     <View
       style={[
         {
           flexGrow: 1,
-          paddingBottom: fullHeight ? 0 : theme.screen.tabBarHeight,
-          backgroundColor: theme.navigation.colors.background
+          paddingBottom: fullHeight ? 0 : screen.tabBarHeight,
+          backgroundColor: navigation.colors.background
         },
         style
       ]}

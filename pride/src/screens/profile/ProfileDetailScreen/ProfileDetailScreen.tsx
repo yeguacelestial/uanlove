@@ -29,7 +29,7 @@ const ProfileDetailScreen: React.FC<ProfileDetailScreenProps> = ({
       <StatusBar hidden />
       <UserCardDetail
         age={user.age}
-        description={user.description}
+        description={user.bio}
         initialPicture={initialPicture}
         name={user.name}
         pictures={[

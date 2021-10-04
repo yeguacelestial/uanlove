@@ -26,6 +26,7 @@ function SettingsReducer(state: Settings, action: SettingsActions): Settings {
     case SettingsActionKind.SET_AGE_RANGE_ACTIVE:
       newState.discovery.age.active = action.value;
       break;
+
     case SettingsActionKind.SET_DISTANCE_MAX:
       newState.discovery.distance.max = action.value;
       break;

@@ -6,6 +6,6 @@ export default interface User {
   email: string;
   school: string;
   gender: Gender;
-  description?: string;
+  bio?: string;
   pictures?: string[];
 }

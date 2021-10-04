@@ -16,15 +16,15 @@ const ScreenScrollView: React.FC<ScreenScrollViewProps> = ({
   children,
   ...props
 }: ScreenScrollViewProps) => {
-  const { theme } = useTheme();
+  const { screen, navigation } = useTheme();
 
   return (
     <ScrollView
       contentContainerStyle={[
         {
           flexGrow: 1,
-          paddingBottom: fullHeight ? 0 : theme.screen.tabBarHeight,
-          backgroundColor: theme.navigation.colors.background
+          paddingBottom: fullHeight ? 0 : screen.tabBarHeight,
+          backgroundColor: navigation.colors.background
         },
         contentContainerStyle
       ]}

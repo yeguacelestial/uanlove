@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
-import AuthContextState, { DefaultAuthContextState } from './AuthContextState';
+import { AuthContextType, DefaultAuthContextState } from './AuthContext';
 
-const useAuthProvider = (): AuthContextState => {
-  const [user, setUser] = useState<AuthContextState['user']>(
+const useAuthProvider = (): AuthContextType => {
+  const [user, setUser] = useState<AuthContextType['user']>(
     DefaultAuthContextState.user
   );
 
@@ -14,7 +14,7 @@ const useAuthProvider = (): AuthContextState => {
     setUser({
       gender: 'Man',
       name: 'Gabriel Emilio',
-      description: 'Mi descripcion',
+      bio: 'Mi bio',
       age: '21',
       email: 'gabriel.emilio@uanl.edu.mx',
       school: 'Facultad de Ingenieria Mecanica y Electrica'

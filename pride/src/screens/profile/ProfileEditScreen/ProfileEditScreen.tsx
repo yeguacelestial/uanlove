@@ -66,8 +66,8 @@ const ProfileEditScreen: React.FC = () => {
       <Text>Description</Text>
       <Controller
         control={control}
-        defaultValue={user.description}
-        name="description"
+        defaultValue={user.bio}
+        name="bio"
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput value={value} onBlur={onBlur} onChangeText={onChange} />
         )}
