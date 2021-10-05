@@ -41,6 +41,12 @@ type Theme = {
     detailIconColor: string;
     indicatorColor: string;
   };
+  userCardDetail: {
+    color: string;
+    picturesBackgroundColor: string;
+    backgroundColor: string;
+    indicatorColor: string;
+  };
   profileUserCard: {
     settingsIconColor: string;
     signOutIconColor: string;
@@ -79,6 +85,12 @@ export const DefaultTheme: Theme = {
     detailIconColor: 'white',
     indicatorColor: 'rgba(255, 255, 255, 0.6)'
   },
+  userCardDetail: {
+    color: 'black',
+    picturesBackgroundColor: 'black',
+    backgroundColor: 'white',
+    indicatorColor: 'rgba(255, 255, 255, 0.6)'
+  },
   profileUserCard: {
     settingsIconColor: 'white',
     signOutIconColor: '#de4b4b',
@@ -109,6 +121,12 @@ export const DarkTheme: Theme = {
     color: 'white',
     backgroundColor: '#121212',
     detailIconColor: 'white',
+    indicatorColor: 'rgba(255, 255, 255, 0.6)'
+  },
+  userCardDetail: {
+    color: 'white',
+    picturesBackgroundColor: 'black',
+    backgroundColor: '#121212',
     indicatorColor: 'rgba(255, 255, 255, 0.6)'
   },
   profileUserCard: {
