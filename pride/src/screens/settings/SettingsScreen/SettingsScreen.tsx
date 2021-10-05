@@ -5,18 +5,22 @@ import {
   SettingSwitch,
   SettingValue,
   SettingRange
-} from '@components/settings';
+} from '@domain/settings';
 import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import useAuth from '@hooks/useAuth';
 import { SettingsScreenProps } from '@navigation/AppNavigator';
 import Text from '@components/Text';
 import ScreenScrollView from '@domain/ScreenScrollView';
+import useTheme from '@hooks/useTheme';
 
 const SettingsScreen: React.FC<SettingsScreenProps> = ({
   navigation
 }: SettingsScreenProps) => {
   const { user } = useAuth();
   const { discovery, notifications, general, dispatch } = useSettings();
+  const {
+    settings: { deleteAccount }
+  } = useTheme();
 
   // TODO: Handle without user.
   if (!user)
@@ -41,7 +45,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
           label="Dark theme"
           separator={false}
           value={general.darkTheme}
-          onValueChange={() =>
+          onChange={() =>
             dispatch({
               name: SettingsActionKind.SET_DARK_THEME,
               value: !general.darkTheme
@@ -72,7 +76,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
           label="Only show people of this age"
           separator={false}
           value={discovery.age.active}
-          onValueChange={() =>
+          onChange={() =>
             dispatch({
               name: SettingsActionKind.SET_AGE_RANGE_ACTIVE,
               value: !discovery.age.active
@@ -85,7 +89,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
           label="Notifications"
           separator={false}
           value={notifications}
-          onValueChange={() =>
+          onChange={() =>
             dispatch({
               name: SettingsActionKind.SET_NOTIFICATIONS,
               value: !notifications
@@ -123,8 +127,9 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
         <SettingValue
           arrow={false}
           label="Delete Account"
+          labelStyle={{ color: deleteAccount.color }}
           separator={false}
-          style={{ backgroundColor: '#FFB0B0', opacity: 0.8 }}
+          style={{ backgroundColor: deleteAccount.backgroundColor }}
           onPress={() => console.log('Click security advice')}
         />
       </SettingsContainer>

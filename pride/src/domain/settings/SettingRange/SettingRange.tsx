@@ -7,6 +7,7 @@ import MultiSlider, {
   MultiSliderProps
 } from '@ptomasroos/react-native-multi-slider';
 import { View } from 'react-native';
+import useTheme from '@hooks/useTheme';
 
 export interface SettingRangeProps extends SettingProps {
   onRangedValueChange?: (value: [number, number]) => void;
@@ -20,6 +21,8 @@ export interface SettingRangeProps extends SettingProps {
   endLabel?: string;
   rangeValue?: [number, number];
 }
+
+// TODO: Add theme colors to slider.
 
 const SettingRange: React.FC<SettingRangeProps> = ({
   onSingleValueChange,
@@ -46,6 +49,10 @@ const SettingRange: React.FC<SettingRangeProps> = ({
     ...containerStyle
   };
 
+  const {
+    settings: { item }
+  } = useTheme();
+
   return (
     <Setting
       {...props}
@@ -53,7 +60,7 @@ const SettingRange: React.FC<SettingRangeProps> = ({
         return (
           <View>
             {ranged ? (
-              <Text>
+              <Text color={item.valueColor}>
                 {valueRanged[0]} - {valueRanged[1]}
               </Text>
             ) : (

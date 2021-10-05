@@ -1,7 +1,8 @@
 import React from 'react';
-import { Pressable, PressableProps, View } from 'react-native';
+import { Pressable, PressableProps, TextStyle, View } from 'react-native';
 import { ScaledSheet, ms } from 'react-native-size-matters';
 import Text from '@components/Text';
+import useTheme from '@hooks/useTheme';
 
 export interface SettingProps extends PressableProps {
   label: string;
@@ -10,7 +11,7 @@ export interface SettingProps extends PressableProps {
   separator?: boolean;
   height?: number;
   padding?: number;
-  sepatatorColor?: string;
+  labelStyle?: TextStyle;
 }
 
 const Setting: React.FC<SettingProps> = ({
@@ -20,9 +21,13 @@ const Setting: React.FC<SettingProps> = ({
   separator = true,
   height = ms(45),
   padding = ms(15),
-  sepatatorColor = '#dedede',
+  labelStyle = {},
   ...props
 }: SettingProps) => {
+  const {
+    settings: { item }
+  } = useTheme();
+
   const value = renderValue ? renderValue() : null;
 
   return (
@@ -37,8 +42,10 @@ const Setting: React.FC<SettingProps> = ({
         ]}
       >
         <Text
+          color={item.labelColor}
           style={{
-            flex: 1
+            flex: 1,
+            ...labelStyle
           }}
         >
           {label}
@@ -64,7 +71,7 @@ const Setting: React.FC<SettingProps> = ({
           <View
             style={{
               height: 1,
-              backgroundColor: sepatatorColor
+              backgroundColor: item.separatorColor
             }}
           />
         </View>

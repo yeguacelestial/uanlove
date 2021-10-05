@@ -52,6 +52,26 @@ type Theme = {
     signOutIconColor: string;
     editIconColor: string;
   };
+  toggle: {
+    onColor: string;
+    offColor: string;
+  };
+  settings: {
+    container: {
+      backgroundColor: string;
+      titleColor: string;
+    };
+    item: {
+      labelColor: string;
+      valueColor: string;
+      arrowColor: string;
+      separatorColor: string;
+    };
+    deleteAccount: {
+      backgroundColor: string;
+      color: string;
+    };
+  };
   navigation: ThemeNavigation;
 };
 
@@ -95,6 +115,26 @@ export const DefaultTheme: Theme = {
     settingsIconColor: 'white',
     signOutIconColor: '#de4b4b',
     editIconColor: 'white'
+  },
+  toggle: {
+    onColor: '#3471eb',
+    offColor: '#c9c9c9'
+  },
+  settings: {
+    container: {
+      backgroundColor: 'white',
+      titleColor: '#525252'
+    },
+    item: {
+      labelColor: 'black',
+      valueColor: '#525252',
+      arrowColor: 'black',
+      separatorColor: '#dedede'
+    },
+    deleteAccount: {
+      backgroundColor: 'rgba(255, 71, 71, 0.8)',
+      color: 'white'
+    }
   }
 };
 
@@ -133,6 +173,26 @@ export const DarkTheme: Theme = {
     settingsIconColor: 'white',
     signOutIconColor: '#de4b4b',
     editIconColor: 'white'
+  },
+  toggle: {
+    ...DefaultTheme.toggle,
+    offColor: '#2e2e2e' // TODO: Get this from primary color.
+  },
+  settings: {
+    container: {
+      backgroundColor: '#121212',
+      titleColor: '#a6a6a6'
+    },
+    item: {
+      labelColor: 'white',
+      valueColor: '#a6a6a6',
+      arrowColor: 'white',
+      separatorColor: '#292929'
+    },
+    deleteAccount: {
+      ...DefaultTheme.settings.deleteAccount,
+      color: 'white'
+    }
   }
 };
 

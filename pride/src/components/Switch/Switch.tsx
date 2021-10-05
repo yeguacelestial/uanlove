@@ -3,7 +3,7 @@ import { Animated, Easing, TouchableOpacity, View } from 'react-native';
 import { ScaledSheet } from 'react-native-size-matters';
 import { ViewStyle } from 'react-native';
 
-interface SwitchProps {
+export interface SwitchProps {
   onColor?: string;
   offColor?: string;
   label?: string;

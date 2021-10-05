@@ -2,22 +2,23 @@ import React from 'react';
 import { View } from 'react-native';
 import { ms } from 'react-native-size-matters';
 import Text from '@components/Text';
+import useTheme from '@hooks/useTheme';
 
 export interface SettingsContainerProps {
   children?: React.ReactNode;
   title: string;
   spacing?: number;
-  backgroundColor?: string;
-  titleColor?: string;
 }
 
 const SettingsContainer: React.FC<SettingsContainerProps> = ({
   children,
   title,
-  spacing = ms(10),
-  backgroundColor = 'white',
-  titleColor = '#525252'
+  spacing = ms(10)
 }: SettingsContainerProps) => {
+  const {
+    settings: { container }
+  } = useTheme();
+
   return (
     <View
       style={{
@@ -31,7 +32,7 @@ const SettingsContainer: React.FC<SettingsContainerProps> = ({
         }}
       >
         <Text
-          color={titleColor}
+          color={container.titleColor}
           size={ms(10)}
           transform="uppercase"
           weight="bold"
@@ -41,7 +42,7 @@ const SettingsContainer: React.FC<SettingsContainerProps> = ({
       </View>
       <View
         style={{
-          backgroundColor
+          backgroundColor: container.backgroundColor
         }}
       >
         {children}

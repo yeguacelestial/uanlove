@@ -5,7 +5,7 @@ import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import { ms } from 'react-native-size-matters';
 import { DiscoverySettings } from '@shared/Settings';
 import { SettingsShowMeScreenProps } from '@navigation/AppNavigator';
-import { SettingsContainer } from '@components/settings';
+import { SettingsContainer } from '@domain/settings';
 import { FontAwesome } from '@expo/vector-icons';
 
 const showMeText: DiscoverySettings['showMe'][] = ['Women', 'Men', 'Everyone'];
