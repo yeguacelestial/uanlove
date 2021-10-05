@@ -13,15 +13,13 @@ const showMeText: DiscoverySettings['showMe'][] = ['Women', 'Men', 'Everyone'];
 const ShowMeScreen: React.FC<SettingsShowMeScreenProps> = ({
   navigation
 }: SettingsShowMeScreenProps) => {
-  const [
-    {
-      discovery: { showMe }
-    },
-    setSetting
-  ] = useSettings();
+  const {
+    discovery: { showMe },
+    dispatch
+  } = useSettings();
 
   const onPress = (value: DiscoverySettings['showMe']) => {
-    setSetting({
+    dispatch({
       name: SettingsActionKind.SET_SHOW_ME,
       value
     });
