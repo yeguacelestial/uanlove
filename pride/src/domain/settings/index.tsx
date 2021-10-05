@@ -4,7 +4,6 @@ import SettingValue from './SettingValue';
 import SettingArrow from './SettingArrow';
 import SettingRange from './SettingRange';
 import SettingButton from './SettingButton';
-import SettingSelect from './SettingSelect';
 import Setting from './Setting';
 
 export {
@@ -14,6 +13,5 @@ export {
   SettingArrow,
   SettingRange,
   SettingButton,
-  SettingSelect,
   Setting
 };
