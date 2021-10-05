@@ -12,27 +12,26 @@ import Indicators from './Indicators';
 
 export interface PicturesProps {
   pictures?: string[];
-  initialPicture?: number;
+  picture?: number;
   style?: ViewStyle;
-  onPictureChange?: (index: number) => void;
   indicatorColor?: string;
   indicatorsHorizontalPadding?: number;
   indicatorsTopPadding?: number;
   backgroundColor?: string;
+  setPicture?: (picture: number) => void;
 }
 
 const Pictures: React.FC<PicturesProps> = ({
   pictures = [],
-  initialPicture = 0,
+  picture = 0,
   style = {},
   backgroundColor = 'black',
   indicatorColor = 'rgba(255, 255, 255, 0.6)',
   indicatorsHorizontalPadding = ms(4),
   indicatorsTopPadding = ms(4),
-  onPictureChange
+  setPicture
 }: PicturesProps) => {
   const {
-    picture,
     setFlatList,
     layout,
     setLayout,
@@ -41,8 +40,8 @@ const Pictures: React.FC<PicturesProps> = ({
     onPressPrevious
   } = usePictures({
     pictures,
-    initialPicture,
-    onPictureChange
+    picture,
+    setPicture
   });
 
   return (
@@ -81,12 +80,14 @@ const Pictures: React.FC<PicturesProps> = ({
         pagingEnabled
         data={pictures}
         getItemLayout={getItemLayout}
-        initialScrollIndex={initialPicture}
+        initialScrollIndex={picture}
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item, index }) => {
           return (
             <ImageBackground
-              accessibilityLabel={`picture-${index + 1}`}
+              accessibilityLabel={`${
+                index === picture ? 'visible-' : ''
+              }picture-${index + 1}`}
               accessibilityRole="image"
               resizeMode="contain"
               source={{

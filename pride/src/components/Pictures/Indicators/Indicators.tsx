@@ -35,8 +35,8 @@ const Indicators: React.FC<IndicatorsProps> = ({
           <View
             key={index}
             accessibilityLabel={`${
-              visible ? 'visible' : ''
-            }-picture-indicator-${index + 1}`}
+              visible ? 'visible-' : ''
+            }picture-indicator-${index + 1}`}
             style={[
               styles.indicator,
               // eslint-disable-next-line react-native/no-color-literals
@@ -53,6 +53,7 @@ const Indicators: React.FC<IndicatorsProps> = ({
 
 const styles = ScaledSheet.create({
   root: {
+    zIndex: 1,
     flexDirection: 'row',
     position: 'absolute',
     height: '2@ms'
