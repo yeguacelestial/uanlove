@@ -6,7 +6,7 @@ import Setting, { SettingProps } from '../Setting';
 import { MaterialIcons } from '@expo/vector-icons';
 
 export interface SettingValueProps extends SettingProps {
-  value: string;
+  value?: string;
   arrow?: boolean;
 }
 

@@ -10,6 +10,7 @@ import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import useAuth from '@hooks/useAuth';
 import { SettingsScreenProps } from '@navigation/AppNavigator';
 import Text from '@components/Text';
+import ScreenScrollView from '@domain/ScreenScrollView';
 
 const SettingsScreen: React.FC<SettingsScreenProps> = ({
   navigation
@@ -26,7 +27,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
     );
 
   return (
-    <View>
+    <ScreenScrollView fullHeight>
       <SettingsContainer title="Account">
         <SettingValue
           arrow={false}
@@ -92,7 +93,42 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
           }
         />
       </SettingsContainer>
-    </View>
+      <SettingsContainer title="Security">
+        <SettingValue
+          arrow={false}
+          label="Comunity Principles"
+          onPress={() => console.log('Click comunity')}
+        />
+        <SettingValue
+          arrow={false}
+          label="Security and Politics"
+          onPress={() => console.log('Click security politics')}
+        />
+        <SettingValue
+          arrow={false}
+          label="Security Advice"
+          separator={false}
+          onPress={() => console.log('Click security advice')}
+        />
+      </SettingsContainer>
+      <SettingsContainer title="">
+        <SettingValue
+          arrow={false}
+          label="Sign Out"
+          separator={false}
+          onPress={() => console.log('Sign Out')}
+        />
+      </SettingsContainer>
+      <SettingsContainer title="Version 6.9">
+        <SettingValue
+          arrow={false}
+          label="Delete Account"
+          separator={false}
+          style={{ backgroundColor: '#FFB0B0', opacity: 0.8 }}
+          onPress={() => console.log('Click security advice')}
+        />
+      </SettingsContainer>
+    </ScreenScrollView>
   );
 };
 
