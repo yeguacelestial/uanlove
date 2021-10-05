@@ -4,7 +4,8 @@ import {
   SettingsContainer,
   SettingSwitch,
   SettingValue,
-  SettingRange
+  SettingRange,
+  SettingButton
 } from '@domain/settings';
 import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import useAuth from '@hooks/useAuth';
@@ -16,7 +17,7 @@ import useTheme from '@hooks/useTheme';
 const SettingsScreen: React.FC<SettingsScreenProps> = ({
   navigation
 }: SettingsScreenProps) => {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const { discovery, notifications, general, dispatch } = useSettings();
   const {
     settings: { deleteAccount }
@@ -115,22 +116,19 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
           onPress={() => console.log('Click security advice')}
         />
       </SettingsContainer>
-      <SettingsContainer title="">
-        <SettingValue
-          arrow={false}
+      <SettingsContainer>
+        <SettingButton
           label="Sign Out"
           separator={false}
-          onPress={() => console.log('Sign Out')}
+          onPress={() => signOut()}
         />
       </SettingsContainer>
-      <SettingsContainer title="Version 6.9">
-        <SettingValue
-          arrow={false}
+      <SettingsContainer>
+        <SettingButton
           label="Delete Account"
           labelStyle={{ color: deleteAccount.color }}
           separator={false}
           style={{ backgroundColor: deleteAccount.backgroundColor }}
-          onPress={() => console.log('Click security advice')}
         />
       </SettingsContainer>
     </ScreenScrollView>

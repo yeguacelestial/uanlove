@@ -6,7 +6,7 @@ import useTheme from '@hooks/useTheme';
 
 export interface SettingsContainerProps {
   children?: React.ReactNode;
-  title: string;
+  title?: string;
   spacing?: number;
 }
 
@@ -31,14 +31,16 @@ const SettingsContainer: React.FC<SettingsContainerProps> = ({
           paddingBottom: ms(8)
         }}
       >
-        <Text
-          color={container.titleColor}
-          size={ms(10)}
-          transform="uppercase"
-          weight="bold"
-        >
-          {title}
-        </Text>
+        {title ? (
+          <Text
+            color={container.titleColor}
+            size={ms(10)}
+            transform="uppercase"
+            weight="bold"
+          >
+            {title}
+          </Text>
+        ) : null}
       </View>
       <View
         style={{
