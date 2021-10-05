@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { ProfileScreenProps } from '../props';
+import { ProfileScreenProps } from '@navigation/AppNavigator';
 import ScreenView from '@domain/ScreenView';
 import { ScaledSheet } from 'react-native-size-matters';
 import ProfileCard from './ProfileCard';
@@ -9,7 +9,7 @@ import useProfileScreen from './useProfileScreen';
 const ProfileScreen: React.FC<ProfileScreenProps> = ({
   navigation
 }: ProfileScreenProps) => {
-  const { signOut, user, picture, onChangePicture } = useProfileScreen();
+  const { signOut, user, picture, setPicture } = useProfileScreen();
 
   // TODO: Handle without user.
   if (!user)
@@ -23,13 +23,11 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
     <ScreenView style={styles.root}>
       <ProfileCard
         age={user.age}
-        description={user.description}
+        description={user.bio}
         name={user.name}
-        pictures={[
-          'https://image.shutterstock.com/image-photo/head-shot-portrait-smiling-middle-600w-1339318991.jpg',
-          'https://image.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1640944705.jpg'
-        ]}
-        onChangePicture={onChangePicture}
+        picture={picture}
+        pictures={user.pictures}
+        setPicture={setPicture}
         onPressEdit={() => navigation.push('profile-edit')}
         onPressInfo={() =>
           navigation.push('profile-detail', {

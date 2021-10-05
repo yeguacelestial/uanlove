@@ -11,16 +11,16 @@ const FloatingTabBar: React.FC<FloatingTabBarProps> = ({
   descriptors,
   navigation
 }: FloatingTabBarProps) => {
-  const { theme } = useTheme();
+  const { tabBar } = useTheme();
 
   return (
     <View
       style={[
         {
-          margin: theme.tabBar.margin,
-          height: theme.tabBar.height,
-          borderRadius: theme.tabBar.height / 2,
-          backgroundColor: theme.tabBar.backgroundColor
+          margin: tabBar.margin,
+          height: tabBar.height,
+          borderRadius: tabBar.height / 2,
+          backgroundColor: tabBar.backgroundColor
         },
         styles.root
       ]}
@@ -32,10 +32,10 @@ const FloatingTabBar: React.FC<FloatingTabBarProps> = ({
         return (
           <FloatingTabBarItem
             key={route.key}
-            backgroundColor={theme.tabBar.backgroundColor}
-            color={theme.tabBar.item.color}
+            backgroundColor={tabBar.backgroundColor}
+            color={tabBar.item.color}
             focused={focused}
-            focusedColor={theme.tabBar.item.focusedColor}
+            focusedColor={tabBar.item.focusedColor}
             options={options}
             onLongPress={() => {
               navigation.emit({

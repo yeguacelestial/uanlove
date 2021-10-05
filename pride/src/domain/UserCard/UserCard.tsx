@@ -11,10 +11,10 @@ export interface UserCardProps {
   name: string;
   age: number | string;
   pictures?: string[];
-  initialPicture?: number;
+  picture?: number;
   description?: string;
+  setPicture?: (picture: number) => void;
   onPressInfo?: (e: GestureResponderEvent) => void;
-  onChangePicture?: (index: number) => void;
   children?: React.ReactNode;
   style?: ViewStyle;
 }
@@ -23,49 +23,49 @@ const UserCard: React.FC<UserCardProps> = ({
   name,
   age,
   pictures = [],
-  initialPicture,
+  picture = 0,
   description,
+  setPicture,
   onPressInfo,
-  onChangePicture,
   style,
   children
 }: UserCardProps) => {
-  const { theme } = useTheme();
+  const { userCard } = useTheme();
 
   return (
     <View
       style={[
         {
-          backgroundColor: theme.userCard.backgroundColor
+          backgroundColor: userCard.backgroundColor
         },
         styles.root,
         style
       ]}
     >
       <Pictures
-        backgroundColor={theme.userCard.backgroundColor}
-        indicatorColor={theme.userCard.indicatorColor}
+        backgroundColor={userCard.backgroundColor}
+        indicatorColor={userCard.indicatorColor}
         indicatorsHorizontalPadding={ms(16)}
-        initialPicture={initialPicture}
+        picture={picture}
         pictures={pictures}
-        onPictureChange={onChangePicture}
+        setPicture={setPicture}
       />
       <LinearGradient
-        colors={theme.userCard.gradientColors}
-        locations={theme.userCard.gradientLocations}
+        colors={userCard.gradientColors}
+        locations={userCard.gradientLocations}
         style={styles.bottom}
       >
         <View style={styles.information}>
-          <Text color={theme.userCard.color} size={ms(20)} weight="bold">
+          <Text color={userCard.color} size={ms(20)} weight="bold">
             {name}, {age}
           </Text>
           {description ? (
-            <Text color={theme.userCard.color} numberOfLines={3} size={ms(13)}>
+            <Text color={userCard.color} numberOfLines={3} size={ms(13)}>
               {description}
             </Text>
           ) : null}
           <MaterialIcons
-            color={theme.userCard.detailIconColor}
+            color={userCard.detailIconColor}
             name="info"
             size={ms(24)}
             style={styles.detail}

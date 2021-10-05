@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
-import AuthContextState, { authContextDefaultState } from './AuthContextState';
+import { AuthContextType, DefaultAuthContextState } from './AuthContext';
 
-const useAuthProvider = (): AuthContextState => {
-  const [user, setUser] = useState<AuthContextState['user']>(
-    authContextDefaultState.user
+const useAuthProvider = (): AuthContextType => {
+  const [user, setUser] = useState<AuthContextType['user']>(
+    DefaultAuthContextState.user
   );
 
   // TODO: Implement sign up.
@@ -12,8 +12,17 @@ const useAuthProvider = (): AuthContextState => {
   // TODO: Implement sign in.
   const signIn = useCallback(async () => {
     setUser({
+      gender: 'Man',
       name: 'Gabriel Emilio',
-      age: '21'
+      bio: 'Mi bio',
+      age: '21',
+      email: 'gabriel.emilio@uanl.edu.mx',
+      school: 'Facultad de Ingenieria Mecanica y Electrica',
+      pictures: [
+        'https://image.shutterstock.com/image-photo/head-shot-portrait-smiling-middle-600w-1339318991.jpg',
+        'https://i.pinimg.com/originals/69/59/fa/6959fa736605235642d0f057e6cf9795.jpg',
+        'https://image.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1640944705.jpg'
+      ]
     });
   }, [setUser]);
 

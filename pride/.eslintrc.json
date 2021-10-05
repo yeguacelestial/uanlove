@@ -17,6 +17,7 @@
     "react-native/sort-styles": "off",
     "no-empty-function": "off",
     "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "max-len": [
       "error",
       {

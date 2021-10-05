@@ -1,8 +1,13 @@
 import { createContext } from 'react';
-import ThemeContextState, {
-  themeContextDefaultState
-} from './ThemeContextState';
+import Theme, { DefaultTheme } from '@shared/Theme';
 
-const ThemeContext = createContext<ThemeContextState>(themeContextDefaultState);
+export type ThemeContextType = [Theme, (theme: Theme) => void];
+
+const ThemeContext = createContext<ThemeContextType>([
+  DefaultTheme,
+  () => {
+    return;
+  }
+]);
 
 export default ThemeContext;

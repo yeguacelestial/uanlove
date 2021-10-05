@@ -13,11 +13,12 @@ export interface ProfileCardProps {
   name: string;
   description?: string;
   pictures?: string[];
+  picture?: number;
+  setPicture?: (picture: number) => void;
   onPressInfo?: () => void;
   onPressSettings?: () => void;
   onPressSignOut?: () => void;
   onPressEdit?: () => void;
-  onChangePicture?: (index: number) => void;
 }
 
 const ProfileCard: React.FC<ProfileCardProps> = ({
@@ -25,13 +26,14 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   name,
   description,
   pictures,
+  picture,
+  setPicture,
   onPressInfo,
   onPressSettings,
   onPressSignOut,
-  onPressEdit,
-  onChangePicture
+  onPressEdit
 }: ProfileCardProps) => {
-  const { theme } = useTheme();
+  const { profileUserCard } = useTheme();
 
   const getEditIcon = ({ color, size }: IconProps) => (
     <MaterialIcons color={color} name="edit" size={size} />
@@ -50,26 +52,27 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       age={age}
       description={description}
       name={name}
+      picture={picture}
       pictures={pictures}
-      onChangePicture={onChangePicture}
+      setPicture={setPicture}
       onPressInfo={onPressInfo}
     >
       <View style={styles.actions}>
         <FloatingActionButton
-          color={theme.profileUserCard.settingsIconColor}
+          color={profileUserCard.settingsIconColor}
           getIcon={getSettingsIcon}
           style={styles.action}
           onPress={onPressSettings}
         />
         <FloatingActionButton
-          color={theme.profileUserCard.signOutIconColor}
+          color={profileUserCard.signOutIconColor}
           getIcon={getSignOutIcon}
           size={ms(50)}
           style={styles.action}
           onPress={onPressSignOut}
         />
         <FloatingActionButton
-          color={theme.profileUserCard.editIconColor}
+          color={profileUserCard.editIconColor}
           getIcon={getEditIcon}
           style={styles.action}
           onPress={onPressEdit}

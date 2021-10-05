@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { AuthProvider } from '@context/auth';
-import { ThemeProvider } from '@context/theme';
-import { Themes } from '@styles';
+import { SettingsProvider } from '@context/settings';
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -11,7 +10,7 @@ export interface ProvidersProps {
 const Providers: React.FC<ProvidersProps> = ({ children }: ProvidersProps) => {
   return (
     <AuthProvider>
-      <ThemeProvider theme={Themes.DefaultTheme}>{children}</ThemeProvider>
+      <SettingsProvider>{children}</SettingsProvider>
     </AuthProvider>
   );
 };

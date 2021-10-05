@@ -1,20 +1,18 @@
 // @refresh reset
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { FlatList } from 'react-native';
 
 export interface usePicturesProps {
   pictures?: string[];
-  initialPicture?: number;
-  onPictureChange?: (index: number) => void;
+  picture?: number;
+  setPicture?: (current: number) => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const usePictures = ({
   pictures = [],
-  initialPicture = 0,
-  onPictureChange = () => {
-    return;
-  }
+  picture = 0,
+  setPicture
 }: usePicturesProps) => {
   const [layout, setLayout] = useState({
     width: 0,
@@ -32,36 +30,31 @@ const usePictures = ({
 
   const [flatList, setFlatList] = useState<FlatList<string> | null>(null);
 
-  const [index, setIndex] = useState(initialPicture);
-
   const scrollToIndex = useCallback(
     (index: number) => {
       if (pictures.length === 0 || index > pictures.length - 1 || index < 0)
         return;
 
-      flatList?.scrollToIndex({
-        index
-      });
+      if (setPicture) {
+        flatList?.scrollToIndex({
+          index
+        });
 
-      setIndex(index);
+        setPicture(index);
+      }
     },
-    [flatList, pictures]
+    [flatList, setPicture, pictures.length]
   );
 
   const onPressNext = useCallback(() => {
-    scrollToIndex(index + 1);
-  }, [index, scrollToIndex]);
+    scrollToIndex(picture + 1);
+  }, [picture, scrollToIndex]);
 
   const onPressPrevious = useCallback(() => {
-    scrollToIndex(index - 1);
-  }, [index, scrollToIndex]);
-
-  useEffect(() => {
-    onPictureChange(index);
-  }, [index, onPictureChange]);
+    scrollToIndex(picture - 1);
+  }, [picture, scrollToIndex]);
 
   return {
-    picture: index,
     setFlatList,
     layout,
     setLayout,
