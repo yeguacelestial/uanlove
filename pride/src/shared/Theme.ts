@@ -94,9 +94,9 @@ export const DarkTheme: Theme = {
   navigation: DarkThemeNavigation,
   tabBar: {
     ...tabBar,
-    backgroundColor: 'white',
+    backgroundColor: '#121212',
     item: {
-      color: 'black',
+      color: 'white',
       focusedColor: '#27aae3'
     }
   },
@@ -104,10 +104,10 @@ export const DarkTheme: Theme = {
     tabBarHeight: tabBar.height + 2 * tabBar.margin
   },
   userCard: {
-    gradientColors: ['#00000000', '#000000'],
+    gradientColors: ['#12121200', '#121212'],
     gradientLocations: [0, 0.6],
     color: 'white',
-    backgroundColor: 'black',
+    backgroundColor: '#121212',
     detailIconColor: 'white',
     indicatorColor: 'rgba(255, 255, 255, 0.6)'
   },

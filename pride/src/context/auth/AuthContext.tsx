@@ -16,7 +16,12 @@ export const DefaultAuthContextState: AuthContextType = {
     age: '21',
     bio: 'Mi bio',
     email: 'gabriel.emilio@uanl.edu.mx',
-    school: 'Facultad de Ingenieria Mecanica y Electrica'
+    school: 'Facultad de Ingenieria Mecanica y Electrica',
+    pictures: [
+      'https://image.shutterstock.com/image-photo/head-shot-portrait-smiling-middle-600w-1339318991.jpg',
+      'https://i.pinimg.com/originals/69/59/fa/6959fa736605235642d0f057e6cf9795.jpg',
+      'https://image.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1640944705.jpg'
+    ]
   },
   signUp: async () => {
     return;

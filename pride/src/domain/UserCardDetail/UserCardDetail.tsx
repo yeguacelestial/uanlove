@@ -16,6 +16,8 @@ export interface UserCardDetailProps {
   name: string;
   age: number | string;
   pictures?: string[];
+  picture?: number;
+  setPicture?: (picture: number) => void;
   initialPicture?: number;
   description?: string;
   onPressExit?: (e: GestureResponderEvent) => void;
@@ -27,7 +29,8 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
   name,
   age,
   pictures = [],
-  initialPicture,
+  picture,
+  setPicture,
   description,
   onPressExit,
   children,
@@ -47,7 +50,7 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
       style={{
         flexGrow: 1,
         overflow: 'hidden',
-        backgroundColor: navigation.colors.background
+        backgroundColor: userCard.backgroundColor
       }}
     >
       <ScrollView
@@ -59,10 +62,11 @@ const UserCardDetail: React.FC<UserCardDetailProps> = ({
         style={styles.container}
       >
         <Pictures
-          backgroundColor={userCard.backgroundColor}
+          backgroundColor={navigation.colors.background}
           indicatorColor={userCard.indicatorColor}
-          initialPicture={initialPicture}
+          picture={picture}
           pictures={pictures}
+          setPicture={setPicture}
           style={{
             height: height * 0.7
           }}

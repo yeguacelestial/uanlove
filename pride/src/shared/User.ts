@@ -7,5 +7,5 @@ export default interface User {
   school: string;
   gender: Gender;
   bio?: string;
-  pictures?: string[];
+  pictures: string[];
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import UserCardDetail from '@domain/UserCardDetail';
 import useAuth from '@hooks/useAuth';
 import { Text, View } from 'react-native';
@@ -11,6 +11,12 @@ const ProfileDetailScreen: React.FC<ProfileDetailScreenProps> = ({
 }) => {
   const { user } = useAuth();
   const { initialPicture } = params;
+
+  // TODO: Pass this to useEffect.
+  const length = user ? user.pictures.length : 0;
+  const [picture, setPicture] = useState(
+    length === 0 ? 0 : Math.min(initialPicture, length - 1)
+  );
 
   // TODO: Handle without user.
   if (!user)
@@ -30,12 +36,10 @@ const ProfileDetailScreen: React.FC<ProfileDetailScreenProps> = ({
       <UserCardDetail
         age={user.age}
         description={user.bio}
-        initialPicture={initialPicture}
         name={user.name}
-        pictures={[
-          'https://image.shutterstock.com/image-photo/head-shot-portrait-smiling-middle-600w-1339318991.jpg',
-          'https://image.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1640944705.jpg'
-        ]}
+        picture={picture}
+        pictures={user.pictures}
+        setPicture={setPicture}
         onPressExit={() => navigation.goBack()}
       ></UserCardDetail>
     </View>

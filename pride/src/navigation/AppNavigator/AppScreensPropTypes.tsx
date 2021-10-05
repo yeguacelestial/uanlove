@@ -5,7 +5,7 @@ export type AppScreensParamList = {
   profile: undefined;
   'profile-edit': undefined;
   'profile-detail': {
-    initialPicture?: number;
+    initialPicture: number;
   };
   // Settings screens
   settings: undefined;

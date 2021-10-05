@@ -13,11 +13,12 @@ export interface ProfileCardProps {
   name: string;
   description?: string;
   pictures?: string[];
+  picture?: number;
+  setPicture?: (picture: number) => void;
   onPressInfo?: () => void;
   onPressSettings?: () => void;
   onPressSignOut?: () => void;
   onPressEdit?: () => void;
-  onChangePicture?: (index: number) => void;
 }
 
 const ProfileCard: React.FC<ProfileCardProps> = ({
@@ -25,11 +26,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   name,
   description,
   pictures,
+  picture,
+  setPicture,
   onPressInfo,
   onPressSettings,
   onPressSignOut,
-  onPressEdit,
-  onChangePicture
+  onPressEdit
 }: ProfileCardProps) => {
   const { profileUserCard } = useTheme();
 
@@ -50,8 +52,9 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       age={age}
       description={description}
       name={name}
+      picture={picture}
       pictures={pictures}
-      onChangePicture={onChangePicture}
+      setPicture={setPicture}
       onPressInfo={onPressInfo}
     >
       <View style={styles.actions}>
