@@ -6,7 +6,7 @@ import useTheme from '@hooks/useTheme';
 
 export interface SettingProps extends PressableProps {
   label: string;
-  renderValue?: () => JSX.Element;
+  renderValue?: () => JSX.Element | null;
   children?: React.ReactNode;
   separator?: boolean;
   height?: number;
