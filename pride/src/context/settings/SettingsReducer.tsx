@@ -27,14 +27,6 @@ function SettingsReducer(state: Settings, action: SettingsActions): Settings {
       newState.discovery.age.active = action.value;
       break;
 
-    case SettingsActionKind.SET_DISTANCE_MAX:
-      newState.discovery.distance.max = action.value;
-      break;
-
-    case SettingsActionKind.SET_DISTANCE_GLOBAL:
-      newState.discovery.distance.global = action.value;
-      break;
-
     case SettingsActionKind.SET_DARK_THEME:
       newState.general.darkTheme = action.value;
       break;

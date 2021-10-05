@@ -1,7 +1,6 @@
 import Settings, {
   DiscoverySettings,
   AgeSettings,
-  DistanceSettings,
   GeneralSettings
 } from '@shared/Settings';
 
@@ -12,8 +11,6 @@ export enum SettingsActionKind {
   SET_SCHOOLS = 'SET_SHOOLS',
   SET_AGE_RANGE = 'SET_AGE_RANGE',
   SET_AGE_RANGE_ACTIVE = 'SET_AGE_RANGE_ACTIVE',
-  SET_DISTANCE_MAX = 'SET_DISTANCE_MAX',
-  SET_DISTANCE_GLOBAL = 'SET_DISTANCE_GLOBAL',
   SET_DARK_THEME = 'SET_DARK_THEME'
 }
 
@@ -41,14 +38,6 @@ type SettingsActions =
   | {
       name: SettingsActionKind.SET_AGE_RANGE_ACTIVE;
       value: AgeSettings['active'];
-    }
-  | {
-      name: SettingsActionKind.SET_DISTANCE_MAX;
-      value: DistanceSettings['max'];
-    }
-  | {
-      name: SettingsActionKind.SET_DISTANCE_GLOBAL;
-      value: DistanceSettings['global'];
     }
   | {
       name: SettingsActionKind.SET_DARK_THEME;

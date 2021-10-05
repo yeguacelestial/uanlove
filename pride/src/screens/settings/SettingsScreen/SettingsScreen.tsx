@@ -49,19 +49,6 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
         />
       </SettingsContainer>
       <SettingsContainer title="Discovery">
-        <SettingRange
-          color="#F3BFB3"
-          endLabel="Km."
-          label="Maximum Distance"
-          rangeValue={[2, 151]}
-          valueSingle={discovery.distance.max}
-          onSingleValueChange={value => {
-            dispatch({
-              name: SettingsActionKind.SET_DISTANCE_MAX,
-              value: value
-            });
-          }}
-        />
         <SettingValue
           label="Show Me"
           value={discovery.showMe}
