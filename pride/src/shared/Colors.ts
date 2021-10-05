@@ -6,7 +6,7 @@ type Colors = {
 };
 
 export const DefaultColors: Colors = {
-  primary: '#078be3',
+  primary: '#3471eb',
   secondary: 'red',
   background: 'white',
   foreground: 'black'

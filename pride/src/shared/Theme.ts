@@ -117,7 +117,7 @@ export const DefaultTheme: Theme = {
     editIconColor: 'white'
   },
   toggle: {
-    onColor: '#3471eb',
+    onColor: DefaultColors.primary,
     offColor: '#c9c9c9'
   },
   settings: {
@@ -176,7 +176,7 @@ export const DarkTheme: Theme = {
   },
   toggle: {
     ...DefaultTheme.toggle,
-    offColor: '#2e2e2e' // TODO: Get this from primary color.
+    offColor: '#2e2e2e'
   },
   settings: {
     container: {

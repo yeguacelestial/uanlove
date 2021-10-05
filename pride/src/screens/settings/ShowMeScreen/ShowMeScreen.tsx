@@ -7,6 +7,7 @@ import { DiscoverySettings } from '@shared/Settings';
 import { SettingsShowMeScreenProps } from '@navigation/AppNavigator';
 import { SettingsContainer } from '@domain/settings';
 import { FontAwesome } from '@expo/vector-icons';
+import useTheme from '@hooks/useTheme';
 
 const showMeText: DiscoverySettings['showMe'][] = ['Women', 'Men', 'Everyone'];
 
@@ -17,6 +18,11 @@ const ShowMeScreen: React.FC<SettingsShowMeScreenProps> = ({
     discovery: { showMe },
     dispatch
   } = useSettings();
+
+  const {
+    settings: { item },
+    colors
+  } = useTheme();
 
   const onPress = (value: DiscoverySettings['showMe']) => {
     dispatch({
@@ -40,16 +46,16 @@ const ShowMeScreen: React.FC<SettingsShowMeScreenProps> = ({
                   justifyContent: 'space-between'
                 }}
               >
-                <Text>{value}</Text>
+                <Text color={item.labelColor}>{value}</Text>
                 {showMe === value ? (
-                  <FontAwesome color="#4f6bf7" name="check" size={16} />
+                  <FontAwesome color={colors.primary} name="check" size={16} />
                 ) : null}
               </View>
               <View
                 // eslint-disable-next-line react-native/no-color-literals
                 style={{
                   marginHorizontal: ms(15),
-                  backgroundColor: '#dedede',
+                  backgroundColor: item.separatorColor,
                   height: i === showMeText.length - 1 ? 0 : 1
                 }}
               />
