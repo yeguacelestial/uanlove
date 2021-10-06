@@ -5,7 +5,8 @@ import {
   SettingSwitch,
   SettingValue,
   SettingRange,
-  SettingButton
+  SettingButton,
+  SettingArrow
 } from '@domain/settings';
 import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import useAuth from '@hooks/useAuth';
@@ -99,22 +100,9 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
         />
       </SettingsContainer>
       <SettingsContainer title="Security">
-        <SettingValue
-          arrow={false}
-          label="Comunity Principles"
-          onPress={() => console.log('Click comunity')}
-        />
-        <SettingValue
-          arrow={false}
-          label="Security and Politics"
-          onPress={() => console.log('Click security politics')}
-        />
-        <SettingValue
-          arrow={false}
-          label="Security Advice"
-          separator={false}
-          onPress={() => console.log('Click security advice')}
-        />
+        <SettingArrow label="Comunity Principles" />
+        <SettingArrow label="Security and Politics" />
+        <SettingArrow label="Security Advice" separator={false} />
       </SettingsContainer>
       <SettingsContainer>
         <SettingButton
