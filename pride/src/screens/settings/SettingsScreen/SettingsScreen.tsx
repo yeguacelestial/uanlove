@@ -1,5 +1,5 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, Modal, View } from 'react-native';
 import {
   SettingsContainer,
   SettingSwitch,
@@ -14,12 +14,14 @@ import { SettingsScreenProps } from '@navigation/AppNavigator';
 import Text from '@components/Text';
 import ScreenScrollView from '@domain/ScreenScrollView';
 import useTheme from '@hooks/useTheme';
+import SignOutAlert from '@components/SignOutAlert';
 
 const SettingsScreen: React.FC<SettingsScreenProps> = ({
   navigation
 }: SettingsScreenProps) => {
   const { user, signOut } = useAuth();
   const { discovery, notifications, general, dispatch } = useSettings();
+  const [isVisible, setIsVisible] = useState(false);
   const {
     settings: { deleteAccount }
   } = useTheme();
@@ -108,7 +110,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
         <SettingButton
           label="Sign Out"
           separator={false}
-          onPress={() => signOut()}
+          onPress={() => setIsVisible(!isVisible)}
         />
       </SettingsContainer>
       <SettingsContainer>
@@ -119,6 +121,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
           style={{ backgroundColor: deleteAccount.backgroundColor }}
         />
       </SettingsContainer>
+      <SignOutAlert visible={isVisible}></SignOutAlert>
     </ScreenScrollView>
   );
 };
