@@ -1,9 +1,17 @@
 {
-  "extends": "expo/tsconfig.base",
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "strict": true,
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "strict": true,
+    "jsx": "react-native",
+    "lib": ["DOM", "ESNext"],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "target": "ESNext",
     "baseUrl": ".",
     "paths": {
       "@styles": ["src/styles"],
@@ -19,5 +27,11 @@
       "~/*": ["./src/*"]
     }
   },
-  "exclude": ["jest-setup.js"]
+  "exclude": [
+    "jest-setup.js",
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ]
 }
