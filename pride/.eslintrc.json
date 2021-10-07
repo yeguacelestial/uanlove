@@ -3,13 +3,14 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
     "plugin:react/recommended",
     "plugin:react-native/all",
     "plugin:react-hooks/recommended",
-    "plugin:prettier/recommended",
-    "plugin:import/recommended",
-    "plugin:import/typescript"
+    "plugin:prettier/recommended"
   ],
+  "parser": "@typescript-eslint/parser",
   "settings": {
     "import/resolver": {
       "typescript": {}
@@ -41,6 +42,28 @@
         "shorthandFirst": true
       }
     ],
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "react/prop-types": "warn",
+    "import/order": [
+      "warn",
+      {
+        "groups": ["builtin", "external", "internal", "sibling"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "builtin"
+          },
+          {
+            "pattern": "react-native",
+            "group": "builtin"
+          }
+        ],
+        "newlines-between": "always",
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "alphabetize": {
+          "order": "asc"
+        }
+      }
+    ]
   }
 }
