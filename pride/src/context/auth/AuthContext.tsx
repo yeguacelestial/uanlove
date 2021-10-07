@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+
 import User from '@shared/User';
 
 export type AuthContextType = {

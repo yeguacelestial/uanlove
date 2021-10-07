@@ -1,4 +1,4 @@
-import ThemeProvider from './ThemeProvider';
 import ThemeContext from './ThemeContext';
+import ThemeProvider from './ThemeProvider';
 
 export { ThemeProvider, ThemeContext };

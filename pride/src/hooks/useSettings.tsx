@@ -1,6 +1,10 @@
-import { SettingsContext } from '@context/settings';
-import { SettingsActionKind, SettingsActions } from '@context/settings';
 import { useContext } from 'react';
+
+import {
+  SettingsContext,
+  SettingsActionKind,
+  SettingsActions
+} from '@context/settings';
 
 export { SettingsActionKind, SettingsActions };
 

@@ -1,7 +1,9 @@
 import React from 'react';
-import Setting, { SettingProps } from '../Setting';
+
 import Switch from '@components/Switch';
 import useTheme from '@hooks/useTheme';
+
+import Setting, { SettingProps } from '../Setting';
 
 export interface SettingSwitchProps extends SettingProps {
   value: boolean;

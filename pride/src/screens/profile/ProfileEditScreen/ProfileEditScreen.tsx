@@ -1,8 +1,10 @@
+import React from 'react';
+import { Text, TextInput, View, Button } from 'react-native';
+
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+
 import useAuth from '@hooks/useAuth';
 import User from '@shared/User';
-import React from 'react';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import { Text, TextInput, View, Button } from 'react-native';
 
 // TODO: Test component.
 const ProfileEditScreen: React.FC = () => {

@@ -1,13 +1,12 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import FloatingTabBar from '@domain/FloatingTabBar';
-
 import HomeScreen from '@screens/HomeScreen';
-import MessagesScreen from '@screens/MessagesScreen';
 import LikesScreen from '@screens/LikesScreen';
+import MessagesScreen from '@screens/MessagesScreen';
 import { ProfileScreen } from '@screens/profile';
 
 const { Navigator, Screen } = createBottomTabNavigator();

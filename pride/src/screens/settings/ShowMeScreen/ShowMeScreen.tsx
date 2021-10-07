@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Pressable } from 'react-native';
-import Text from '@components/Text';
-import useSettings, { SettingsActionKind } from '@hooks/useSettings';
+
 import { ms } from 'react-native-size-matters';
-import { DiscoverySettings } from '@shared/Settings';
-import { SettingsShowMeScreenProps } from '@navigation/AppNavigator';
+
+import Text from '@components/Text';
 import { SettingsContainer, SettingSelect } from '@domain/settings';
+import useSettings, { SettingsActionKind } from '@hooks/useSettings';
+import { SettingsShowMeScreenProps } from '@navigation/AppNavigator';
+import { DiscoverySettings } from '@shared/Settings';
 
 const showMeText: DiscoverySettings['showMe'][] = ['Women', 'Men', 'Everyone'];
 

@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import FloatingTabBarItem from './Item';
+
 import useTheme from '@hooks/useTheme';
+
+import FloatingTabBarItem from './Item';
 
 export type FloatingTabBarProps = BottomTabBarProps;
 

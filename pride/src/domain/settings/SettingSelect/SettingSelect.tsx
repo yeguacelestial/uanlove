@@ -1,6 +1,9 @@
-import { FontAwesome } from '@expo/vector-icons';
-import useTheme from '@hooks/useTheme';
 import React from 'react';
+
+import { FontAwesome } from '@expo/vector-icons';
+
+import useTheme from '@hooks/useTheme';
+
 import Setting, { SettingProps } from '../Setting';
 
 export interface SettingSelectProps extends SettingProps {

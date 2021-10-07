@@ -7,13 +7,14 @@ import {
   View,
   ActivityIndicator
 } from 'react-native';
-import { ScaledSheet, ms } from 'react-native-size-matters';
+
+import { FontAwesome } from '@expo/vector-icons';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming
 } from 'react-native-reanimated';
-import { FontAwesome } from '@expo/vector-icons';
+import { ScaledSheet, ms } from 'react-native-size-matters';
 
 export interface Button3DProps extends PressableProps {
   text: string;

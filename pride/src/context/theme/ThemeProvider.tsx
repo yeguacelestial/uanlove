@@ -1,5 +1,7 @@
-import Theme from '@shared/Theme';
 import React from 'react';
+
+import Theme from '@shared/Theme';
+
 import ThemeContext from './ThemeContext';
 import useThemeProvider from './useThemeProvider';
 

@@ -1,9 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
-import ScreenScrollView from '@domain/ScreenScrollView';
-import Text from '@components/Text';
-import Interest from '@components/Interest/Interest';
+
 import { ms } from 'react-native-size-matters';
+
+import Interest from '@components/Interest/Interest';
+import Text from '@components/Text';
+import ScreenScrollView from '@domain/ScreenScrollView';
 
 const LikesScreen: React.FC = () => {
   // TODO: Remove dummy data when real data is available.

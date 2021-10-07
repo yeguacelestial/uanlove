@@ -1,6 +1,7 @@
 import React from 'react';
-import ScreenScrollView from '@domain/ScreenScrollView';
+
 import Text from '@components/Text';
+import ScreenScrollView from '@domain/ScreenScrollView';
 
 const HomeScreen: React.FC = () => {
   return (
