@@ -1,26 +1,29 @@
 //TODO: fix
 /* eslint-disable react-native/no-color-literals */
-import React, { useState } from 'react';
+import useTheme from '@hooks/useTheme';
+import React from 'react';
 import {
-  Button,
   Dimensions,
   Modal,
-  StyleSheet,
   Text,
   View
 } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
 
 interface SignOutAlertProps {
   visible: boolean;
+  onDismiss: () => void;
+  onAccept: () => Promise<void>;
 }
 
-const SignOutAlert: React.FC<SignOutAlertProps> = ({ visible }) => {
+const SignOutAlert: React.FC<SignOutAlertProps> = ({ visible, onDismiss, onAccept }) => {
   const windowWidth = Dimensions.get('window').width;
+  const {
+    settings
+  } = useTheme();
   return (
     <Modal transparent animationType="fade" visible={visible}>
-      {/* Background negro */}
       <View
         style={{
           flex: 1,
@@ -29,22 +32,21 @@ const SignOutAlert: React.FC<SignOutAlertProps> = ({ visible }) => {
           alignItems: 'center'
         }}
       >
-        {/* Contenido Modal */}
-        <View style={[styles.modal, { width: windowWidth * 0.8 }]}>
+        <View style={[styles.modal, { width: windowWidth * 0.8, backgroundColor: settings.container.backgroundColor }]}>
           <View style={styles.modalTextContainer}>
-            <Text style={styles.title}>¿Sign Out?</Text>
+            <Text style={[styles.title, {color: settings.item.labelColor}]}>¿Sign Out?</Text>
             <Text style={styles.message}>¿You really want to sign out?</Text>
           </View>
           <View style={styles.modalButtonContainer}>
             <TouchableOpacity
               style={{}}
-              onPress={() => console.log('HolaButton')}
+              onPress={() => onDismiss()}
             >
               <Text style={styles.cancelTextButton}>CANCEL</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{}}
-              onPress={() => console.log('HolaButton')}
+              onPress={() => onAccept()}
             >
               <Text style={styles.signOutTextButton}>SIGN OUT</Text>
             </TouchableOpacity>
@@ -55,7 +57,7 @@ const SignOutAlert: React.FC<SignOutAlertProps> = ({ visible }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   modal: {
     height: 200,
     backgroundColor: '#FFFFFF',

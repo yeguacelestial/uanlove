@@ -16,13 +16,14 @@ import useAuth from '@hooks/useAuth';
 import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import useTheme from '@hooks/useTheme';
 import { SettingsScreenProps } from '@navigation/AppNavigator';
+import { useSettingsScreen } from './useSettingsScreen';
 
 const SettingsScreen: React.FC<SettingsScreenProps> = ({
   navigation
 }: SettingsScreenProps) => {
   const { user, signOut } = useAuth();
   const { discovery, notifications, general, dispatch } = useSettings();
-  const [isVisible, setIsVisible] = useState(false);
+  const { isVisible, setIsVisible, dismiss } = useSettingsScreen()
   const {
     settings: { deleteAccount }
   } = useTheme();
@@ -122,7 +123,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
           style={{ backgroundColor: deleteAccount.backgroundColor }}
         />
       </SettingsContainer>
-      <SignOutAlert visible={isVisible}></SignOutAlert>
+      <SignOutAlert visible={isVisible} onDismiss={dismiss} onAccept={signOut}></SignOutAlert>
     </ScreenScrollView>
   );
 };
