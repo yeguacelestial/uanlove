@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
-import { Button, Modal, View } from 'react-native';
+import React, { useState} from 'react';
+import { View, Button, Modal } from 'react-native';
+
+import Text from '@components/Text';
+import ScreenScrollView from '@domain/ScreenScrollView';
+import SignOutAlert from '@components/SignOutAlert';
 import {
   SettingsContainer,
   SettingSwitch,
@@ -8,13 +12,10 @@ import {
   SettingButton,
   SettingArrow
 } from '@domain/settings';
-import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import useAuth from '@hooks/useAuth';
-import { SettingsScreenProps } from '@navigation/AppNavigator';
-import Text from '@components/Text';
-import ScreenScrollView from '@domain/ScreenScrollView';
+import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import useTheme from '@hooks/useTheme';
-import SignOutAlert from '@components/SignOutAlert';
+import { SettingsScreenProps } from '@navigation/AppNavigator';
 
 const SettingsScreen: React.FC<SettingsScreenProps> = ({
   navigation

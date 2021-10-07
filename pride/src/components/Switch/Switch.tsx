@@ -1,7 +1,13 @@
 import React, { useRef } from 'react';
-import { Animated, Easing, TouchableOpacity, View } from 'react-native';
+import {
+  Animated,
+  Easing,
+  TouchableOpacity,
+  View,
+  ViewStyle
+} from 'react-native';
+
 import { ScaledSheet } from 'react-native-size-matters';
-import { ViewStyle } from 'react-native';
 
 export interface SwitchProps {
   onColor?: string;

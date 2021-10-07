@@ -1,5 +1,6 @@
-import useAuth from '@hooks/useAuth';
 import { useState } from 'react';
+
+import useAuth from '@hooks/useAuth';
 
 const useProfileScreen = () => {
   const { signOut, user } = useAuth();

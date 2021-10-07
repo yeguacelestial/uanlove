@@ -1,12 +1,12 @@
 import React from 'react';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import useAuth from '@hooks/useAuth';
-
+import useTheme from '@hooks/useTheme';
 import AppNavigator from '@navigation/AppNavigator';
 import AuthNavigator from '@navigation/AuthNavigator';
-import useTheme from '@hooks/useTheme';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 

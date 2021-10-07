@@ -1,5 +1,4 @@
 // @refresh reset
-import Button3D from '@components/Button3D';
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -9,6 +8,7 @@ import {
   ImageSourcePropType,
   ImageBackground
 } from 'react-native';
+
 import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent
@@ -21,6 +21,8 @@ import Animated, {
   withSpring
 } from 'react-native-reanimated';
 import { ms, ScaledSheet } from 'react-native-size-matters';
+
+import Button3D from '@components/Button3D';
 
 export interface OnboardingProps {
   messages: Array<{

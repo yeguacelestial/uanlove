@@ -4,6 +4,7 @@ import {
   TextProps as TextBaseProps,
   TextStyle
 } from 'react-native';
+
 import { ms } from 'react-native-size-matters';
 
 export interface TextProps extends TextBaseProps {

@@ -1,13 +1,16 @@
 /* eslint-disable react-native/no-color-literals */
 import React, { useState } from 'react';
-import Setting, { SettingProps } from '../Setting';
-import { ms } from 'react-native-size-matters';
-import Text from '@components/Text';
+import { View } from 'react-native';
+
 import MultiSlider, {
   MultiSliderProps
 } from '@ptomasroos/react-native-multi-slider';
-import { View } from 'react-native';
+import { ms } from 'react-native-size-matters';
+
+import Text from '@components/Text';
 import useTheme from '@hooks/useTheme';
+
+import Setting, { SettingProps } from '../Setting';
 
 export interface SettingRangeProps extends SettingProps {
   onRangedValueChange?: (value: [number, number]) => void;

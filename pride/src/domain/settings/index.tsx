@@ -1,11 +1,11 @@
-import SettingsContainer from './SettingsContainer';
+import Setting from './Setting';
+import SettingArrow from './SettingArrow';
+import SettingButton from './SettingButton';
+import SettingRange from './SettingRange';
+import SettingSelect from './SettingSelect';
 import SettingSwitch from './SettingSwitch';
 import SettingValue from './SettingValue';
-import SettingArrow from './SettingArrow';
-import SettingRange from './SettingRange';
-import SettingButton from './SettingButton';
-import SettingSelect from './SettingSelect';
-import Setting from './Setting';
+import SettingsContainer from './SettingsContainer';
 
 export {
   SettingsContainer,

@@ -1,7 +1,9 @@
-import useTheme from '@hooks/useTheme';
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { ScrollView, ScrollViewProps } from 'react-native';
+
+import { StatusBar } from 'expo-status-bar';
+
+import useTheme from '@hooks/useTheme';
 
 export interface ScreenScrollViewProps extends ScrollViewProps {
   fullHeight?: boolean;

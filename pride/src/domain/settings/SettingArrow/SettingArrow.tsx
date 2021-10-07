@@ -1,8 +1,11 @@
 import React from 'react';
-import Setting, { SettingProps } from '../Setting';
+
 import { MaterialIcons } from '@expo/vector-icons';
 import { ms } from 'react-native-size-matters';
+
 import useTheme from '@hooks/useTheme';
+
+import Setting, { SettingProps } from '../Setting';
 
 export interface SettingArrowProps extends SettingProps {
   size?: number;

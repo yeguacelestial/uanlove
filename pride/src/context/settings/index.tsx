@@ -1,6 +1,6 @@
-import SettingsProvider from './SettingsProvider';
-import SettingsContext from './SettingsContext';
 import SettingsActions, { SettingsActionKind } from './SettingsActions';
+import SettingsContext from './SettingsContext';
+import SettingsProvider from './SettingsProvider';
 
 export {
   SettingsProvider,

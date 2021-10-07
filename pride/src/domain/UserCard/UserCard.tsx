@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, GestureResponderEvent, ViewStyle } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+
 import { MaterialIcons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import { ScaledSheet, ms } from 'react-native-size-matters';
+
 import Pictures from '@components/Pictures';
 import Text from '@components/Text';
 import useTheme from '@hooks/useTheme';

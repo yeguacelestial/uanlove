@@ -1,7 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
-import Text from '@components/Text';
+
 import { ScaledSheet } from 'react-native-size-matters';
+
+import Text from '@components/Text';
 
 interface InterestProps {
   text: string;

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { View, Text } from 'react-native';
+
 import { render, fireEvent } from '@testing-library/react-native';
 
 import Pictures from './Pictures';
-import { View, Text } from 'react-native';
 
 describe('<Pictures />', () => {
   const pictures = [

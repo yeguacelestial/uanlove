@@ -6,11 +6,13 @@ import {
   Dimensions,
   ScrollView
 } from 'react-native';
-import { ms, ScaledSheet } from 'react-native-size-matters';
+
 import { Ionicons } from '@expo/vector-icons';
+import { ms, ScaledSheet } from 'react-native-size-matters';
+
 import Pictures from '@components/Pictures';
-import useTheme from '@hooks/useTheme';
 import Text from '@components/Text';
+import useTheme from '@hooks/useTheme';
 
 export interface UserCardDetailProps {
   name: string;

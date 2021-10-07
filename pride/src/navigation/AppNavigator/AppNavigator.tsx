@@ -1,8 +1,8 @@
 import React from 'react';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import TabNavigator from '@navigation/TabNavigator';
-
 import { ProfileDetailScreen, ProfileEditScreen } from '@screens/profile';
 import { SettingsScreen, ShowMeScreen } from '@screens/settings';
 

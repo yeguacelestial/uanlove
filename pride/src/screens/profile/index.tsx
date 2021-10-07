@@ -1,5 +1,5 @@
-import ProfileScreen from './ProfileScreen';
-import ProfileEditScreen from './ProfileEditScreen';
 import ProfileDetailScreen from './ProfileDetailScreen';
+import ProfileEditScreen from './ProfileEditScreen';
+import ProfileScreen from './ProfileScreen';
 
 export { ProfileScreen, ProfileEditScreen, ProfileDetailScreen };

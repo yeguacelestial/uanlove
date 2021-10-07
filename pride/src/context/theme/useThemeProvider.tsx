@@ -1,5 +1,7 @@
-import Theme, { DefaultTheme } from '@shared/Theme';
 import { useEffect, useState } from 'react';
+
+import Theme, { DefaultTheme } from '@shared/Theme';
+
 import { ThemeContextType } from './ThemeContext';
 
 export interface useThemeProviderProps {
