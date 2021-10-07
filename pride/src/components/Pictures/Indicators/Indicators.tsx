@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+
 import { ms, ScaledSheet } from 'react-native-size-matters';
 
 interface IndicatorsProps {

@@ -1,10 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
-import { ms } from 'react-native-size-matters';
-import Text from '@components/Text';
-import Setting, { SettingProps } from '../Setting';
+
 import { MaterialIcons } from '@expo/vector-icons';
+import { ms } from 'react-native-size-matters';
+
+import Text from '@components/Text';
 import useTheme from '@hooks/useTheme';
+
+import Setting, { SettingProps } from '../Setting';
 
 export interface SettingValueProps extends SettingProps {
   value?: string;

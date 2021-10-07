@@ -1,7 +1,8 @@
+import React from 'react';
+
 import { ThemeProvider } from '@context/theme';
 import useSettings from '@hooks/useSettings';
 import { DefaultTheme, DarkTheme } from '@shared/Theme';
-import React from 'react';
 
 export interface ThemeProps {
   children?: React.ReactNode;

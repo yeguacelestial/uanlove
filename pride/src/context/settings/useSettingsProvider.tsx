@@ -1,7 +1,9 @@
 import { useEffect, useReducer } from 'react';
-import SettingsReducer from './SettingsReducer';
-import { SettingsContextType } from './SettingsContext';
+
 import { DefaultSettings } from '@shared/Settings';
+
+import { SettingsContextType } from './SettingsContext';
+import SettingsReducer from './SettingsReducer';
 
 const useSettingsProvider = (): SettingsContextType => {
   const [state, dispatch] = useReducer(SettingsReducer, DefaultSettings);

@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import * as React from 'react';
+
 import Svg, { Circle, Path, Ellipse } from 'react-native-svg';
 
 function SvgCouple(): JSX.Element {

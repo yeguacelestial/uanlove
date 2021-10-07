@@ -1,5 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
+
+import Text from '@components/Text';
+import ScreenScrollView from '@domain/ScreenScrollView';
 import {
   SettingsContainer,
   SettingSwitch,
@@ -8,12 +11,10 @@ import {
   SettingButton,
   SettingArrow
 } from '@domain/settings';
-import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import useAuth from '@hooks/useAuth';
-import { SettingsScreenProps } from '@navigation/AppNavigator';
-import Text from '@components/Text';
-import ScreenScrollView from '@domain/ScreenScrollView';
+import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import useTheme from '@hooks/useTheme';
+import { SettingsScreenProps } from '@navigation/AppNavigator';
 
 const SettingsScreen: React.FC<SettingsScreenProps> = ({
   navigation

@@ -1,5 +1,6 @@
-import SettingsActions, { SettingsActionKind } from './SettingsActions';
 import Settings from '@shared/Settings';
+
+import SettingsActions, { SettingsActionKind } from './SettingsActions';
 
 function SettingsReducer(state: Settings, action: SettingsActions): Settings {
   if (action.name === SettingsActionKind.SET_SETTINGS) return action.value;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, PressableProps } from 'react-native';
+
 import { ms } from 'react-native-size-matters';
 
 export interface IconProps {

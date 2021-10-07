@@ -1,11 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
+
+import { MaterialIcons } from '@expo/vector-icons';
+import { ms, ScaledSheet } from 'react-native-size-matters';
+
 import FloatingActionButton, {
   IconProps
 } from '@components/FloatingActionButton';
 import UserCard from '@domain/UserCard';
-import { MaterialIcons } from '@expo/vector-icons';
-import { ms, ScaledSheet } from 'react-native-size-matters';
 import useTheme from '@hooks/useTheme';
 
 export interface ProfileCardProps {

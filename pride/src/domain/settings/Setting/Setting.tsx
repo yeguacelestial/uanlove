@@ -1,6 +1,8 @@
 import React from 'react';
 import { Pressable, PressableProps, TextStyle, View } from 'react-native';
+
 import { ScaledSheet, ms } from 'react-native-size-matters';
+
 import Text from '@components/Text';
 import useTheme from '@hooks/useTheme';
 

@@ -6,9 +6,11 @@ import {
   View,
   ViewStyle
 } from 'react-native';
+
 import { ms, ScaledSheet } from 'react-native-size-matters';
-import usePictures from './usePictures';
+
 import Indicators from './Indicators';
+import usePictures from './usePictures';
 
 export interface PicturesProps {
   pictures?: string[];

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { Text, View } from 'react-native';
+
+import { StatusBar } from 'expo-status-bar';
+
 import UserCardDetail from '@domain/UserCardDetail';
 import useAuth from '@hooks/useAuth';
-import { Text, View } from 'react-native';
 import { ProfileDetailScreenProps } from '@navigation/AppNavigator';
-import { StatusBar } from 'expo-status-bar';
 
 const ProfileDetailScreen: React.FC<ProfileDetailScreenProps> = ({
   route: { params },

@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
+
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { ms } from 'react-native-size-matters';
 

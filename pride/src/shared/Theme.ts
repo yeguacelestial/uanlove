@@ -3,11 +3,10 @@ import {
   DefaultTheme as DefaultThemeNavigation,
   DarkTheme as DarkThemeNavigation
 } from '@react-navigation/native';
+import { ms } from 'react-native-size-matters';
 
 import Colors, { DefaultColors } from './Colors';
 import Spacing, { DefaultSpacing } from './Spacing';
-
-import { ms } from 'react-native-size-matters';
 
 // TODO: Refactor, move type names and definitions to another file.
 

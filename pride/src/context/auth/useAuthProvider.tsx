@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+
 import { AuthContextType, DefaultAuthContextState } from './AuthContext';
 
 const useAuthProvider = (): AuthContextType => {

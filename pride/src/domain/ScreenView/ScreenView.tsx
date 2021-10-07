@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, ViewProps } from 'react-native';
+
 import { StatusBar } from 'expo-status-bar';
+
 import useTheme from '@hooks/useTheme';
 
 export interface ScreenViewProps extends ViewProps {
