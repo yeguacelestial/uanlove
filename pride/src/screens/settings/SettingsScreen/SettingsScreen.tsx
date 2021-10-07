@@ -1,9 +1,9 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { View, Button, Modal } from 'react-native';
 
+import SignOutAlert from '@components/SignOutAlert';
 import Text from '@components/Text';
 import ScreenScrollView from '@domain/ScreenScrollView';
-import SignOutAlert from '@components/SignOutAlert';
 import {
   SettingsContainer,
   SettingSwitch,
