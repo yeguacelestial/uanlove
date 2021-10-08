@@ -1,15 +1,11 @@
 //TODO: fix
 /* eslint-disable react-native/no-color-literals */
-import useTheme from '@hooks/useTheme';
 import React from 'react';
-import {
-  Dimensions,
-  Modal,
-  Text,
-  View
-} from 'react-native';
-import { TouchableOpacity } from 'react-native';
+import { Dimensions, Modal, Text, View, TouchableOpacity } from 'react-native';
+
 import { ScaledSheet } from 'react-native-size-matters';
+
+import useTheme from '@hooks/useTheme';
 
 interface SignOutAlertProps {
   visible: boolean;
@@ -17,11 +13,13 @@ interface SignOutAlertProps {
   onAccept: () => Promise<void>;
 }
 
-const SignOutAlert: React.FC<SignOutAlertProps> = ({ visible, onDismiss, onAccept }) => {
+const SignOutAlert: React.FC<SignOutAlertProps> = ({
+  visible,
+  onDismiss,
+  onAccept
+}) => {
   const windowWidth = Dimensions.get('window').width;
-  const {
-    settings
-  } = useTheme();
+  const { settings } = useTheme();
   return (
     <Modal transparent animationType="fade" visible={visible}>
       <View
@@ -32,22 +30,26 @@ const SignOutAlert: React.FC<SignOutAlertProps> = ({ visible, onDismiss, onAccep
           alignItems: 'center'
         }}
       >
-        <View style={[styles.modal, { width: windowWidth * 0.8, backgroundColor: settings.container.backgroundColor }]}>
+        <View
+          style={[
+            styles.modal,
+            {
+              width: windowWidth * 0.8,
+              backgroundColor: settings.container.backgroundColor
+            }
+          ]}
+        >
           <View style={styles.modalTextContainer}>
-            <Text style={[styles.title, {color: settings.item.labelColor}]}>¿Sign Out?</Text>
+            <Text style={[styles.title, { color: settings.item.labelColor }]}>
+              ¿Sign Out?
+            </Text>
             <Text style={styles.message}>¿You really want to sign out?</Text>
           </View>
           <View style={styles.modalButtonContainer}>
-            <TouchableOpacity
-              style={{}}
-              onPress={() => onDismiss()}
-            >
+            <TouchableOpacity style={{}} onPress={() => onDismiss()}>
               <Text style={styles.cancelTextButton}>CANCEL</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{}}
-              onPress={() => onAccept()}
-            >
+            <TouchableOpacity style={{}} onPress={() => onAccept()}>
               <Text style={styles.signOutTextButton}>SIGN OUT</Text>
             </TouchableOpacity>
           </View>
