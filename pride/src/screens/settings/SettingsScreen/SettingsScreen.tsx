@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Button, Modal } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 
 import SignOutAlert from '@components/SignOutAlert';
 import Text from '@components/Text';
