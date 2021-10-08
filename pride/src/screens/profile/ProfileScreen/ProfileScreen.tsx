@@ -3,17 +3,25 @@ import { View, Text } from 'react-native';
 
 import { ScaledSheet } from 'react-native-size-matters';
 
+import SignOutAlert from '@components/SignOutAlert';
 import ScreenView from '@domain/ScreenView';
 import { ProfileScreenProps } from '@navigation/AppNavigator';
 
 import ProfileCard from './ProfileCard';
 import useProfileScreen from './useProfileScreen';
-import SignOutAlert from '@components/SignOutAlert';
 
 const ProfileScreen: React.FC<ProfileScreenProps> = ({
   navigation
 }: ProfileScreenProps) => {
-  const { signOut, user, picture, setPicture, dismiss, isVisible, setIsVisible } = useProfileScreen();
+  const {
+    signOut,
+    user,
+    picture,
+    setPicture,
+    dismiss,
+    isVisible,
+    setIsVisible
+  } = useProfileScreen();
 
   // TODO: Handle without user.
   if (!user)
@@ -41,7 +49,11 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
         onPressSettings={() => navigation.push('settings')}
         onPressSignOut={() => setIsVisible(true)}
       />
-      <SignOutAlert visible={isVisible} onDismiss={dismiss} onAccept={signOut}></SignOutAlert>
+      <SignOutAlert
+        visible={isVisible}
+        onAccept={signOut}
+        onDismiss={dismiss}
+      ></SignOutAlert>
     </ScreenView>
   );
 };
