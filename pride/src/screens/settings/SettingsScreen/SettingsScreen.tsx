@@ -116,7 +116,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
           onPress={() => setIsVisible(!isVisible)}
         />
       </SettingsContainer>
-      <SettingsContainer>
+      <SettingsContainer spacing={0}>
         <SettingButton
           label="Delete Account"
           labelStyle={{ color: deleteAccount.color }}
