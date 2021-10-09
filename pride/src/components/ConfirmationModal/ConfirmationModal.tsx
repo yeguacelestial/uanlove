@@ -9,36 +9,40 @@ import Modal from '@components/Modal';
 import Text from '@components/Text';
 
 export interface ConfirmationModalProps {
-  title?: string;
-  message?: string;
+  style?: ViewStyle;
   visible?: boolean;
+  title?: string;
   titleStyle?: TextStyle;
+  message?: string;
+  messageStyle?: TextStyle;
   cancelButtonStyle?: ViewStyle;
-  confirmButtonStyle?: ViewStyle;
-  onPressCancel?: () => void;
-  onPressConfirm?: () => void;
   cancelText?: string;
   cancelTextStyle?: TextStyle;
+  confirmButtonStyle?: ViewStyle;
   confirmText?: string;
   confirmTextStyle?: TextStyle;
+  onPressCancel?: () => void;
+  onPressConfirm?: () => void;
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
+  style,
+  visible,
   title,
   message,
-  visible,
   titleStyle = {},
   cancelButtonStyle = {},
   confirmButtonStyle = {},
-  onPressCancel,
-  onPressConfirm,
   cancelText,
   cancelTextStyle = {},
   confirmText,
-  confirmTextStyle = {}
+  confirmTextStyle = {},
+  messageStyle,
+  onPressCancel,
+  onPressConfirm
 }: ConfirmationModalProps) => {
   return (
-    <Modal visible={visible} onPressOutside={onPressCancel}>
+    <Modal style={style} visible={visible} onPressOutside={onPressCancel}>
       <Text
         style={{
           fontWeight: 'bold',
@@ -50,7 +54,8 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
       <Text
         style={{
           paddingVertical: ms(16),
-          fontSize: ms(12)
+          fontSize: ms(12),
+          ...messageStyle
         }}
       >
         {message}
@@ -63,7 +68,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         <Button
           style={{
             flex: 1,
-            marginRight: ms(4),
+            marginRight: ms(8),
             backgroundColor: 'red',
             ...cancelButtonStyle
           }}
