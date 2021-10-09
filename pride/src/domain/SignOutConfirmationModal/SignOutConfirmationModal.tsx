@@ -2,6 +2,7 @@
 import React from 'react';
 
 import ConfirmationModal from '@components/ConfirmationModal';
+import useTheme from '@hooks/useTheme';
 
 export interface SignOutConfirmationModalProps {
   onPressConfirm?: () => void;
@@ -9,11 +10,17 @@ export interface SignOutConfirmationModalProps {
   visible?: boolean;
 }
 
+// TODO: Create theme for modals.
+
 const SignOutConfirmationModal: React.FC<SignOutConfirmationModalProps> = ({
   onPressConfirm,
   onPressCancel,
   visible
 }: SignOutConfirmationModalProps) => {
+  const {
+    settings: { container, item }
+  } = useTheme();
+
   return (
     <ConfirmationModal
       cancelButtonStyle={{
@@ -25,7 +32,16 @@ const SignOutConfirmationModal: React.FC<SignOutConfirmationModalProps> = ({
       }}
       confirmText="Confirm"
       message="Do you really want to sign out?"
+      messageStyle={{
+        color: item.labelColor
+      }}
+      style={{
+        backgroundColor: container.backgroundColor
+      }}
       title="Sign Out"
+      titleStyle={{
+        color: item.labelColor
+      }}
       visible={visible}
       onPressCancel={onPressCancel}
       onPressConfirm={onPressConfirm}
