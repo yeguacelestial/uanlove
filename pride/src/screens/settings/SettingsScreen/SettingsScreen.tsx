@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 
-import SignOutAlert from '@components/SignOutAlert';
 import Text from '@components/Text';
 import ScreenScrollView from '@domain/ScreenScrollView';
+import SignOutConfirmationModal from '@domain/SignOutConfirmationModal';
 import {
   SettingsContainer,
   SettingSwitch,
@@ -17,14 +17,12 @@ import useSettings, { SettingsActionKind } from '@hooks/useSettings';
 import useTheme from '@hooks/useTheme';
 import { SettingsScreenProps } from '@navigation/AppNavigator';
 
-import { useSettingsScreen } from './useSettingsScreen';
-
 const SettingsScreen: React.FC<SettingsScreenProps> = ({
   navigation
 }: SettingsScreenProps) => {
   const { user, signOut } = useAuth();
   const { discovery, notifications, general, dispatch } = useSettings();
-  const { isVisible, setIsVisible, dismiss } = useSettingsScreen();
+  const [visible, setVisible] = useState(false);
   const {
     settings: { deleteAccount }
   } = useTheme();
@@ -39,6 +37,11 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
 
   return (
     <ScreenScrollView fullHeight>
+      <SignOutConfirmationModal
+        visible={visible}
+        onPressCancel={() => setVisible(false)}
+        onPressConfirm={() => signOut()}
+      />
       <SettingsContainer title="Account">
         <SettingValue
           arrow={false}
@@ -113,7 +116,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
         <SettingButton
           label="Sign Out"
           separator={false}
-          onPress={() => setIsVisible(!isVisible)}
+          onPress={() => setVisible(true)}
         />
       </SettingsContainer>
       <SettingsContainer spacing={0}>
@@ -124,11 +127,6 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
           style={{ backgroundColor: deleteAccount.backgroundColor }}
         />
       </SettingsContainer>
-      <SignOutAlert
-        visible={isVisible}
-        onAccept={signOut}
-        onDismiss={dismiss}
-      ></SignOutAlert>
     </ScreenScrollView>
   );
 };
