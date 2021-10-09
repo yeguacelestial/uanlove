@@ -7,20 +7,15 @@ const useProfileScreen = () => {
 
   const [picture, setPicture] = useState(0);
 
-  const [isVisible, setIsVisible] = useState(false);
-
-  const dismiss = () => {
-    setIsVisible(false);
-  };
+  const [visible, setVisible] = useState(false);
 
   return {
     signOut,
     user,
     picture,
     setPicture,
-    dismiss,
-    isVisible,
-    setIsVisible
+    visible,
+    setVisible
   };
 };
 
