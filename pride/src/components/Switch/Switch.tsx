@@ -38,7 +38,7 @@ const Switch: React.FC<SwitchProps> = ({
   Animated.timing(animatedValue, {
     toValue: isOn ? 1 : 0,
     useNativeDriver: true,
-    duration: 300,
+    duration: 150,
     easing: Easing.linear
   }).start();
 
