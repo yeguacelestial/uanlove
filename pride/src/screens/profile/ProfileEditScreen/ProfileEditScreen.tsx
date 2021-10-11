@@ -1,24 +1,38 @@
-import React from 'react';
-import { Text, TextInput, View, Button } from 'react-native';
+import React, { useEffect } from 'react';
+import { Text, View, TextInput } from 'react-native';
 
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { ms } from 'react-native-size-matters';
 
+import Button from '@components/Button';
+import ScreenScrollView from '@domain/ScreenScrollView';
+import { SettingsContainer, SettingValue } from '@domain/settings';
 import useAuth from '@hooks/useAuth';
-import User from '@shared/User';
+import useTheme from '@hooks/useTheme';
+import { ProfileEditScreenProps } from '@navigation/AppNavigator';
+
+import Picture from './Picture';
 
 // TODO: Test component.
-const ProfileEditScreen: React.FC = () => {
-  const { user, setUser } = useAuth();
+const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
+  navigation
+}: ProfileEditScreenProps) => {
+  const { user } = useAuth();
+  const { colors } = useTheme();
 
-  const {
-    control,
-    handleSubmit
-    /*formState: { errors }*/
-  } = useForm();
-
-  const onSubmit: SubmitHandler<User> = user => {
-    setUser(user);
-  };
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          style={{
+            paddingHorizontal: ms(6),
+            paddingVertical: ms(4),
+            backgroundColor: colors.primary
+          }}
+          text="Save"
+        />
+      )
+    });
+  }, [navigation, colors.primary]);
 
   // TODO: Handle without user.
   if (!user)
@@ -28,54 +42,55 @@ const ProfileEditScreen: React.FC = () => {
       </View>
     );
 
-  // TODO: Change age type to string.
   return (
-    <View>
-      <Text>Name</Text>
-      <Controller
-        control={control}
-        defaultValue={user.name}
-        name="name"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            autoCompleteType="name"
-            value={value}
-            onBlur={onBlur}
-            onChangeText={onChange}
-          />
-        )}
-        rules={{
-          required: true
-        }}
-      />
-      <Text>Age</Text>
-      <Controller
-        control={control}
-        defaultValue={user.age}
-        name="age"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            keyboardType="numeric"
-            value={value}
-            onBlur={onBlur}
-            onChangeText={onChange}
-          />
-        )}
-        rules={{
-          required: true
-        }}
-      />
-      <Text>Description</Text>
-      <Controller
-        control={control}
-        defaultValue={user.bio}
-        name="bio"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput value={value} onBlur={onBlur} onChangeText={onChange} />
-        )}
-      />
-      <Button title="Save" onPress={handleSubmit(onSubmit)} />
-    </View>
+    <ScreenScrollView fullHeight>
+      <SettingsContainer
+        contentStyle={{ flexDirection: 'row', padding: ms(8) }}
+        title="Pictures"
+      >
+        {user.pictures.map((picture, index) => {
+          return (
+            <Picture
+              key={index}
+              src={picture}
+              style={{
+                width: '25%',
+                height: ms(120)
+              }}
+            />
+          );
+        })}
+      </SettingsContainer>
+
+      <SettingsContainer title="About me">
+        <TextInput
+          style={{
+            height: ms(120),
+            color: '#525252',
+            textAlignVertical: 'top',
+            fontSize: ms(13),
+            padding: ms(16)
+          }}
+          value={user.bio}
+        />
+      </SettingsContainer>
+
+      <SettingsContainer title="Interests">
+        <SettingValue separator={false} value="Minecraft" />
+      </SettingsContainer>
+
+      <SettingsContainer title="City">
+        <SettingValue separator={false} value="Monterrey, N.L." />
+      </SettingsContainer>
+
+      <SettingsContainer title="Gender">
+        <SettingValue separator={false} value={user.gender} />
+      </SettingsContainer>
+
+      <SettingsContainer title="Sexual Orientation">
+        <SettingValue separator={false} value="Straight" />
+      </SettingsContainer>
+    </ScreenScrollView>
   );
 };
 

@@ -17,6 +17,7 @@ export interface SettingValueProps extends SettingProps {
 const SettingValue: React.FC<SettingValueProps> = ({
   value,
   arrow = true,
+  label,
   ...props
 }: SettingValueProps) => {
   const {
@@ -25,11 +26,14 @@ const SettingValue: React.FC<SettingValueProps> = ({
 
   return (
     <Setting
+      label={label}
       {...props}
       renderValue={() => {
         return (
           <View
             style={{
+              flexGrow: label ? 0 : 1,
+              justifyContent: 'space-between',
               flexDirection: 'row',
               alignItems: 'center'
             }}

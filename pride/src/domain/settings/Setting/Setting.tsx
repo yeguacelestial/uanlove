@@ -7,7 +7,7 @@ import Text from '@components/Text';
 import useTheme from '@hooks/useTheme';
 
 export interface SettingProps extends PressableProps {
-  label: string;
+  label?: string;
   renderValue?: () => JSX.Element | null;
   children?: React.ReactNode;
   separator?: boolean;
@@ -43,15 +43,17 @@ const Setting: React.FC<SettingProps> = ({
           }
         ]}
       >
-        <Text
-          color={item.labelColor}
-          style={{
-            flex: 1,
-            ...labelStyle
-          }}
-        >
-          {label}
-        </Text>
+        {label ? (
+          <Text
+            color={item.labelColor}
+            style={{
+              flex: 1,
+              ...labelStyle
+            }}
+          >
+            {label}
+          </Text>
+        ) : null}
         {value}
       </View>
       {children ? (

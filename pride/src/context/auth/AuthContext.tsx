@@ -1,13 +1,14 @@
 import { createContext } from 'react';
 
-import User from '@shared/User';
+import User, { WritableUser } from '@shared/User';
 
 export type AuthContextType = {
+  user: User | null;
   signUp: () => Promise<void>;
   signIn: () => Promise<void>;
   signOut: () => Promise<void>;
-  user: User | null;
-  setUser: (_: AuthContextType['user']) => void;
+  saveUser: (user: Partial<WritableUser>) => Promise<void>;
+  setUser: (user: AuthContextType['user']) => void;
 };
 
 export const DefaultAuthContextState: AuthContextType = {
@@ -33,6 +34,10 @@ export const DefaultAuthContextState: AuthContextType = {
   signOut: async () => {
     return;
   },
+  saveUser: async () => {
+    return;
+  },
+  // TODO: Remove setUser all changes need to be made from saveUser.
   setUser: () => {
     return;
   }

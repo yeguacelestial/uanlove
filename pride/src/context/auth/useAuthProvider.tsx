@@ -1,5 +1,7 @@
 import { useCallback, useState } from 'react';
 
+import { WritableUser } from '@shared/User';
+
 import { AuthContextType, DefaultAuthContextState } from './AuthContext';
 
 const useAuthProvider = (): AuthContextType => {
@@ -33,11 +35,24 @@ const useAuthProvider = (): AuthContextType => {
     setUser(null);
   }, [setUser]);
 
+  const saveUser = useCallback(
+    async (writableUser: Partial<WritableUser>) => {
+      if (user) {
+        setUser({
+          ...user,
+          ...writableUser
+        });
+      }
+    },
+    [user]
+  );
+
   return {
+    user,
     signUp,
     signIn,
     signOut,
-    user,
+    saveUser,
     setUser
   };
 };

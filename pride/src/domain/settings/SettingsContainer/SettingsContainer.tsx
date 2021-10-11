@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 
 import { ms } from 'react-native-size-matters';
 
@@ -10,12 +10,16 @@ export interface SettingsContainerProps {
   children?: React.ReactNode;
   title?: string;
   spacing?: number;
+  style?: ViewStyle;
+  contentStyle?: ViewStyle;
 }
 
 const SettingsContainer: React.FC<SettingsContainerProps> = ({
   children,
   title,
-  spacing = ms(10)
+  spacing = ms(10),
+  style = {},
+  contentStyle = {}
 }: SettingsContainerProps) => {
   const {
     settings: { container }
@@ -24,7 +28,8 @@ const SettingsContainer: React.FC<SettingsContainerProps> = ({
   return (
     <View
       style={{
-        marginBottom: spacing
+        marginBottom: spacing,
+        ...style
       }}
     >
       <View
@@ -46,7 +51,8 @@ const SettingsContainer: React.FC<SettingsContainerProps> = ({
       </View>
       <View
         style={{
-          backgroundColor: container.backgroundColor
+          backgroundColor: container.backgroundColor,
+          ...contentStyle
         }}
       >
         {children}
