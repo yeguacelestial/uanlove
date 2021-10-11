@@ -12,8 +12,8 @@ const ProfileEditScreen: React.FC = () => {
 
   const {
     control,
-    handleSubmit,
-    formState: { errors }
+    handleSubmit
+    /*formState: { errors }*/
   } = useForm();
 
   const onSubmit: SubmitHandler<User> = user => {
