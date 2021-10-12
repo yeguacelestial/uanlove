@@ -5,7 +5,6 @@ import {
   useAuthRequest,
   useAutoDiscovery
 } from 'expo-auth-session';
-// TODO: Fix this error.
 import { TENANT_ID, APP_CLIENT_ID } from 'react-native-dotenv';
 
 export default function useAzureAuth() {
