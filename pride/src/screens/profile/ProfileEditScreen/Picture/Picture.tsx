@@ -1,37 +1,63 @@
+/* eslint-disable react-native/no-color-literals */
 import React from 'react';
-import { ImageBackground, View, ViewStyle } from 'react-native';
+import { ImageBackground, StyleSheet, View, ViewStyle } from 'react-native';
 
+import { FontAwesome } from '@expo/vector-icons';
 import { ms } from 'react-native-size-matters';
 
+import ButtonBase from '@components/ButtonBase';
+
 export interface PictureProps {
-  src: string;
+  src?: string;
   style?: ViewStyle;
 }
 
 const Picture: React.FC<PictureProps> = ({ src, style }: PictureProps) => {
   return (
-    <View
-      style={{
-        padding: ms(4),
-        ...style
-      }}
-    >
-      <View
-        style={{
-          borderRadius: ms(8),
-          overflow: 'hidden'
-        }}
-      >
-        <ImageBackground
-          source={{ uri: src }}
+    <View style={style}>
+      {src ? (
+        <ButtonBase
           style={{
-            width: '100%',
-            height: '100%'
+            backgroundColor: 'black',
+            ...styles.button
           }}
-        />
-      </View>
+        >
+          <ImageBackground
+            resizeMode="contain"
+            source={{ uri: src }}
+            style={{
+              width: '100%',
+              height: '100%'
+            }}
+          />
+        </ButtonBase>
+      ) : (
+        <ButtonBase
+          style={{
+            borderWidth: 1,
+            borderStyle: 'dashed',
+            borderColor: '#525252',
+            ...styles.button
+          }}
+        >
+          <FontAwesome color="#525252" name="plus" size={ms(32)} />
+        </ButtonBase>
+      )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+    borderRadius: ms(8),
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden'
+  }
+});
 
 export default Picture;

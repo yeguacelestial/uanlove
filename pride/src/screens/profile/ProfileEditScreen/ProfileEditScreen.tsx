@@ -1,38 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Text, View, TextInput } from 'react-native';
 
 import { ms } from 'react-native-size-matters';
 
-import Button from '@components/Button';
 import ScreenScrollView from '@domain/ScreenScrollView';
 import { SettingsContainer, SettingValue } from '@domain/settings';
 import useAuth from '@hooks/useAuth';
-import useTheme from '@hooks/useTheme';
 import { ProfileEditScreenProps } from '@navigation/AppNavigator';
 
 import Picture from './Picture';
 
-// TODO: Test component.
-const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
-  navigation
-}: ProfileEditScreenProps) => {
-  const { user } = useAuth();
-  const { colors } = useTheme();
+const MAX_PICTURES = 12;
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Button
-          style={{
-            paddingHorizontal: ms(6),
-            paddingVertical: ms(4),
-            backgroundColor: colors.primary
-          }}
-          text="Save"
-        />
-      )
-    });
-  }, [navigation, colors.primary]);
+// TODO: Test component.
+const ProfileEditScreen: React.FC<ProfileEditScreenProps> = () => {
+  // TODO: Move component logic to a custom hook.
+  const { user } = useAuth();
 
   // TODO: Handle without user.
   if (!user)
@@ -45,7 +28,11 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
   return (
     <ScreenScrollView fullHeight>
       <SettingsContainer
-        contentStyle={{ flexDirection: 'row', padding: ms(8) }}
+        contentStyle={{
+          flexDirection: 'row',
+          padding: ms(12),
+          flexWrap: 'wrap'
+        }}
         title="Pictures"
       >
         {user.pictures.map((picture, index) => {
@@ -55,15 +42,33 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
               src={picture}
               style={{
                 width: '25%',
-                height: ms(120)
+                height: ms(120),
+                padding: ms(4)
               }}
             />
           );
         })}
+        {MAX_PICTURES - user.pictures.length > 0
+          ? new Array(MAX_PICTURES - user.pictures.length)
+              .fill(null)
+              .map((_, index) => {
+                return (
+                  <Picture
+                    key={index}
+                    style={{
+                      width: '25%',
+                      height: ms(120),
+                      padding: ms(4)
+                    }}
+                  />
+                );
+              })
+          : null}
       </SettingsContainer>
 
       <SettingsContainer title="About me">
         <TextInput
+          // eslint-disable-next-line react-native/no-color-literals
           style={{
             height: ms(120),
             color: '#525252',
@@ -87,7 +92,7 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({
         <SettingValue separator={false} value={user.gender} />
       </SettingsContainer>
 
-      <SettingsContainer title="Sexual Orientation">
+      <SettingsContainer spacing={0} title="Sexual Orientation">
         <SettingValue separator={false} value="Straight" />
       </SettingsContainer>
     </ScreenScrollView>

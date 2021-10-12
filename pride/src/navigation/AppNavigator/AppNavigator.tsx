@@ -23,9 +23,7 @@ const AppNavigator: React.FC = () => {
         component={ProfileEditScreen}
         name="profile-edit"
         options={{
-          title: 'Edit',
-          headerLeft: () => null,
-          headerBackVisible: false
+          title: 'Edit'
         }}
       />
       <Screen
