@@ -1,24 +1,19 @@
 import React from 'react';
-import { Text, TextInput, View, Button } from 'react-native';
+import { Text, View, TextInput } from 'react-native';
 
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { ms } from 'react-native-size-matters';
 
+import ScreenScrollView from '@domain/ScreenScrollView';
+import { SettingsContainer, SettingValue } from '@domain/settings';
 import useAuth from '@hooks/useAuth';
-import User from '@shared/User';
+import { ProfileEditScreenProps } from '@navigation/AppNavigator';
+
+import PicturesGrid from './PicturesGrid';
 
 // TODO: Test component.
-const ProfileEditScreen: React.FC = () => {
-  const { user, setUser } = useAuth();
-
-  const {
-    control,
-    handleSubmit
-    /*formState: { errors }*/
-  } = useForm();
-
-  const onSubmit: SubmitHandler<User> = user => {
-    setUser(user);
-  };
+const ProfileEditScreen: React.FC<ProfileEditScreenProps> = () => {
+  // TODO: Move component logic to a custom hook.
+  const { user } = useAuth();
 
   // TODO: Handle without user.
   if (!user)
@@ -28,54 +23,42 @@ const ProfileEditScreen: React.FC = () => {
       </View>
     );
 
-  // TODO: Change age type to string.
   return (
-    <View>
-      <Text>Name</Text>
-      <Controller
-        control={control}
-        defaultValue={user.name}
-        name="name"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            autoCompleteType="name"
-            value={value}
-            onBlur={onBlur}
-            onChangeText={onChange}
-          />
-        )}
-        rules={{
-          required: true
-        }}
-      />
-      <Text>Age</Text>
-      <Controller
-        control={control}
-        defaultValue={user.age}
-        name="age"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            keyboardType="numeric"
-            value={value}
-            onBlur={onBlur}
-            onChangeText={onChange}
-          />
-        )}
-        rules={{
-          required: true
-        }}
-      />
-      <Text>Description</Text>
-      <Controller
-        control={control}
-        defaultValue={user.bio}
-        name="bio"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput value={value} onBlur={onBlur} onChangeText={onChange} />
-        )}
-      />
-      <Button title="Save" onPress={handleSubmit(onSubmit)} />
-    </View>
+    <ScreenScrollView fullHeight>
+      <SettingsContainer title="Pictures">
+        <PicturesGrid pictures={user.pictures} />
+      </SettingsContainer>
+
+      <SettingsContainer title="About me">
+        <TextInput
+          // eslint-disable-next-line react-native/no-color-literals
+          style={{
+            height: ms(120),
+            color: '#525252',
+            textAlignVertical: 'top',
+            fontSize: ms(13),
+            padding: ms(16)
+          }}
+          value={user.bio}
+        />
+      </SettingsContainer>
+
+      <SettingsContainer title="Interests">
+        <SettingValue separator={false} value="Minecraft" />
+      </SettingsContainer>
+
+      <SettingsContainer title="City">
+        <SettingValue separator={false} value="Monterrey, N.L." />
+      </SettingsContainer>
+
+      <SettingsContainer title="Gender">
+        <SettingValue separator={false} value={user.gender} />
+      </SettingsContainer>
+
+      <SettingsContainer spacing={0} title="Sexual Orientation">
+        <SettingValue separator={false} value="Straight" />
+      </SettingsContainer>
+    </ScreenScrollView>
   );
 };
 

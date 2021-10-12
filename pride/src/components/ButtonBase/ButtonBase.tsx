@@ -15,7 +15,7 @@ const ButtonBase: React.FC<ButtonBaseProps> = ({
   fullWidth = false,
   ...props
 }: ButtonBaseProps) => {
-  return children ? (
+  return (
     <Pressable
       style={{
         width: fullWidth ? '100%' : 'auto',
@@ -28,7 +28,7 @@ const ButtonBase: React.FC<ButtonBaseProps> = ({
     >
       {children}
     </Pressable>
-  ) : null;
+  );
 };
 
 export default ButtonBase;

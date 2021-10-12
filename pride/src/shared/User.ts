@@ -9,3 +9,5 @@ export default interface User {
   bio?: string;
   pictures: string[];
 }
+
+export type WritableUser = Omit<User, 'name' | 'age' | 'email' | 'school'>;

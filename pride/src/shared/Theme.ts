@@ -127,7 +127,7 @@ export const DefaultTheme: Theme = {
     item: {
       labelColor: 'black',
       valueColor: '#525252',
-      arrowColor: 'black',
+      arrowColor: '#525252',
       separatorColor: '#dedede'
     },
     deleteAccount: {
