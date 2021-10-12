@@ -8,9 +8,7 @@ import { SettingsContainer, SettingValue } from '@domain/settings';
 import useAuth from '@hooks/useAuth';
 import { ProfileEditScreenProps } from '@navigation/AppNavigator';
 
-import Picture from './Picture';
-
-const MAX_PICTURES = 12;
+import PicturesGrid from './PicturesGrid';
 
 // TODO: Test component.
 const ProfileEditScreen: React.FC<ProfileEditScreenProps> = () => {
@@ -27,43 +25,8 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = () => {
 
   return (
     <ScreenScrollView fullHeight>
-      <SettingsContainer
-        contentStyle={{
-          flexDirection: 'row',
-          padding: ms(12),
-          flexWrap: 'wrap'
-        }}
-        title="Pictures"
-      >
-        {user.pictures.map((picture, index) => {
-          return (
-            <Picture
-              key={index}
-              src={picture}
-              style={{
-                width: '25%',
-                height: ms(120),
-                padding: ms(4)
-              }}
-            />
-          );
-        })}
-        {MAX_PICTURES - user.pictures.length > 0
-          ? new Array(MAX_PICTURES - user.pictures.length)
-              .fill(null)
-              .map((_, index) => {
-                return (
-                  <Picture
-                    key={index}
-                    style={{
-                      width: '25%',
-                      height: ms(120),
-                      padding: ms(4)
-                    }}
-                  />
-                );
-              })
-          : null}
+      <SettingsContainer title="Pictures">
+        <PicturesGrid pictures={user.pictures} />
       </SettingsContainer>
 
       <SettingsContainer title="About me">
