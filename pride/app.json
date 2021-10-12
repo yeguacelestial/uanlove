@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "uanlove",
     "name": "uanlove-expo",
     "slug": "uanlove-expo",
     "version": "1.0.0",
