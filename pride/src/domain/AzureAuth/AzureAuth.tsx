@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
   makeRedirectUri,
@@ -8,7 +8,7 @@ import {
 
 import { Button, View } from 'react-native';
 
-import { TENANT_ID, CLIENT_ID } from '@env';
+import { TENANT_ID, APP_CLIENT_ID } from 'react-native-dotenv';
 
 const AzureAuth: React.FC = () => {
   const discovery = useAutoDiscovery(
@@ -18,7 +18,7 @@ const AzureAuth: React.FC = () => {
   // Request
   const [request, response, promptAsync] = useAuthRequest(
     {
-      clientId: CLIENT_ID,
+      clientId: APP_CLIENT_ID,
       scopes: ['openid', 'profile', 'email', 'offline_access'],
       redirectUri: makeRedirectUri({
         scheme: 'your.app'
@@ -26,6 +26,10 @@ const AzureAuth: React.FC = () => {
     },
     discovery
   );
+
+  useEffect(() => {
+    alert(`[D] RESPONSE => ${JSON.stringify(response)}`);
+  }, [response]);
 
   return (
     <View
