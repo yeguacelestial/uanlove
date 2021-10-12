@@ -12,6 +12,7 @@ export type AuthContextType = {
 };
 
 export const DefaultAuthContextState: AuthContextType = {
+  /*
   user: {
     gender: 'Man',
     name: 'Gabriel Emilio',
@@ -25,6 +26,8 @@ export const DefaultAuthContextState: AuthContextType = {
       'https://image.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1640944705.jpg'
     ]
   },
+  */
+  user: null,
   signUp: async () => {
     return;
   },
