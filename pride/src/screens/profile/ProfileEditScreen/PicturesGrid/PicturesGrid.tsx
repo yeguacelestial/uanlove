@@ -1,6 +1,6 @@
 import React from 'react';
+import { View } from 'react-native';
 
-import Animated from 'react-native-reanimated';
 import { ms } from 'react-native-size-matters';
 
 import Picture from '../Picture';
@@ -15,7 +15,7 @@ const PicturesGrid: React.FC<PicturesGridProps> = ({
   maxPictures = 12
 }: PicturesGridProps) => {
   return (
-    <Animated.View
+    <View
       style={{
         flexDirection: 'row',
         padding: ms(12),
@@ -51,7 +51,7 @@ const PicturesGrid: React.FC<PicturesGridProps> = ({
               );
             })
         : null}
-    </Animated.View>
+    </View>
   );
 };
 
