@@ -24,7 +24,7 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = () => {
     );
 
   return (
-    <ScreenScrollView fullHeight>
+    <ScreenScrollView fullHeight showsVerticalScrollIndicator={false}>
       <SettingsContainer title="Pictures">
         <PicturesGrid pictures={user.pictures} />
       </SettingsContainer>

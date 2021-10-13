@@ -36,7 +36,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({
     );
 
   return (
-    <ScreenScrollView fullHeight>
+    <ScreenScrollView fullHeight showsVerticalScrollIndicator={false}>
       <SignOutConfirmationModal
         visible={visible}
         onPressCancel={() => setVisible(false)}
