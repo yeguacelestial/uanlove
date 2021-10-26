@@ -1,10 +1,13 @@
 import { useCallback, useState } from 'react';
 
+import useAzureAuth from '@hooks/useAzureAuth';
 import { WritableUser } from '@shared/User';
 
 import { AuthContextType, DefaultAuthContextState } from './AuthContext';
 
 const useAuthProvider = (): AuthContextType => {
+  const { request, response, promptAsync } = useAzureAuth();
+
   const [user, setUser] = useState<AuthContextType['user']>(
     DefaultAuthContextState.user
   );
@@ -14,6 +17,7 @@ const useAuthProvider = (): AuthContextType => {
 
   // TODO: Implement sign in.
   const signIn = useCallback(async () => {
+    /*
     setUser({
       gender: 'Man',
       name: 'Gabriel Emilio',
@@ -27,7 +31,14 @@ const useAuthProvider = (): AuthContextType => {
         'https://image.shutterstock.com/image-photo/young-handsome-man-beard-wearing-600w-1640944705.jpg'
       ]
     });
-  }, [setUser]);
+    */
+
+    try {
+      const response = await promptAsync();
+    } catch (error) {
+      console.error(error);
+    }
+  }, [setUser, promptAsync]);
 
   // TODO: Implement sign out.
   const signOut = useCallback(async () => {
