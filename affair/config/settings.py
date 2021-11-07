@@ -158,4 +158,6 @@ REST_FRAMEWORK = {
     )
 }
 
+# allauth
 SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = 'none'
