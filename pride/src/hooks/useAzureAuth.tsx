@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   makeRedirectUri,
@@ -6,38 +6,20 @@ import {
   useAutoDiscovery,
   exchangeCodeAsync,
   CodeChallengeMethod,
+  TokenResponse
 } from 'expo-auth-session';
-import { TENANT_ID, APP_CLIENT_ID, CLIENT_SECRET } from 'react-native-dotenv';
+import { TENANT_ID, APP_CLIENT_ID } from 'react-native-dotenv';
 import { pkceChallenge } from 'react-native-pkce-challenge';
 
 const challenge = pkceChallenge();
 
 export default function useAzureAuth() {
-  // TODO: Get url from .env
-  // const discovery = useAutoDiscovery(
-  //   `https://login.microsoftonline.com/${TENANT_ID}/v2.0`
-  // );
-
-  // const [request, response, promptAsync] = useAuthRequest(
-  //   {
-  //     clientId: APP_CLIENT_ID,
-  //     scopes: ['openid', 'profile', 'email', 'offline_access'],
-  //     redirectUri: makeRedirectUri({
-  //       scheme: 'your.app'
-  //     })
-  //   },
-  //   discovery
-  // );
-
-  // useEffect(() => {
-  //   if (response) console.log(`[D] RESPONSE => ${JSON.stringify(response)}`);
-  // }, [response]);
+  const [azureAuthErr, setAzureAuthErr] = useState<Error | null>(null);
 
   const discovery = useAutoDiscovery(
     `https://login.microsoftonline.com/${TENANT_ID}/v2.0`
   );
 
-  // Request
   const [request, response, promptAsync] = useAuthRequest(
     {
       clientId: APP_CLIENT_ID,
@@ -51,27 +33,20 @@ export default function useAzureAuth() {
     discovery
   );
 
+  const [tokenResponse, setTokenResponse] = useState<TokenResponse>();
+
   useEffect(() => {
-    let codeVerifierString = '';
-
-    const codeVerifier = request?.codeVerifier;
-    if (codeVerifier) {
-      codeVerifierString = codeVerifier;
-      console.log(`[D] CODE VERIFIER => ${codeVerifier}`);
-    }
-
     if (response?.type === 'success') {
-      const discoveryDocument = exchangeCodeAsync(
+      const exchangeResponse = exchangeCodeAsync(
         {
           clientId: APP_CLIENT_ID,
           code: response.params.code,
           redirectUri: makeRedirectUri({
             scheme: 'uanlove'
           }),
-          // clientSecret: CLIENT_SECRET,
           scopes: ['openid', 'profile', 'email', 'offline_access'],
           extraParams: {
-            code_verifier: codeVerifierString
+            code_verifier: request?.codeVerifier ? request.codeVerifier : ''
           }
         },
         {
@@ -79,17 +54,17 @@ export default function useAzureAuth() {
         }
       );
 
-      discoveryDocument
+      exchangeResponse
         .then(res => {
-          console.log(`[D] DISCOVERY => ${JSON.stringify(res)}\n`);
+          if (res.accessToken){
+            setTokenResponse(res);
+          }
         })
-        .catch(err => {
-          console.log(`[D] DISCOVERY => ${JSON.stringify(err)}\n`);
-          console.log(`[D] CODE CHALLENGE => ${challenge.codeChallenge}`);
-          console.log(`[D] CODE VERIFIER => ${challenge.codeVerifier}`);
+        .catch(e => {
+          setAzureAuthErr(e);
         });
     }
-  }, [response]);
+  }, [response, request?.codeVerifier, tokenResponse]);
 
-  return { request, response, promptAsync };
+  return { request, response, promptAsync, tokenResponse, azureAuthErr };
 }

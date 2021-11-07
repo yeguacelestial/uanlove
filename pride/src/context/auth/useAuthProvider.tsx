@@ -6,7 +6,7 @@ import { WritableUser } from '@shared/User';
 import { AuthContextType, DefaultAuthContextState } from './AuthContext';
 
 const useAuthProvider = (): AuthContextType => {
-  const { request, response, promptAsync } = useAzureAuth();
+  const { request, response, promptAsync, tokenResponse } = useAzureAuth();
 
   const [user, setUser] = useState<AuthContextType['user']>(
     DefaultAuthContextState.user
