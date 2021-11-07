@@ -23,7 +23,7 @@ export default function useAzureAuth() {
   const [request, response, promptAsync] = useAuthRequest(
     {
       clientId: APP_CLIENT_ID,
-      scopes: ['openid', 'profile', 'email', 'offline_access'],
+      scopes: ['openid', 'profile', 'email', 'offline_access', 'User.Read'],
       redirectUri: makeRedirectUri({
         scheme: 'uanlove'
       }),
@@ -44,7 +44,7 @@ export default function useAzureAuth() {
           redirectUri: makeRedirectUri({
             scheme: 'uanlove'
           }),
-          scopes: ['openid', 'profile', 'email', 'offline_access'],
+          scopes: ['openid', 'profile', 'email', 'offline_access', 'User.Read'],
           extraParams: {
             code_verifier: request?.codeVerifier ? request.codeVerifier : ''
           }
