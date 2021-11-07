@@ -1,14 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   makeRedirectUri,
   useAuthRequest,
-  useAutoDiscovery
+  useAutoDiscovery,
+  exchangeCodeAsync,
+  CodeChallengeMethod,
+  TokenResponse
 } from 'expo-auth-session';
 import { TENANT_ID, APP_CLIENT_ID } from 'react-native-dotenv';
+import { pkceChallenge } from 'react-native-pkce-challenge';
+
+const challenge = pkceChallenge();
 
 export default function useAzureAuth() {
-  // TODO: Get url from .env
+  const [azureAuthErr, setAzureAuthErr] = useState<Error | null>(null);
+
   const discovery = useAutoDiscovery(
     `https://login.microsoftonline.com/${TENANT_ID}/v2.0`
   );
@@ -18,15 +25,46 @@ export default function useAzureAuth() {
       clientId: APP_CLIENT_ID,
       scopes: ['openid', 'profile', 'email', 'offline_access'],
       redirectUri: makeRedirectUri({
-        scheme: 'your.app'
-      })
+        scheme: 'uanlove'
+      }),
+      codeChallenge: challenge.codeChallenge,
+      codeChallengeMethod: CodeChallengeMethod.S256
     },
     discovery
   );
 
-  useEffect(() => {
-    if (response) console.log(`[D] RESPONSE => ${JSON.stringify(response)}`);
-  }, [response]);
+  const [tokenResponse, setTokenResponse] = useState<TokenResponse>();
 
-  return { request, response, promptAsync };
+  useEffect(() => {
+    if (response?.type === 'success') {
+      const exchangeResponse = exchangeCodeAsync(
+        {
+          clientId: APP_CLIENT_ID,
+          code: response.params.code,
+          redirectUri: makeRedirectUri({
+            scheme: 'uanlove'
+          }),
+          scopes: ['openid', 'profile', 'email', 'offline_access'],
+          extraParams: {
+            code_verifier: request?.codeVerifier ? request.codeVerifier : ''
+          }
+        },
+        {
+          tokenEndpoint: `https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/token`
+        }
+      );
+
+      exchangeResponse
+        .then(res => {
+          if (res.accessToken){
+            setTokenResponse(res);
+          }
+        })
+        .catch(e => {
+          setAzureAuthErr(e);
+        });
+    }
+  }, [response, request?.codeVerifier, tokenResponse]);
+
+  return { request, response, promptAsync, tokenResponse, azureAuthErr };
 }

@@ -1,10 +1,12 @@
-.vscode/
+# pride
 node_modules/
-*.env
-
-# Python
-__pycache__/
-
 .expo/
 
+# affair
+__pycache__/
+*.sqlite3
+
+# environment
+.vscode/
 *.code-workspace
+*.env
