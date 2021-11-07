@@ -7,6 +7,7 @@ import { AuthContextType, DefaultAuthContextState } from './AuthContext';
 
 const useAuthProvider = (): AuthContextType => {
   const { request, response, promptAsync, tokenResponse } = useAzureAuth();
+  console.log(tokenResponse);
 
   const [user, setUser] = useState<AuthContextType['user']>(
     DefaultAuthContextState.user

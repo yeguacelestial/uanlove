@@ -17,12 +17,16 @@ from django.contrib import admin
 from django.urls import include, path
 
 from api import routes
+from api.auth_views import MicrosoftLogin
 
 urlpatterns = [
     # Local
     path('admin/', admin.site.urls),
+    path('', include(routes.router.urls)),
 
     # REST Framework
-    path('', include(routes.router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    # Third-party
+    path('dj-rest-auth/microsoft', MicrosoftLogin.as_view(), name='microsoft_login'),
 ]
