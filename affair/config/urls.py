@@ -22,11 +22,11 @@ from api.auth_views import MicrosoftLogin
 urlpatterns = [
     # Local
     path('admin/', admin.site.urls),
-    path('', include(routes.router.urls)),
 
     # REST Framework
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/v1/', include(routes.router.urls)),
 
-    # Third-party
-    path('dj-rest-auth/microsoft', MicrosoftLogin.as_view(), name='microsoft_login'),
+    # Auth
+    path('api/v1/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/v1/login-as-student', MicrosoftLogin.as_view(), name='microsoft_login'),
 ]

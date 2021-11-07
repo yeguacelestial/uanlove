@@ -17,6 +17,8 @@ load_dotenv()
 
 # Custom env variables
 MICROSOFT_LOGIN_CALLBACK_URL = os.getenv("MICROSOFT_LOGIN_CALLBACK_URL")
+SECRET_KEY = os.getenv('SECRET_KEY')
+LOCALHOST_IPV4=os.getenv("LOCALHOST_IPV4")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,13 +27,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# NOTE: Run 'python manage.py runserver 0:8080' to expose the app on local network
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    LOCALHOST_IPV4,
+]
 
 
 # Application definition
