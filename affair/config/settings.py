@@ -164,3 +164,8 @@ REST_FRAMEWORK = {
 # allauth
 SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# heroku
+if "HEROKU" in os.environ:
+    import django_on_heroku
+    django_on_heroku.settings(locals())
