@@ -5,6 +5,7 @@ node_modules/
 # affair
 __pycache__/
 *.sqlite3
+affair/.gitignore
 
 # environment
 .vscode/
