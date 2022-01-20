@@ -34,7 +34,7 @@ const SignInScreen: React.FC = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <StatusBar hidden />
+      <StatusBar animated translucent />
       <Onboarding
         bottomColors={['#E96A24', '#FE436D', '#2E409F']}
         images={images}
