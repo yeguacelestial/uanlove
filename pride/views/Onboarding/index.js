@@ -10,15 +10,22 @@ import OnboardingItem from './components/OnboardingItem';
 import Paginator from './components/Paginator';
 
 import { MainStyles } from '../../styles/core';
+import SignInButton from './components/SignInButton';
 
 
 const Onboarding = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [viewedOnboarding, setViewedOnboarding] = useState(false);
+
   const scrollX = useRef(new Animated.Value(0)).current;
   const slidesRef = useRef(null);
 
   const viewableItemsChanged = useRef(({ viewableItems }) => {
-    setCurrentIndex(viewableItems[0].index);
+    try {
+      setCurrentIndex(viewableItems[0].index);
+    } catch(err) {
+      console.log("@viewableItemsChanged error: ", err);
+    }
   }).current;
 
   const viewConfig = useRef({
@@ -32,7 +39,8 @@ const Onboarding = () => {
       })
     } else {
       console.log('last item');
-      
+      setViewedOnboarding(true);
+
       try {
         await AsyncStorage.setItem('@viewedOnboarding', 'true');
       } catch(err) {
@@ -74,10 +82,16 @@ const Onboarding = () => {
         data={slides}
         scrollX={scrollX}
       />
-      <NextButton
-        percentage={(currentIndex + 1) * (100 / slides.length)}
-        scrollTo={scrollTo}
-      />
+      {
+        viewedOnboarding ? (
+          <SignInButton/>
+        ) : (
+          <NextButton
+            percentage={(currentIndex + 1) * (100 / slides.length)}
+            scrollTo={scrollTo}
+          />
+        )
+      }
     </View>
   );
 };

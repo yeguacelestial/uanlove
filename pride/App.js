@@ -44,7 +44,8 @@ export default function App() {
 
   return (
     <View style={MainStyles.container}>
-      {loading ? <Loading/> : viewedOnboarding ? <HomeScreen/> : <Onboarding/>}
+      <Onboarding/>
+      {/* {loading ? <Loading/> : viewedOnboarding ? <HomeScreen/> : <Onboarding/>} */}
       <StatusBar style="auto" />
     </View>
   );
