@@ -2,7 +2,7 @@ import { View, TouchableOpacity, Animated } from 'react-native';
 import Svg, { G, Circle } from 'react-native-svg';
 import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useRef } from 'react';
-import { MainStyles } from '../styles/core';
+import { MainStyles } from '../../../styles/core';
 
 const NextButton = ({ percentage, scrollTo }) => {
   const size = 128;

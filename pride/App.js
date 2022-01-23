@@ -5,8 +5,8 @@ import { StatusBar } from 'expo-status-bar';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import HomeScreen from './components/HomeScreen';
-import Onboarding from './components/Onboarding';
+import Onboarding from './views/Onboarding';
+import HomeScreen from './views/Onboarding/components/HomeScreen';
 
 import { MainColours, MainStyles } from './styles/core';
 
@@ -44,7 +44,8 @@ export default function App() {
 
   return (
     <View style={MainStyles.container}>
-      {loading ? <Loading/> : viewedOnboarding ? <HomeScreen/> : <Onboarding/>}
+      <Onboarding/>
+      {/* {loading ? <Loading/> : viewedOnboarding ? <HomeScreen/> : <Onboarding/>} */}
       <StatusBar style="auto" />
     </View>
   );

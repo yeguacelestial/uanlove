@@ -1,22 +1,37 @@
-import { useRef, useState } from 'react';
-import { FlatList, View, Animated } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { FlatList, View, Animated, LayoutAnimation, Platform, UIManager, Text } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import slides from '../views/Onboarding/slides';
-import NextButton from './NextButton';
-import OnboardingItem from './OnboardingItem';
-import Paginator from './Paginator';
-import { MainStyles } from '../styles/core';
+import slides from './slides';
 
+import NextButton from './components/NextButton';
+import OnboardingItem from './components/OnboardingItem';
+import Paginator from './components/Paginator';
+
+import { MainStyles } from '../../styles/core';
+import SignInButton from './components/SignInButton';
+
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 const Onboarding = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [viewedOnboarding, setViewedOnboarding] = useState(false);
+
   const scrollX = useRef(new Animated.Value(0)).current;
   const slidesRef = useRef(null);
 
   const viewableItemsChanged = useRef(({ viewableItems }) => {
-    setCurrentIndex(viewableItems[0].index);
+    try {
+      setCurrentIndex(viewableItems[0].index);
+    } catch(err) {
+      console.log("@viewableItemsChanged error: ", err);
+    }
   }).current;
 
   const viewConfig = useRef({
@@ -30,7 +45,15 @@ const Onboarding = () => {
       })
     } else {
       console.log('last item');
-      
+      LayoutAnimation.configureNext({
+        duration: 1000,
+        create: {
+          type: LayoutAnimation.Types.easeInEaseOut,
+          property: LayoutAnimation.Properties.scaleXY,
+        },
+      });
+      setViewedOnboarding(true);
+
       try {
         await AsyncStorage.setItem('@viewedOnboarding', 'true');
       } catch(err) {
@@ -72,10 +95,16 @@ const Onboarding = () => {
         data={slides}
         scrollX={scrollX}
       />
-      <NextButton
-        percentage={(currentIndex + 1) * (100 / slides.length)}
-        scrollTo={scrollTo}
-      />
+      {
+        currentIndex + 1 == slides.length ? (
+          <SignInButton />
+        ) : (
+          <NextButton
+            percentage={(currentIndex + 1) * (100 / slides.length)}
+            scrollTo={scrollTo}
+          />
+        )
+      }
     </View>
   );
 };
