@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, Image, useWindowDimensions } from 'react-native';
+import { Text, View, Image, useWindowDimensions } from 'react-native';
 import React from 'react';
-import { MainStyles } from '../styles/core';
+import { MainStyles } from '../../../styles/core';
 
 
 const OnboardingItem = ({ item }) => {

@@ -3,11 +3,13 @@ import { FlatList, View, Animated } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import slides from '../views/Onboarding/slides';
-import NextButton from './NextButton';
-import OnboardingItem from './OnboardingItem';
-import Paginator from './Paginator';
-import { MainStyles } from '../styles/core';
+import slides from './slides';
+
+import NextButton from './components/NextButton';
+import OnboardingItem from './components/OnboardingItem';
+import Paginator from './components/Paginator';
+
+import { MainStyles } from '../../styles/core';
 
 
 const Onboarding = () => {

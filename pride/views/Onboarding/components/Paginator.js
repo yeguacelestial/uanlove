@@ -1,5 +1,5 @@
 import { StyleSheet, View, Animated, useWindowDimensions } from 'react-native';
-import { MainStyles } from '../styles/core';
+import { MainStyles } from '../../../styles/core';
 
 const Paginator = ({ data, scrollX }) => {
   const { width } = useWindowDimensions();
