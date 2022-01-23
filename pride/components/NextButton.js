@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native';
+import { View, TouchableOpacity, Animated } from 'react-native';
 import Svg, { G, Circle } from 'react-native-svg';
 import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useRef } from 'react';
+import { MainStyles } from '../styles/core';
 
 const NextButton = ({ percentage, scrollTo }) => {
   const size = 128;
@@ -44,7 +45,7 @@ const NextButton = ({ percentage, scrollTo }) => {
 
 
   return (
-    <View style={styles.container}>
+    <View style={MainStyles.container}>
       <Svg 
         width={size}
         height={size}
@@ -75,7 +76,12 @@ const NextButton = ({ percentage, scrollTo }) => {
       </Svg>
 
       <TouchableOpacity
-        style={styles.button}
+        style={{
+          position: 'absolute',
+          backgroundColor: '#f4338f',
+          borderRadius: 100,
+          padding: 20,
+        }}
         activeOpacity={0.6}
         onPress={scrollTo}
       >
@@ -84,20 +90,5 @@ const NextButton = ({ percentage, scrollTo }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  button: {
-    position: 'absolute',
-    backgroundColor: '#f4338f',
-    borderRadius: 100,
-    padding: 20
-  }
-});
 
 export default NextButton;

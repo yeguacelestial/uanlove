@@ -1,14 +1,13 @@
 import { useRef, useState } from 'react';
-import { FlatList, StyleSheet, Text, View, Animated } from 'react-native';
+import { FlatList, View, Animated } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import slides from '../slides';
+import slides from '../views/Onboarding/slides';
 import NextButton from './NextButton';
 import OnboardingItem from './OnboardingItem';
 import Paginator from './Paginator';
-
-
+import { MainStyles } from '../styles/core';
 
 
 const Onboarding = () => {
@@ -41,8 +40,8 @@ const Onboarding = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={{ flex: 3 }}>
+    <View style={MainStyles.container}>
+      <View style={MainStyles.fx3}>
         <FlatList
           data={slides}
           renderItem={({ item }) => <OnboardingItem item={item} />}
@@ -80,14 +79,5 @@ const Onboarding = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default Onboarding;

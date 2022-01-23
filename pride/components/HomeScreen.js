@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { MainStyles } from '../styles/core';
 
 const HomeScreen = () => {
   const clearOnBoarding = async () => {
@@ -12,7 +13,7 @@ const HomeScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={MainStyles.container}>
       <Text>Home Screen</Text>
       <TouchableOpacity onPress={clearOnBoarding}>
         <Text>Clear Onboarding</Text>
@@ -20,13 +21,5 @@ const HomeScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-})
 
 export default HomeScreen;

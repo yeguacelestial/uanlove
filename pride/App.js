@@ -1,12 +1,14 @@
+import { useEffect, useState } from 'react';
+import { View, ActivityIndicator } from 'react-native';
+
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import HomeScreen from './components/HomeScreen';
 import Onboarding from './components/Onboarding';
-import { useEffect, useState } from 'react';
 
+import { MainColours, MainStyles } from './styles/core';
 
 const Loading = () => {
   return (
@@ -18,6 +20,7 @@ const Loading = () => {
 
 
 export default function App() {
+
   const [loading, setLoading] = useState(true);
   const [viewedOnboarding, setViewedOnboarding] = useState(false);
 
@@ -40,18 +43,9 @@ export default function App() {
   }, [])
 
   return (
-    <View style={styles.container}>
+    <View style={MainStyles.container}>
       {loading ? <Loading/> : viewedOnboarding ? <HomeScreen/> : <Onboarding/>}
       <StatusBar style="auto" />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
