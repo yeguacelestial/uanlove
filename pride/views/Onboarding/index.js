@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react';
-import { FlatList, View, Animated } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { FlatList, View, Animated, LayoutAnimation, Platform, UIManager, Text } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -12,6 +12,12 @@ import Paginator from './components/Paginator';
 import { MainStyles } from '../../styles/core';
 import SignInButton from './components/SignInButton';
 
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 const Onboarding = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -39,6 +45,13 @@ const Onboarding = () => {
       })
     } else {
       console.log('last item');
+      LayoutAnimation.configureNext({
+        duration: 1000,
+        create: {
+          type: LayoutAnimation.Types.easeInEaseOut,
+          property: LayoutAnimation.Properties.scaleXY,
+        },
+      });
       setViewedOnboarding(true);
 
       try {
@@ -83,8 +96,8 @@ const Onboarding = () => {
         scrollX={scrollX}
       />
       {
-        viewedOnboarding ? (
-          <SignInButton/>
+        currentIndex + 1 == slides.length ? (
+          <SignInButton />
         ) : (
           <NextButton
             percentage={(currentIndex + 1) * (100 / slides.length)}
