@@ -5,10 +5,12 @@ import { StatusBar } from 'expo-status-bar';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Onboarding from './views/Onboarding';
-import HomeScreen from './views/Onboarding/components/HomeScreen';
+import Onboarding from './screens/Onboarding';
+import HomeScreen from './screens/Onboarding/components/HomeScreen';
 
 import { MainColours, MainStyles } from './styles/core';
+import { NavigationContainer } from '@react-navigation/native';
+import CustomBottomTabBar from './navigation/CustomBottomTabBar';
 
 const Loading = () => {
   return (
@@ -43,10 +45,14 @@ export default function App() {
   }, [])
 
   return (
-    <View style={MainStyles.container}>
-      <Onboarding/>
-      {/* {loading ? <Loading/> : viewedOnboarding ? <HomeScreen/> : <Onboarding/>} */}
+    // <View style={MainStyles.container}>
+    //   <Onboarding/>
+    //   {/* {loading ? <Loading/> : viewedOnboarding ? <HomeScreen/> : <Onboarding/>} */}
+    // </View>
+    <NavigationContainer>
       <StatusBar style="auto" />
-    </View>
+      {/* <Onboarding/> */}
+      <CustomBottomTabBar/>
+    </NavigationContainer>
   );
 }
