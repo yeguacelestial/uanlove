@@ -1,5 +1,6 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import useAzureAuth from './useAzureAuth';
 
@@ -7,9 +8,6 @@ const BASE_API_ENDPOINT = process.env.BASE_API_ENDPOINT;
 
 const useAuthProvider = () => {
   const { response, promptAsync, tokenResponse, azureAuthError } = useAzureAuth();
-
-  // TODO: Handle affair response
-  const [affairResponse, setAffairResponse] = useState({});
 
   // Login endpoint
   const loginEndpoint = `${BASE_API_ENDPOINT}login-as-student`;
@@ -29,15 +27,20 @@ const useAuthProvider = () => {
           })
         });
 
-        console.log("[D] ACCESS TOKEN => ", tokenResponse.accessToken);
-        console.log("[D] ID TOKEN => ", tokenResponse.idToken);
-        console.log("[D] CODE => ", tokenResponse.code);
-
         const responseJson = await serverResponse.json();
         
-        console.log("[D] SERVER RESPONSE => ", responseJson)
+        console.log("[D] KEY => ", responseJson.key)
 
-        setAffairResponse(responseJson);
+        if (responseJson?.key) {
+          try {
+            await AsyncStorage.setItem('@userToken', responseJson.key);
+          } catch (err) {
+            Alert.alert(
+              'Error al iniciar sesión',
+              'No se pudo validar tu cuenta. Por favor, intenta de nuevo.',
+            );
+          }
+        }
         Alert.alert('Affair response', JSON.stringify(responseJson));
 
         return responseJson;
@@ -56,14 +59,14 @@ const useAuthProvider = () => {
     [loginEndpoint]
   );
 
-  // If there is a tokenResponse, send it to back-end server
+  // If there is a tokenResponse from azure, send it to back-end server
   useEffect(() => {
     if (tokenResponse) {
       sendToAffair(tokenResponse);
     }
   }, [sendToAffair, tokenResponse]);
 
-  return { promptAsync, affairResponse };
+  return { promptAsync };
 };
 
 export default useAuthProvider;

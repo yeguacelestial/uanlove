@@ -11,6 +11,7 @@ import HomeScreen from './screens/Onboarding/components/HomeScreen';
 import { MainColours, MainStyles } from './styles/core';
 import { NavigationContainer } from '@react-navigation/native';
 import CustomBottomTabBar from './navigation/CustomBottomTabBar';
+import useAuthProvider from './screens/Onboarding/hooks/useAuthProvider';
 
 const Loading = () => {
   return (
@@ -24,6 +25,8 @@ const Loading = () => {
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [viewedOnboarding, setViewedOnboarding] = useState(false);
+
+  const [userToken, setUserToken] = useState(null);
 
   const checkOnboarding = async () => {
     try {
@@ -43,6 +46,25 @@ export default function App() {
     checkOnboarding()
   }, [])
 
+  const checkUserToken = async () => {
+    try {
+      const token = await AsyncStorage.getItem('@userToken');
+
+      if (token != null) {
+        setUserToken(token);
+      }
+    } catch(err) {
+      console.log("@checkUserToken error: ", err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    checkUserToken()
+    console.log("@userToken: ", userToken)
+  }, [userToken])
+
   return (
     // <View style={MainStyles.container}>
     //   <Onboarding/>
@@ -50,7 +72,8 @@ export default function App() {
     // </View>
     <NavigationContainer>
       <StatusBar style="auto" />
-      <Onboarding/>
+      {/* <Onboarding/> */}
+      { userToken ? <CustomBottomTabBar/> : <Onboarding/> }
       {/* <CustomBottomTabBar/> */}
     </NavigationContainer>
   );
