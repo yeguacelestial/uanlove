@@ -6,7 +6,7 @@ import { MainStyles } from '../../../styles/core';
 import useAuthProvider from '../hooks/useAuthProvider';
 
 const SignInButton = () => {
-  const { promptAsync, affairResponse } = useAuthProvider();
+  const { promptAsync } = useAuthProvider();
 
   return (
     <View style={MainStyles.container}>

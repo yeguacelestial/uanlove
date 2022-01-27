@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 
 const MainColours = {
   primary: "#000",
@@ -43,7 +43,7 @@ const MainStyles = StyleSheet.create({
   },
 
   title: {
-    fontWeight: '800',
+    fontWeight: Platform.OS == 'ios' ? '800' : '700',
     fontSize: 28,
     marginBottom: 10,
     color: '#493d8a',
@@ -51,7 +51,7 @@ const MainStyles = StyleSheet.create({
   },
 
   description: {
-    fontWeight: '800',
+    fontWeight: Platform.OS == 'ios' ? '800' : '700',
     color: '#62656b',
     textAlign: 'center',
     paddingHorizontal: 64,
