@@ -51,8 +51,8 @@ export default function App() {
     // </View>
     <NavigationContainer>
       <StatusBar style="auto" />
-      {/* <Onboarding/> */}
-      <CustomBottomTabBar/>
+      <Onboarding/>
+      {/* <CustomBottomTabBar/> */}
     </NavigationContainer>
   );
 }
