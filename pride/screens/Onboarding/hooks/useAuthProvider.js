@@ -3,10 +3,10 @@ import { Alert } from 'react-native';
 
 import useAzureAuth from './useAzureAuth';
 
-const useAuthProvider = () => {
-  const BASE_API_ENDPOINT = process.env.BASE_API_ENDPOINT;
+const BASE_API_ENDPOINT = process.env.BASE_API_ENDPOINT;
 
-  const { promptAsync, tokenResponse } = useAzureAuth();
+const useAuthProvider = () => {
+  const { response, promptAsync, tokenResponse, azureAuthError } = useAzureAuth();
 
   // TODO: Handle affair response
   const [affairResponse, setAffairResponse] = useState({});
@@ -18,7 +18,6 @@ const useAuthProvider = () => {
   const sendToAffair = useCallback(
     async (tokenResponse) => {
       try {
-        // Do POST request to login endpoint, including access token in body
         const serverResponse = await fetch(loginEndpoint, {
           method: 'POST',
           headers: {
@@ -30,11 +29,16 @@ const useAuthProvider = () => {
           })
         });
 
-        const responseJson = await serverResponse.json();
+        console.log("[D] ACCESS TOKEN => ", tokenResponse.accessToken);
+        console.log("[D] ID TOKEN => ", tokenResponse.idToken);
+        console.log("[D] CODE => ", tokenResponse.code);
 
-        // If response is succesful, set the response and alert user
+        const responseJson = await serverResponse.json();
+        
+        console.log("[D] SERVER RESPONSE => ", responseJson)
+
         setAffairResponse(responseJson);
-        Alert.alert('Affair response', JSON.stringify(affairResponse));
+        Alert.alert('Affair response', JSON.stringify(responseJson));
 
         return responseJson;
       } catch (e) {
