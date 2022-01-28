@@ -1,21 +1,22 @@
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 
+import Onboarding from '../../screens/Onboarding';
 import HomeScreen from '../../screens/HomeScreen';
 import FindScreen from '../../screens/FindScreen';
 import ChatScreen from '../../screens/ChatScreen';
 import PostScreen from '../../screens/PostScreen';
 import SettingsScreen from '../../screens/SettingsScreen';
 
-import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { MainStyles } from '../../styles/core';
 import CustomTabBarButton from './components/CustomTabBarButton';
 import GenericTabBarButton from './components/GenericTabBarButton';
 
+
 const Tab = createBottomTabNavigator();
 
-
-const CustomBottomTabBar = () => {
+const CustomBottomTabBar = ({ navigation }) => {
   return (
 		<Tab.Navigator
 			screenOptions={{
@@ -32,6 +33,7 @@ const CustomBottomTabBar = () => {
 					...MainStyles.shadow,
 				}],
 			}}
+			initialRouteName="Home"
 		>
 			<Tab.Screen name="Home" component={HomeScreen} options={{
 				tabBarIcon: ({ focused }) => (

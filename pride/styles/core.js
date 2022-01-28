@@ -1,8 +1,7 @@
 import { StyleSheet, Platform } from "react-native";
 
 const MainColours = {
-  primary: "#000",
-  secondary: "rgba(127,127,127,0.5)",
+  white: "#ffffff",
 }
 
 const MainStyles = StyleSheet.create({
@@ -18,6 +17,10 @@ const MainStyles = StyleSheet.create({
 
   row: {
     flexDirection: "row",
+  },
+
+  bgWhite: {
+    backgroundColor: MainColours.white,
   },
 
   fx1: {

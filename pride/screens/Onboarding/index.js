@@ -12,7 +12,7 @@ import Paginator from './components/Paginator';
 import { MainStyles } from '../../styles/core';
 import SignInButton from './components/SignInButton';
 
-const Onboarding = () => {
+const Onboarding = ({ navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -36,8 +36,7 @@ const Onboarding = () => {
         index: currentIndex + 1,
       })
     } else {
-      console.log('last item');
-
+      // viewed last item
       try {
         await AsyncStorage.setItem('@viewedOnboarding', 'true');
       } catch(err) {
@@ -47,7 +46,7 @@ const Onboarding = () => {
   };
 
   return (
-    <View style={MainStyles.container}>
+    <View style={[MainStyles.container, MainStyles.bgWhite]}>
       <View style={MainStyles.fx3}>
         <FlatList
           data={slides}
@@ -81,7 +80,7 @@ const Onboarding = () => {
       />
       {
         currentIndex + 1 == slides.length ? (
-          <SignInButton />
+          <SignInButton navigation={navigation} />
         ) : (
           <NextButton
             percentage={(currentIndex + 1) * (100 / slides.length)}
