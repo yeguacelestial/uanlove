@@ -17,11 +17,20 @@ const useUserToken = () => {
     }
   }
 
+  const destroyUserToken = async () => {
+    try {
+      await AsyncStorage.removeItem('@userToken');
+      setUserToken(null);
+    } catch(err) {
+      console.log("@destroyUserToken error: ", err);
+    }
+  }
+
   useEffect(() => {
     checkUserToken();
   }, []);
 
-  return { userToken }
+  return { userToken, destroyUserToken }
 };
 
 export default useUserToken;
