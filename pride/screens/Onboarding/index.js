@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { FlatList, View, Animated} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,7 +12,15 @@ import Paginator from './components/Paginator';
 import { MainStyles } from '../../styles/core';
 import SignInButton from './components/SignInButton';
 
+import useUserToken from '../../hooks/useUserToken';
+
 const Onboarding = ({ navigation }) => {
+  const { userToken } = useUserToken();
+
+  useEffect(() => {
+    userToken ? navigation.navigate('CustomBottomTabBar') : null;
+  }, [userToken])
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const scrollX = useRef(new Animated.Value(0)).current;
