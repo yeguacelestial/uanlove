@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, Button } from 'react-native';
 
 import AwesomeButtonC137 from 'react-native-really-awesome-button/src/themes/c137';
@@ -5,8 +6,14 @@ import AwesomeButtonC137 from 'react-native-really-awesome-button/src/themes/c13
 import { MainStyles } from '../../../styles/core';
 import useAuthProvider from '../hooks/useAuthProvider';
 
-const SignInButton = () => {
-  const { promptAsync } = useAuthProvider();
+const SignInButton = ({ navigation }) => {
+  const { promptAsync, affairResponse } = useAuthProvider();
+
+  useEffect(() => {
+    if (affairResponse?.key) {
+      navigation.navigate('CustomBottomTabBar');
+    }
+  }, [affairResponse])
 
   return (
     <View style={MainStyles.container}>
