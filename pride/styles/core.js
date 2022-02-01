@@ -69,8 +69,16 @@ const MainStyles = StyleSheet.create({
 		shadowOpacity: 0.25,
 		shadowRadius: 3.5,
 		elevation: 5,
+	},
+
+  menuItemText: {
+		color: '#777777',
+		marginLeft: 20,
+		fontWeight: '600',
+		fontSize: 16,
+		lineHeight: 26
 	}
-});
+}); 
 
 export {
   MainColours,
