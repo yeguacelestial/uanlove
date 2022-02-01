@@ -77,6 +77,33 @@ const MainStyles = StyleSheet.create({
 		fontWeight: '600',
 		fontSize: 16,
 		lineHeight: 26
+	},
+
+  panelButton: {
+		padding: 13,
+		borderRadius: 10,
+		backgroundColor: '#FF6347',
+		alignItems: 'center',
+		marginVertical: 7
+	},
+  panelButtonTitle: {
+		fontSize: 17,
+		fontWeight: 'bold',
+		color: 'white'
+	},
+  action: {
+		flexDirection: 'row',
+		marginTop: 10,
+		marginBottom: 10,
+		borderBottomWidth: 1,
+		borderBottomColor: '#f2f2f2',
+		paddingBottom: 5
+	},
+  textInput: {
+		flex: 1,
+		marginTop: Platform.OS === 'ios' ? 0 : -5,
+		paddingLeft: 10,
+		color: '#05375a',
 	}
 }); 
 
