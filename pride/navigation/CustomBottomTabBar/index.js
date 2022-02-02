@@ -2,19 +2,18 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 
-import Onboarding from '../../screens/Onboarding';
 import HomeScreen from '../../screens/HomeScreen';
-import FindScreen from '../../screens/FindScreen';
+import ProfileScreen from '../../screens/ProfileScreen';
 import ChatScreen from '../../screens/ChatScreen';
-import PostScreen from '../../screens/PostScreen';
+import MatchesScreen from '../../screens/MatchesScreen';
 import SettingsScreen from '../../screens/SettingsScreen';
 
 import { MainStyles } from '../../styles/core';
 import CustomTabBarButton from './components/CustomTabBarButton';
 import GenericTabBarButton from './components/GenericTabBarButton';
 
-
 const Tab = createBottomTabNavigator();
+
 
 const CustomBottomTabBar = ({ navigation }) => {
   return (
@@ -44,16 +43,16 @@ const CustomBottomTabBar = ({ navigation }) => {
 					/>
 				),
 			}} />
-			<Tab.Screen name="Find" component={FindScreen} options={{
+			<Tab.Screen name="Profile" component={ProfileScreen} options={{
 				tabBarIcon: ({ focused }) => (
 					<GenericTabBarButton
 						focused={focused}
-						text={'Find'}
-						icon={<AntDesign name="find" size={24} color={focused ? '#e32f45' : '#748c94'} />}
+						text={'Perfil'}
+						icon={<AntDesign name="profile" size={24} color={focused ? '#e32f45' : '#748c94'} />}
 					/>
 				),
 			}} />
-			<Tab.Screen name="Post" component={PostScreen} options={{
+			<Tab.Screen name="Matches" component={MatchesScreen} options={{
 				tabBarIcon: ({ focused }) => (
 					<AntDesign name="heart" size={30} color="#fff" />
 				),
@@ -75,7 +74,7 @@ const CustomBottomTabBar = ({ navigation }) => {
 				tabBarIcon: ({ focused }) => (
 					<GenericTabBarButton
 						focused={focused}
-						text={'Settings'}
+						text={'Ajustes'}
 						icon={<Ionicons name="settings-outline" size={24} color={focused ? '#e32f45' : '#748c94'} />}
 					/>
 				),

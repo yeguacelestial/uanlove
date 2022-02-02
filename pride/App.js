@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Onboarding from './screens/Onboarding';
 import CustomBottomTabBar from './navigation/CustomBottomTabBar';
+import EditProfileScreen from './screens/EditProfileScreen';
 
 
 const Stack = createStackNavigator();
@@ -20,6 +21,7 @@ export default function App() {
         <Stack.Screen name="CustomBottomTabBar" component={CustomBottomTabBar} options={{
           headerShown: false,
         }} />
+        <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
