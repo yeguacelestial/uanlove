@@ -1,4 +1,4 @@
-import { StyleSheet, View, SafeAreaView } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 
 import {
 	Avatar,
@@ -43,7 +43,7 @@ const ProfileScreen = ({ navigation }) => {
               fontSize: 14,
               lineHeight: 14,
               fontWeight: '500'
-            }}>@johndoe</Caption>
+            }}>john.doe@uanl.edu.mx</Caption>
           </View>
         </View>
       </View>
@@ -63,10 +63,10 @@ const ProfileScreen = ({ navigation }) => {
           <Text
             style={{
               color: '#777777',
-              marginLeft: 20
+              marginLeft: 8
             }}
           >
-            Monterrey, Mexico
+            FACULTAD DE INGENIERÍA MECÁNICA Y ELÉCTRICA
           </Text>
         </View>
 
@@ -84,31 +84,10 @@ const ProfileScreen = ({ navigation }) => {
           <Text
             style={{
               color: '#777777',
-              marginLeft: 20
+              marginLeft: 10
             }}
           >
-            FACULTAD DE INGENIERÍA MECÁNICA Y ELÉCTRICA
-          </Text>
-        </View>
-
-        <View style={[
-          MainStyles.row,
-          {
-            marginBottom: 10,
-          }
-        ]}>
-          <MaterialCommunityIcons
-            name="email"
-            size={20}
-            color="#777777"
-          />
-          <Text
-            style={{
-              color: '#777777',
-              marginLeft: 20
-            }}
-          >
-            johndoe@uanl.edu.mx
+            ALUMNO SUPERIOR
           </Text>
         </View>
       </View>

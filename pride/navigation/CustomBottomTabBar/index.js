@@ -11,10 +11,9 @@ import SettingsScreen from '../../screens/SettingsScreen';
 import { MainStyles } from '../../styles/core';
 import CustomTabBarButton from './components/CustomTabBarButton';
 import GenericTabBarButton from './components/GenericTabBarButton';
-import EditProfileScreen from '../../screens/EditProfileScreen';
-
 
 const Tab = createBottomTabNavigator();
+
 
 const CustomBottomTabBar = ({ navigation }) => {
   return (

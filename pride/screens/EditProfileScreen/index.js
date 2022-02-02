@@ -1,20 +1,14 @@
 import { useRef } from 'react';
+import { View } from 'react-native';
 
 import {
-	ImageBackground,
-	Text,
-	TouchableOpacity,
-	View 
-} from 'react-native';
-
-import {
-	MaterialCommunityIcons,
 	FontAwesome,
 	Feather
 } from '@expo/vector-icons';
 
 import BottomSheet from 'reanimated-bottom-sheet'
 import Animated from 'react-native-reanimated'
+
 import { MainStyles } from '../../styles/core';
 import RenderInnerBottomSheet from './components/RenderInnerBottomSheet';
 import RenderHeaderBottomSheet from './components/RenderHeaderBottomSheet';
