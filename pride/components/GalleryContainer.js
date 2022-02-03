@@ -5,7 +5,28 @@ import {
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
 
+import * as ImagePicker from 'expo-image-picker';
+import { useEffect, useState } from 'react';
+
+
 const GalleryContainer = ({ navigation, images, style, editMode }) => {
+  const [image1, setImage1] = useState(null);
+
+  const pickImage1 = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage1(result.uri)
+    }
+  }
+
   const deviceWidth = Dimensions.get('window').width;
   const deviceHeight = Dimensions.get('window').height;
 
@@ -20,12 +41,12 @@ const GalleryContainer = ({ navigation, images, style, editMode }) => {
         images.map((image, index) => (
           <TouchableOpacity
             key={index}
-            onPress={() => { }}
+            onPress={pickImage1}
           >
             {
               editMode ? (
                 <ImageBackground
-                  source={image.url}
+                  source={image1 ? image1.uri : image.url}
                   style={{
                     height: deviceHeight / 3.5,
                     width: deviceWidth / 3 - 6,
