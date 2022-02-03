@@ -1,4 +1,6 @@
+import { View } from 'react-native';
 import GalleryContainer from '../../components/GalleryContainer';
+import { MainStyles } from '../../styles/core';
 
 import slides from '../Onboarding/slides';
 
@@ -9,10 +11,10 @@ const EditProfilePhotosScreen = ({ navigation }) => {
     }
   });
 
-  const placeholders = 6 - images.length;
+  const addImagePlaceholders = 6 - images.length;
 
-  if (placeholders > 0) {
-    for (let i = 0; i < placeholders; i++) {
+  if (addImagePlaceholders > 0) {
+    for (let i = 0; i < addImagePlaceholders; i++) {
       images.push({
         addImagePlaceholder: true,
       });
@@ -20,10 +22,12 @@ const EditProfilePhotosScreen = ({ navigation }) => {
   }
 
   return (
+    <View style={MainStyles.container}>
       <GalleryContainer
         images={images}
         editMode
       />
+    </View>
   );
 };
 

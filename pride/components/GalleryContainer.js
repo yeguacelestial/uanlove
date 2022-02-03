@@ -34,7 +34,10 @@ const GalleryContainer = ({ navigation, images, style, editMode }) => {
                     borderColor: '#dddddd',
                     margin: 2,
                     backgroundColor: 'black',
-                    opacity: 0.6
+                    opacity: 0.7
+                  }}
+                  imageStyle={{
+                    opacity: 0.7
                   }}
                 >
                   <View style={MainStyles.container}>
@@ -61,7 +64,6 @@ const GalleryContainer = ({ navigation, images, style, editMode }) => {
                         />
                       )
                     }
-
                   </View>
                 </ImageBackground>
               ) : (
