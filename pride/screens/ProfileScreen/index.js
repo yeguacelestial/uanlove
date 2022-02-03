@@ -98,7 +98,7 @@ const ProfileScreen = ({ navigation }) => {
         borderTopColor: '#dddddd',
         borderTopWidth: 1,
         flexDirection: 'row',
-        height: 100
+        height: 80
       }}>
         <View
           style={[
