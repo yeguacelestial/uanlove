@@ -9,9 +9,20 @@ const EditProfilePhotosScreen = ({ navigation }) => {
     }
   });
 
+  const placeholders = 6 - images.length;
+
+  if (placeholders > 0) {
+    for (let i = 0; i < placeholders; i++) {
+      images.push({
+        addImagePlaceholder: true,
+      });
+    }
+  }
+
   return (
       <GalleryContainer
         images={images}
+        editMode
       />
   );
 };
