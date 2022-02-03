@@ -1,4 +1,4 @@
-import { View, SafeAreaView } from 'react-native';
+import { View, SafeAreaView, ScrollView } from 'react-native';
 
 import {
 	Avatar,
@@ -12,9 +12,12 @@ import {
 	MaterialCommunityIcons
 } from '@expo/vector-icons'
 import { MainStyles } from '../../styles/core';
+import GalleryContainer from '../../components/GalleryContainer';
+import slides from '../Onboarding/slides';
 
 const ProfileScreen = ({ navigation }) => {
   return (
+    <ScrollView>
     <SafeAreaView style={MainStyles.fx1}>
       <View style={{
         paddingHorizontal: 30,
@@ -50,7 +53,7 @@ const ProfileScreen = ({ navigation }) => {
 
       <View style={{
         paddingHorizontal: 30,
-        marginBottom: 25,
+        // marginBottom: 25,
       }}>
         <View style={[MainStyles.row, {
           marginBottom: 10,
@@ -73,7 +76,7 @@ const ProfileScreen = ({ navigation }) => {
         <View style={[
           MainStyles.row,
           {
-            marginBottom: 10,
+            // marginBottom: 10,
           }
         ]}>
           <MaterialCommunityIcons
@@ -91,6 +94,25 @@ const ProfileScreen = ({ navigation }) => {
           </Text>
         </View>
       </View>
+
+      <TouchableRipple onPress={() => navigation.navigate('EditProfile')}>
+        <View style={[
+          MainStyles.row,
+          {
+            paddingVertical: 15,
+            paddingHorizontal: 30
+          }
+        ]}>
+          <MaterialCommunityIcons
+            name="account-edit"
+            color="#FF6347"
+            size={25}
+          />
+          <Text style={MainStyles.menuItemText}>
+            Editar perfil
+          </Text>
+        </View>
+      </TouchableRipple>
 
       <View style={{
         borderBottomColor: '#dddddd',
@@ -127,29 +149,18 @@ const ProfileScreen = ({ navigation }) => {
         </View>
       </View>
 
-      <View style={{
-        marginTop: 10,
-      }}>
-        <TouchableRipple onPress={() => navigation.navigate('EditProfile')}>
-          <View style={[
-            MainStyles.row,
-            {
-              paddingVertical: 15,
-		          paddingHorizontal: 30
-            }
-          ]}>
-            <MaterialCommunityIcons
-              name="account-edit"
-              color="#FF6347"
-              size={25}
-            />
-            <Text style={MainStyles.menuItemText}>
-              Editar perfil
-            </Text>
-          </View>
-        </TouchableRipple>
-      </View>
+      <GalleryContainer
+        images={slides.map(slide => {
+          return {
+            url: slide.image,
+          }
+        })}
+        style={{
+          marginTop: 10,
+        }}
+      />
     </SafeAreaView>
+    </ScrollView>
   );
 };
 

@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Onboarding from './screens/Onboarding';
 import CustomBottomTabBar from './navigation/CustomBottomTabBar';
 import EditProfileScreen from './screens/EditProfileScreen';
-import GalleryScreen from './screens/GalleryScreen';
+import EditProfilePhotosScreen from './screens/EditProfilePhotosScreen';
 
 
 const Stack = createStackNavigator();
@@ -23,7 +23,7 @@ export default function App() {
           headerShown: false,
         }} />
         <Stack.Screen name="EditProfile" component={EditProfileScreen} />
-        <Stack.Screen name="GalleryScreen" component={GalleryScreen} />
+        <Stack.Screen name="EditProfilePhotos" component={EditProfilePhotosScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
