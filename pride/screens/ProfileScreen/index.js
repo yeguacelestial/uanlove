@@ -144,7 +144,7 @@ const ProfileScreen = ({ navigation }) => {
         <GalleryContainer
           images={slides.map(slide => {
             return {
-              url: slide.image,
+              uri: slide.image,
             }
           })}
           style={{

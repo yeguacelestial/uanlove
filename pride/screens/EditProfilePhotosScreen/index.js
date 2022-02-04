@@ -8,10 +8,11 @@ import slides from '../Onboarding/slides';
 const EditProfilePhotosScreen = ({ navigation }) => {
   const dummyImages = slides.map(slide => {
     return {
-      url: slide.image,
+      uri: slide.image,
     }
   });
 
+  // Generate add image placeholder
   const addImagePlaceholders = 6 - dummyImages.length;
 
   if (addImagePlaceholders > 0) {
