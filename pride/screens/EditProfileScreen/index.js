@@ -88,6 +88,11 @@ const EditProfileScreen = ({ navigation }) => {
 				/>
 
 				<PanelButton
+					text={'Editar fotos'}
+					onPress={() => navigation.navigate('EditProfilePhotos')}
+				/>
+
+				<PanelButton
 					text={'Submit'}
 				/>
 
