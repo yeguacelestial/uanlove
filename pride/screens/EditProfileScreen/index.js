@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { ScrollView, View } from 'react-native';
+import { useRef, useState } from 'react';
+import { ScrollView, Text, View, StyleSheet } from 'react-native';
 
 import {
 	Entypo,
@@ -19,7 +19,28 @@ import CustomTextInput from './components/CustomTextInput';
 import PanelButton from '../../components/PanelButton';
 import ProfilePreviewContainer from './components/ProfilePreviewContainer';
 
+import DropDown from "react-native-paper-dropdown";
+import { TextInput } from 'react-native-paper';
+import CustomDropDownInput from './components/CustomDropDownInput';
+
 const EditProfileScreen = ({ navigation }) => {
+	const [gender, setGender] = useState("");
+
+	const genderList = [
+		{
+			label: "Masculino",
+			value: "masculino",
+		},
+		{
+			label: "Femenino",
+			value: "femenino",
+		},
+		{
+			label: "Otros",
+			value: "otros",
+		},
+	];
+
 	const bs = useRef(0)
 	const fall = new Animated.Value(1)
 
@@ -74,6 +95,22 @@ const EditProfileScreen = ({ navigation }) => {
 							/>
 						}
 						placeholder={'Edad'}
+					/>
+
+					<CustomDropDownInput
+						label={'Género'}
+						value={gender}
+						setValue={setGender}
+						list={genderList}
+						icon={
+							<FontAwesome
+								name='genderless'
+								color={MainColours.textInputIconColor}
+								size={MainStyles.iconSize}
+								style={MainStyles.textInputIcon}
+							/>
+						}
+						multiSelect
 					/>
 
 					<CustomTextInput
@@ -159,3 +196,29 @@ const EditProfileScreen = ({ navigation }) => {
 };
 
 export default EditProfileScreen;
+
+const styles = StyleSheet.create({
+	dropdown: {
+		margin: 16,
+		height: 50,
+		borderBottomColor: 'gray',
+		borderBottomWidth: 0.5,
+	},
+	icon: {
+		marginRight: 5,
+	},
+	placeholderStyle: {
+		fontSize: 16,
+	},
+	selectedTextStyle: {
+		fontSize: 16,
+	},
+	iconStyle: {
+		width: 20,
+		height: 20,
+	},
+	inputSearchStyle: {
+		height: 40,
+		fontSize: 16,
+	},
+});

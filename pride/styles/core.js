@@ -1,6 +1,7 @@
 import { StyleSheet, Platform } from "react-native";
 
 const MainColours = {
+  defaultBackgroundColor: "#f9f9f9",
   textInputIconColor: "red",
   textInputIconColor: "red",
 }
@@ -105,7 +106,6 @@ const MainStyles = StyleSheet.create({
 		flex: 1,
 		marginTop: Platform.OS === 'ios' ? 0 : -5,
 		paddingLeft: 10,
-    paddingVertical: 10,
 	},
 
   textInputIcon: {

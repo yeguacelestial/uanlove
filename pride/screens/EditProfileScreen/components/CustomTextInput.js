@@ -3,7 +3,7 @@ import { MainStyles } from '../../../styles/core';
 
 import { TextInput } from 'react-native-paper'
 
-const CustomTextInput = ({ icon, placeholder }) => {
+const CustomTextInput = ({ icon, placeholder, keyboardType }) => {
   return (
     <View style={MainStyles.action}>
       <TextInput
@@ -13,6 +13,7 @@ const CustomTextInput = ({ icon, placeholder }) => {
         outlineColor='red'
         activeOutlineColor='red'
         style={MainStyles.textInput}
+        keyboardType={keyboardType ? keyboardType : 'default'}
       />
     </View>
   );
