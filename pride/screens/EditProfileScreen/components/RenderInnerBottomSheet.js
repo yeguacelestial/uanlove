@@ -20,7 +20,7 @@ const RenderInnerBottomSheet = ({
           fontSize: 27,
           height: 35,
         }}>
-					Upload Photo
+					Subir foto
 				</Text>
 
 				<Text style={{
@@ -29,21 +29,21 @@ const RenderInnerBottomSheet = ({
           height: 30,
           marginBottom: 10
         }}>
-					Choose Your Profile Picture
+					Esta será la foto principal de tu perfil.
 				</Text>
 
 				<PanelButton
-					text="Choose From Library"
+					text="Subir desde la galería"
           onPress={onPressChooseFromLibrary}
 				/>
 
 				<PanelButton
-					text="Take Photo"
+					text="Abrir la cámara"
           onPress={onPressTakePhoto}
 				/>
 
 				<PanelButton
-					text="Cancel"
+					text="Cancelar"
 					onPress={onPressCancel}
 				/>
 			</View>

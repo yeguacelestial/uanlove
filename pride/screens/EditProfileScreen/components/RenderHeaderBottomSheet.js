@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
 import { MainStyles } from '../../../styles/core';
 
 const RenderHeaderBottomSheet = () => {

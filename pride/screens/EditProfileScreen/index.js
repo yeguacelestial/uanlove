@@ -1,15 +1,18 @@
 import { useRef } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import {
+	Entypo,
+	Ionicons,
 	FontAwesome,
-	Feather
+	MaterialIcons,
+	MaterialCommunityIcons
 } from '@expo/vector-icons';
 
 import BottomSheet from 'reanimated-bottom-sheet'
 import Animated from 'react-native-reanimated'
 
-import { MainStyles } from '../../styles/core';
+import { MainColours, MainStyles } from '../../styles/core';
 import RenderInnerBottomSheet from './components/RenderInnerBottomSheet';
 import RenderHeaderBottomSheet from './components/RenderHeaderBottomSheet';
 import CustomTextInput from './components/CustomTextInput';
@@ -19,86 +22,140 @@ import ProfilePreviewContainer from './components/ProfilePreviewContainer';
 const EditProfileScreen = ({ navigation }) => {
 	const bs = useRef(0)
 	const fall = new Animated.Value(1)
-	
-  return (
-    <View style={MainStyles.fx1}>
+
+	return (
+		<View style={MainStyles.fx1}>
 			<BottomSheet
 				ref={bs}
 				snapPoints={[330, 0]}
-				renderContent={() => <RenderInnerBottomSheet onPressCancel={() => bs.current.snapTo(1)}/>}
+				renderContent={() => <RenderInnerBottomSheet onPressCancel={() => bs.current.snapTo(1)} />}
 				renderHeader={RenderHeaderBottomSheet}
 				initialSnap={1}
 				callbackNode={fall}
 				enabledGestureInteraction={true}
 			/>
-      <Animated.View style={{
-				margin: 20,
-				opacity: Animated.add(0.1, Animated.multiply(fall, 1))
-			}}>
-				<View style={MainStyles.alignCenter}>
-					<ProfilePreviewContainer
-						fullName={'John Doe'}
-						imageUri='https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
-						onPress={() => bs.current.snapTo(0)}
+			<ScrollView>
+				<Animated.View style={{
+					margin: 20,
+					opacity: Animated.add(0.1, Animated.multiply(fall, 1))
+				}}>
+					<View style={MainStyles.alignCenter}>
+						<ProfilePreviewContainer
+							fullName={'John Doe'}
+							imageUri='https://avatars.githubusercontent.com/u/52676055?s=400&u=18d95ed91216e90edacde8a5b0c7ecb8399657b5&v=4'
+							onPress={() => bs.current.snapTo(0)}
+						/>
+					</View>
+
+					<PanelButton
+						text={'Editar fotos'}
+						onPress={() => navigation.navigate('EditProfilePhotos')}
 					/>
-				</View>
-				
-				<CustomTextInput
-					icon={
-						<FontAwesome
-							name='user-o'
-							color={'#000'}
-							size={20}
-						/>
-					}
-					placeholder={'First Name'}
-				/>
 
-				<CustomTextInput
-					icon={
-						<FontAwesome
-							name='user-o'
-							color={'#000'}
-							size={20}
-						/>
-					}
-					placeholder={'Last Name'}
-				/>
+					<CustomTextInput
+						icon={
+							<Ionicons
+								name='person-outline'
+								color={MainColours.textInputIconColor}
+								size={MainStyles.iconSize}
+								style={MainStyles.textInputIcon}
+							/>
+						}
+						placeholder={'Nombre completo'}
+					/>
 
-				<CustomTextInput
-					icon={
-						<Feather
-							name='phone'
-							color={'#000'}
-							size={20}
-						/>
-					}
-					placeholder={'Phone'}
-				/>
+					<CustomTextInput
+						icon={
+							<MaterialIcons
+								name='elderly'
+								color={MainColours.textInputIconColor}
+								size={MainStyles.iconSize}
+								style={MainStyles.textInputIcon}
+							/>
+						}
+						placeholder={'Edad'}
+					/>
 
-				<CustomTextInput
-					icon={
-						<FontAwesome
-							name='envelope-o'
-							color={'#000'}
-							size={20}
-						/>
-					}
-					placeholder={'Email'}
-				/>
+					<CustomTextInput
+						icon={
+							<MaterialCommunityIcons
+								name='city-variant-outline'
+								color={MainColours.textInputIconColor}
+								size={MainStyles.iconSize}
+								style={MainStyles.textInputIcon}
+							/>
+						}
+						placeholder={'Municipio de residencia'}
+					/>
 
-				<PanelButton
-					text={'Editar fotos'}
-					onPress={() => navigation.navigate('EditProfilePhotos')}
-				/>
+					<CustomTextInput
+						icon={
+							<FontAwesome
+								name='envelope-o'
+								color={MainColours.textInputIconColor}
+								size={MainStyles.iconSize}
+								style={MainStyles.textInputIcon}
+							/>
+						}
+						placeholder={'Correo universitario'}
+					/>
 
-				<PanelButton
-					text={'Submit'}
-				/>
+					<CustomTextInput
+						icon={
+							<FontAwesome
+								name='university'
+								color={MainColours.textInputIconColor}
+								size={MainStyles.iconSize}
+								style={MainStyles.textInputIcon}
+							/>
+						}
+						placeholder={'Facultad'}
+					/>
 
-			</Animated.View>
-    </View>
-  );
+					<CustomTextInput
+						icon={
+							<Ionicons
+								name='school-outline'
+								color={MainColours.textInputIconColor}
+								size={MainStyles.iconSize}
+								style={MainStyles.textInputIcon}
+							/>
+						}
+						placeholder={'Escolaridad'}
+					/>
+
+					<CustomTextInput
+						icon={
+							<Entypo
+								name='book'
+								color={MainColours.textInputIconColor}
+								size={MainStyles.iconSize}
+								style={MainStyles.textInputIcon}
+							/>
+						}
+						placeholder={'Semestre'}
+					/>
+
+					<CustomTextInput
+						icon={
+							<MaterialCommunityIcons
+								name='script-text-outline'
+								color={MainColours.textInputIconColor}
+								size={MainStyles.iconSize}
+								style={MainStyles.textInputIcon}
+							/>
+						}
+						placeholder={'Biografía'}
+					/>
+
+					<PanelButton
+						text={'Enviar'}
+					/>
+
+				</Animated.View>
+			</ScrollView>
+		</View>
+	);
 };
 
 export default EditProfileScreen;

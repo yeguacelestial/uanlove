@@ -55,14 +55,6 @@ const ProfilePreviewContainer = ({ imageUri, fullName, onPress }) => {
           </ImageBackground>
         </View>
       </TouchableOpacity>
-
-      <Text style={{
-        marginTop: 10,
-        fontSize: 18,
-        fontWeight: 'bold'
-      }}>
-        {fullName}
-      </Text>
     </View>
   );
 };
