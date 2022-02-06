@@ -8,7 +8,6 @@ import { MainStyles } from '../../../styles/core';
 
 const CustomDropDownInput = ({ label, value, setValue, list, icon, multiSelect }) => {
   const [showDropDown, setShowDropDown] = useState(false);
-  const [showMultiSelectDropdown, setShowMultiSelectDropdown] = useState(false);
 
   return (
     <View style={{
@@ -30,7 +29,7 @@ const CustomDropDownInput = ({ label, value, setValue, list, icon, multiSelect }
           activeOutlineColor: 'red',
           style: MainStyles.textInput
         }}
-        multiSelect={multiSelect}
+        multiSelect={multiSelect ? multiSelect : false}
       />
     </View>
   );

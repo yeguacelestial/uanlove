@@ -1,5 +1,7 @@
-import { useRef, useState } from 'react';
-import { ScrollView, Text, View, StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import { ScrollView, View } from 'react-native';
+
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {
 	Entypo,
@@ -9,216 +11,212 @@ import {
 	MaterialCommunityIcons
 } from '@expo/vector-icons';
 
-import BottomSheet from 'reanimated-bottom-sheet'
 import Animated from 'react-native-reanimated'
 
 import { MainColours, MainStyles } from '../../styles/core';
-import RenderInnerBottomSheet from './components/RenderInnerBottomSheet';
-import RenderHeaderBottomSheet from './components/RenderHeaderBottomSheet';
 import CustomTextInput from './components/CustomTextInput';
 import PanelButton from '../../components/PanelButton';
 import ProfilePreviewContainer from './components/ProfilePreviewContainer';
 
-import DropDown from "react-native-paper-dropdown";
-import { TextInput } from 'react-native-paper';
 import CustomDropDownInput from './components/CustomDropDownInput';
+import usePickImage from '../../hooks/usePickImage';
 
 const EditProfileScreen = ({ navigation }) => {
 	const [gender, setGender] = useState("");
+	const [preference, setPreference] = useState("");
+	const [imageUri, setImageUri] = useState("https://avatars.githubusercontent.com/u/52676055?s=400&u=18d95ed91216e90edacde8a5b0c7ecb8399657b5&v=4")
+
+	const { pickedImage, pickImage } = usePickImage();
+
+	useEffect(() => {
+		if (pickedImage) {
+			setImageUri(pickedImage.uri);
+		}
+	}, [pickedImage])
 
 	const genderList = [
 		{
-			label: "Masculino",
-			value: "masculino",
+			label: "Hombre",
+			value: "hombre",
 		},
 		{
-			label: "Femenino",
-			value: "femenino",
+			label: "Mujer",
+			value: "mujer",
 		},
 		{
-			label: "Otros",
-			value: "otros",
+			label: "Otro",
+			value: "otro",
 		},
 	];
 
-	const bs = useRef(0)
 	const fall = new Animated.Value(1)
 
 	return (
-		<View style={MainStyles.fx1}>
-			<BottomSheet
-				ref={bs}
-				snapPoints={[330, 0]}
-				renderContent={() => <RenderInnerBottomSheet onPressCancel={() => bs.current.snapTo(1)} />}
-				renderHeader={RenderHeaderBottomSheet}
-				initialSnap={1}
-				callbackNode={fall}
-				enabledGestureInteraction={true}
-			/>
-			<ScrollView>
-				<Animated.View style={{
-					margin: 20,
-					opacity: Animated.add(0.1, Animated.multiply(fall, 1))
-				}}>
-					<View style={MainStyles.alignCenter}>
-						<ProfilePreviewContainer
-							fullName={'John Doe'}
-							imageUri='https://avatars.githubusercontent.com/u/52676055?s=400&u=18d95ed91216e90edacde8a5b0c7ecb8399657b5&v=4'
-							onPress={() => bs.current.snapTo(0)}
+		<KeyboardAwareScrollView
+			extraScrollHeight={100}
+		>
+			<View style={MainStyles.fx1}>
+				<ScrollView>
+					<Animated.View style={{
+						margin: 20,
+						opacity: Animated.add(0.1, Animated.multiply(fall, 1))
+					}}>
+						<View style={MainStyles.alignCenter}>
+							<ProfilePreviewContainer
+								imageUri={imageUri}
+								onPress={() => pickImage()}
+							/>
+						</View>
+
+						<PanelButton
+							text={'Editar fotos del perfil'}
+							onPress={() => navigation.navigate('EditProfilePhotos')}
 						/>
-					</View>
 
-					<PanelButton
-						text={'Editar fotos'}
-						onPress={() => navigation.navigate('EditProfilePhotos')}
-					/>
+						<CustomTextInput
+							icon={
+								<Ionicons
+									name='person-outline'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+							placeholder={'Nombre completo'}
+						/>
 
-					<CustomTextInput
-						icon={
-							<Ionicons
-								name='person-outline'
-								color={MainColours.textInputIconColor}
-								size={MainStyles.iconSize}
-								style={MainStyles.textInputIcon}
-							/>
-						}
-						placeholder={'Nombre completo'}
-					/>
+						<CustomTextInput
+							icon={
+								<MaterialIcons
+									name='elderly'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+							placeholder={'Fecha de nacimiento'}
+							keyboardType={'numeric'}
+						/>
 
-					<CustomTextInput
-						icon={
-							<MaterialIcons
-								name='elderly'
-								color={MainColours.textInputIconColor}
-								size={MainStyles.iconSize}
-								style={MainStyles.textInputIcon}
-							/>
-						}
-						placeholder={'Edad'}
-					/>
+						<CustomDropDownInput
+							label={'Soy...'}
+							value={gender}
+							setValue={setGender}
+							list={genderList}
+							icon={
+								<FontAwesome
+									name='genderless'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+						/>
 
-					<CustomDropDownInput
-						label={'Género'}
-						value={gender}
-						setValue={setGender}
-						list={genderList}
-						icon={
-							<FontAwesome
-								name='genderless'
-								color={MainColours.textInputIconColor}
-								size={MainStyles.iconSize}
-								style={MainStyles.textInputIcon}
-							/>
-						}
-						multiSelect
-					/>
+						<CustomDropDownInput
+							label={'Busco a alguien que sea...'}
+							value={preference}
+							setValue={setPreference}
+							list={genderList}
+							icon={
+								<FontAwesome
+									name='genderless'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+							multiSelect
+						/>
 
-					<CustomTextInput
-						icon={
-							<MaterialCommunityIcons
-								name='city-variant-outline'
-								color={MainColours.textInputIconColor}
-								size={MainStyles.iconSize}
-								style={MainStyles.textInputIcon}
-							/>
-						}
-						placeholder={'Municipio de residencia'}
-					/>
+						<CustomTextInput
+							icon={
+								<MaterialCommunityIcons
+									name='city-variant-outline'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+							placeholder={'Municipio de residencia'}
+						/>
 
-					<CustomTextInput
-						icon={
-							<FontAwesome
-								name='envelope-o'
-								color={MainColours.textInputIconColor}
-								size={MainStyles.iconSize}
-								style={MainStyles.textInputIcon}
-							/>
-						}
-						placeholder={'Correo universitario'}
-					/>
+						<CustomTextInput
+							icon={
+								<FontAwesome
+									name='envelope-o'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+							placeholder={'Correo universitario'}
+							keyboardType={'email-address'}
+						/>
 
-					<CustomTextInput
-						icon={
-							<FontAwesome
-								name='university'
-								color={MainColours.textInputIconColor}
-								size={MainStyles.iconSize}
-								style={MainStyles.textInputIcon}
-							/>
-						}
-						placeholder={'Facultad'}
-					/>
+						<CustomTextInput
+							icon={
+								<FontAwesome
+									name='university'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+							placeholder={'Facultad'}
+						/>
 
-					<CustomTextInput
-						icon={
-							<Ionicons
-								name='school-outline'
-								color={MainColours.textInputIconColor}
-								size={MainStyles.iconSize}
-								style={MainStyles.textInputIcon}
-							/>
-						}
-						placeholder={'Escolaridad'}
-					/>
+						<CustomTextInput
+							icon={
+								<Ionicons
+									name='school-outline'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+							placeholder={'Escolaridad'}
+						/>
 
-					<CustomTextInput
-						icon={
-							<Entypo
-								name='book'
-								color={MainColours.textInputIconColor}
-								size={MainStyles.iconSize}
-								style={MainStyles.textInputIcon}
-							/>
-						}
-						placeholder={'Semestre'}
-					/>
+						<CustomTextInput
+							icon={
+								<Entypo
+									name='book'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+							placeholder={'Semestre'}
+							keyboardType={'numeric'}
+						/>
 
-					<CustomTextInput
-						icon={
-							<MaterialCommunityIcons
-								name='script-text-outline'
-								color={MainColours.textInputIconColor}
-								size={MainStyles.iconSize}
-								style={MainStyles.textInputIcon}
-							/>
-						}
-						placeholder={'Biografía'}
-					/>
+						<CustomTextInput
+							icon={
+								<MaterialCommunityIcons
+									name='script-text-outline'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+							placeholder={'Bio'}
+							style={{
+								height: 140,
+							}}
+							multiline
+							showRemainingCharacters
+						/>
 
-					<PanelButton
-						text={'Enviar'}
-					/>
+						<PanelButton
+							text={'Enviar'}
+						/>
 
-				</Animated.View>
-			</ScrollView>
-		</View>
+					</Animated.View>
+				</ScrollView>
+			</View>
+		</KeyboardAwareScrollView>
 	);
 };
 
 export default EditProfileScreen;
-
-const styles = StyleSheet.create({
-	dropdown: {
-		margin: 16,
-		height: 50,
-		borderBottomColor: 'gray',
-		borderBottomWidth: 0.5,
-	},
-	icon: {
-		marginRight: 5,
-	},
-	placeholderStyle: {
-		fontSize: 16,
-	},
-	selectedTextStyle: {
-		fontSize: 16,
-	},
-	iconStyle: {
-		width: 20,
-		height: 20,
-	},
-	inputSearchStyle: {
-		height: 40,
-		fontSize: 16,
-	},
-});

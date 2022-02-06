@@ -99,7 +99,7 @@ const MainStyles = StyleSheet.create({
 		marginBottom: 10,
 		borderBottomWidth: 1,
 		borderBottomColor: '#f2f2f2',
-		paddingBottom: 5
+		paddingBottom: 5,
 	},
 
   textInput: {

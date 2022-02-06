@@ -2,15 +2,15 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
-  Text 
 } from 'react-native';
-import { MainStyles } from '../../../styles/core';
 
 import {
-	MaterialCommunityIcons,
+  MaterialCommunityIcons,
 } from '@expo/vector-icons';
 
-const ProfilePreviewContainer = ({ imageUri, fullName, onPress }) => {
+import { MainStyles } from '../../../styles/core';
+
+const ProfilePreviewContainer = ({ imageUri, onPress }) => {
   return (
     <View style={MainStyles.alignCenter}>
       <TouchableOpacity onPress={onPress}>
