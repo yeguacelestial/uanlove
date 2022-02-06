@@ -2,15 +2,15 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
-  Text 
 } from 'react-native';
-import { MainStyles } from '../../../styles/core';
 
 import {
-	MaterialCommunityIcons,
+  MaterialCommunityIcons,
 } from '@expo/vector-icons';
 
-const ProfilePreviewContainer = ({ imageUri, fullName, onPress }) => {
+import { MainStyles } from '../../../styles/core';
+
+const ProfilePreviewContainer = ({ imageUri, onPress }) => {
   return (
     <View style={MainStyles.alignCenter}>
       <TouchableOpacity onPress={onPress}>
@@ -55,14 +55,6 @@ const ProfilePreviewContainer = ({ imageUri, fullName, onPress }) => {
           </ImageBackground>
         </View>
       </TouchableOpacity>
-
-      <Text style={{
-        marginTop: 10,
-        fontSize: 18,
-        fontWeight: 'bold'
-      }}>
-        {fullName}
-      </Text>
     </View>
   );
 };

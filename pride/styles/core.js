@@ -1,7 +1,9 @@
 import { StyleSheet, Platform } from "react-native";
 
 const MainColours = {
-  white: "#ffffff",
+  defaultBackgroundColor: "#f9f9f9",
+  textInputIconColor: "red",
+  textInputIconColor: "red",
 }
 
 const MainStyles = StyleSheet.create({
@@ -97,15 +99,22 @@ const MainStyles = StyleSheet.create({
 		marginBottom: 10,
 		borderBottomWidth: 1,
 		borderBottomColor: '#f2f2f2',
-		paddingBottom: 5
+		paddingBottom: 5,
 	},
+
   textInput: {
 		flex: 1,
 		marginTop: Platform.OS === 'ios' ? 0 : -5,
 		paddingLeft: 10,
-		color: '#05375a',
-	}
-}); 
+	},
+
+  textInputIcon: {
+    marginRight: 10,
+    opacity: 0.5
+  },
+
+  iconSize: 22,
+});
 
 export {
   MainColours,
