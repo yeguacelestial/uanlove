@@ -4,8 +4,17 @@ import { MainStyles } from '../../../styles/core';
 import { TextInput } from 'react-native-paper'
 import { useState } from 'react';
 
-const CustomTextInput = ({ style, icon, placeholder, keyboardType, multiline, showRemainingCharacters }) => {
-  const [text, setText] = useState('');
+const CustomTextInput = ({
+  style,
+  icon,
+  placeholder,
+  keyboardType,
+  multiline,
+  showRemainingCharacters,
+  disabled,
+  initialText,
+}) => {
+  const [text, setText] = useState(initialText ? initialText : '');
   const [remainingCharacters, setRemainingCharacters] = useState(500);
 
   const onChangeText = (text) => {
@@ -31,6 +40,11 @@ const CustomTextInput = ({ style, icon, placeholder, keyboardType, multiline, sh
         multiline={multiline ? multiline : false}
         onChangeText={onChangeText}
         value={text}
+        autoCorrect={false}
+        autoCapitalize='none'
+        autoComplete='off'
+        autoFocus={false}
+        disabled={disabled ? disabled : false}
       />
     </View>
   );

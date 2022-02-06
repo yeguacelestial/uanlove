@@ -58,7 +58,9 @@ const EditProfileScreen = ({ navigation }) => {
 			<View style={MainStyles.fx1}>
 				<ScrollView>
 					<Animated.View style={{
-						margin: 20,
+						marginHorizontal: 20,
+						marginTop: 10,
+						marginBottom: 40,
 						opacity: Animated.add(0.1, Animated.multiply(fall, 1))
 					}}>
 						<View style={MainStyles.alignCenter}>
@@ -71,6 +73,9 @@ const EditProfileScreen = ({ navigation }) => {
 						<PanelButton
 							text={'Editar fotos del perfil'}
 							onPress={() => navigation.navigate('EditProfilePhotos')}
+							style={{
+								marginVertical: 15,
+							}}
 						/>
 
 						<CustomTextInput
@@ -83,6 +88,8 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Nombre completo'}
+							initialText={'JUAN ALEJANDRO LOPEZ OJEDA'}
+							disabled
 						/>
 
 						<CustomTextInput
@@ -152,6 +159,8 @@ const EditProfileScreen = ({ navigation }) => {
 							}
 							placeholder={'Correo universitario'}
 							keyboardType={'email-address'}
+							initialText={'juan.perezojd@uanl.edu.mx'}
+							disabled
 						/>
 
 						<CustomTextInput
@@ -164,6 +173,9 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Facultad'}
+							initialText={'FACULTAD DE INGENIERÍA MECÁNICA Y ELÉCTRICA'}
+							multiline
+							disabled
 						/>
 
 						<CustomTextInput
@@ -176,6 +188,8 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Escolaridad'}
+							initialText={'ALUMNOS SUPERIOR'}
+							disabled
 						/>
 
 						<CustomTextInput
@@ -210,6 +224,9 @@ const EditProfileScreen = ({ navigation }) => {
 
 						<PanelButton
 							text={'Enviar'}
+							style={{
+								marginTop: 15,
+							}}
 						/>
 
 					</Animated.View>
