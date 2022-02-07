@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { Platform, ScrollView, View } from 'react-native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -29,7 +29,7 @@ const EditProfileScreen = ({ navigation }) => {
 	const [gender, setGender] = useState("");
 	const [preference, setPreference] = useState("");
 
-	const [showDatePicker, setShowDatePicker] = useState(false);
+	const [showDatePicker, setShowDatePicker] = useState(Platform.OS === 'ios');
 	const [datePickerValue, setDatePickerValue] = useState(new Date(1598051730000));
 
 	const [imageUri, setImageUri] = useState("https://avatars.githubusercontent.com/u/52676055?s=400&u=18d95ed91216e90edacde8a5b0c7ecb8399657b5&v=4")
@@ -116,20 +116,28 @@ const EditProfileScreen = ({ navigation }) => {
 									style={MainStyles.textInputIcon}
 								/>
 							}
+							rightIcon={
+								<MaterialCommunityIcons
+									name='calendar'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
 							placeholder={'Fecha de nacimiento'}
 							onPressIn={() => setShowDatePicker(true)}
 						/>
 
-							{showDatePicker && (
-								<DateTimePicker
-									testID="dateTimePicker"
-									value={datePickerValue}
-									mode={"date"}
-									is24Hour={true}
-									display="default"
-									onChange={onChangeBirthdayPicker}
-								/>
-							)}
+						{showDatePicker && (
+							<DateTimePicker
+								testID="dateTimePicker"
+								value={datePickerValue}
+								mode={"date"}
+								is24Hour={true}
+								display="default"
+								onChange={onChangeBirthdayPicker}
+							/>
+						)}
 
 						<CustomTextInput
 							leftIcon={
