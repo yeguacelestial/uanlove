@@ -26,13 +26,19 @@ import usePickImage from '../../hooks/usePickImage';
 
 
 const EditProfileScreen = ({ navigation }) => {
+	const today = new Date();
+
+	const maximumDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+	const minimumDate = new Date(today.getFullYear() - 110, today.getMonth(), today.getDate());
+
+	const [age, setAge] = useState(today.getFullYear() - maximumDate.getFullYear());
 	const [gender, setGender] = useState("");
 	const [preference, setPreference] = useState("");
 	const [term, setTerm] = useState("");
 	const [major, setMajor] = useState("");
 
 	const [showDatePicker, setShowDatePicker] = useState(Platform.OS === 'ios');
-	const [datePickerValue, setDatePickerValue] = useState(new Date(1598051730000));
+	const [datePickerValue, setDatePickerValue] = useState(maximumDate);
 
 	const [imageUri, setImageUri] = useState("https://avatars.githubusercontent.com/u/52676055?s=400&u=18d95ed91216e90edacde8a5b0c7ecb8399657b5&v=4")
 
@@ -50,6 +56,12 @@ const EditProfileScreen = ({ navigation }) => {
 			setImageUri(pickedImage.uri);
 		}
 	}, [pickedImage])
+
+	useEffect(() => {
+		if (datePickerValue) {
+			setAge(today.getFullYear() - datePickerValue.getFullYear());
+		}
+	}, [datePickerValue])
 
 	// These lists will come from the backend
 	const genderList = [
@@ -135,8 +147,23 @@ const EditProfileScreen = ({ navigation }) => {
 									style={MainStyles.textInputIcon}
 								/>
 							}
-							placeholder={'Nombre completo'}
-							valueText={'JUAN ALEJANDRO LOPEZ OJEDA'}
+							placeholder={'Nombre(s)'}
+							valueText={'JUAN ALEJANDRO'}
+							multiline={Platform.OS === 'ios' ? true : false}
+							disabled
+						/>
+
+						<CustomTextInput
+							leftIcon={
+								<Ionicons
+									name='person-outline'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+							placeholder={'Apellidos'}
+							valueText={'LOPEZ OJEDA'}
 							multiline={Platform.OS === 'ios' ? true : false}
 							disabled
 						/>
@@ -171,6 +198,8 @@ const EditProfileScreen = ({ navigation }) => {
 										position: 'absolute',
 										right: 15,
 									}}
+									maximumDate={maximumDate}
+									minimumDate={minimumDate}
 								/>
 							)}
 						</View>
@@ -184,9 +213,9 @@ const EditProfileScreen = ({ navigation }) => {
 									style={MainStyles.textInputIcon}
 								/>
 							}
-							placeholder={'Edad'}
+							placeholder={'Edad calculada'}
 							keyboardType={'numeric'}
-							valueText={'25'}
+							valueText={`${age}`}
 							disabled
 						/>
 
@@ -224,13 +253,13 @@ const EditProfileScreen = ({ navigation }) => {
 						<CustomTextInput
 							leftIcon={
 								<MaterialCommunityIcons
-									name='city-variant-outline'
+									name='map-marker-outline'
 									color={MainColours.textInputIconColor}
 									size={MainStyles.iconSize}
 									style={MainStyles.textInputIcon}
 								/>
 							}
-							placeholder={'Municipio de residencia'}
+							placeholder={'Ubicación'}
 						/>
 
 						<CustomTextInput
@@ -305,6 +334,7 @@ const EditProfileScreen = ({ navigation }) => {
 									style={MainStyles.textInputIcon}
 								/>
 							}
+							multiline={Platform.OS === 'ios' ? true : false}
 						/>
 
 						<CustomTextInput

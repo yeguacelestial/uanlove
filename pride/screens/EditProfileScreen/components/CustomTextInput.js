@@ -52,7 +52,7 @@ const CustomTextInput = ({
           autoCapitalize='none'
           autoComplete='off'
           autoFocus={false}
-          disabled={disabled ? disabled : false}
+          disabled={disabled ? true : false}
           editable={editable}
         />
       </View>
