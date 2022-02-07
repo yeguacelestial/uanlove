@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {
 	Entypo,
@@ -19,14 +21,27 @@ import PanelButton from '../../components/PanelButton';
 import ProfilePreviewContainer from './components/ProfilePreviewContainer';
 
 import CustomDropDownInput from './components/CustomDropDownInput';
+
 import usePickImage from '../../hooks/usePickImage';
+
 
 const EditProfileScreen = ({ navigation }) => {
 	const [gender, setGender] = useState("");
 	const [preference, setPreference] = useState("");
+
+	const [showDatePicker, setShowDatePicker] = useState(false);
+	const [datePickerValue, setDatePickerValue] = useState(new Date(1598051730000));
+
 	const [imageUri, setImageUri] = useState("https://avatars.githubusercontent.com/u/52676055?s=400&u=18d95ed91216e90edacde8a5b0c7ecb8399657b5&v=4")
 
 	const { pickedImage, pickImage } = usePickImage();
+
+	const onChangeBirthdayPicker = (event, selectedDate) => {
+		const currentDate = selectedDate || datePickerValue;
+
+		setDatePickerValue(currentDate);
+		setShowDatePicker(false);
+	};
 
 	useEffect(() => {
 		if (pickedImage) {
@@ -79,7 +94,7 @@ const EditProfileScreen = ({ navigation }) => {
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
 								<Ionicons
 									name='person-outline'
 									color={MainColours.textInputIconColor}
@@ -93,7 +108,31 @@ const EditProfileScreen = ({ navigation }) => {
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
+								<MaterialCommunityIcons
+									name='baby-face-outline'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+							placeholder={'Fecha de nacimiento'}
+							onPressIn={() => setShowDatePicker(true)}
+						/>
+
+							{showDatePicker && (
+								<DateTimePicker
+									testID="dateTimePicker"
+									value={datePickerValue}
+									mode={"date"}
+									is24Hour={true}
+									display="default"
+									onChange={onChangeBirthdayPicker}
+								/>
+							)}
+
+						<CustomTextInput
+							leftIcon={
 								<MaterialIcons
 									name='elderly'
 									color={MainColours.textInputIconColor}
@@ -101,8 +140,10 @@ const EditProfileScreen = ({ navigation }) => {
 									style={MainStyles.textInputIcon}
 								/>
 							}
-							placeholder={'Fecha de nacimiento'}
+							placeholder={'Edad'}
 							keyboardType={'numeric'}
+							initialText={'25'}
+							disabled
 						/>
 
 						<CustomDropDownInput
@@ -110,7 +151,7 @@ const EditProfileScreen = ({ navigation }) => {
 							value={gender}
 							setValue={setGender}
 							list={genderList}
-							icon={
+							leftIcon={
 								<FontAwesome
 									name='genderless'
 									color={MainColours.textInputIconColor}
@@ -125,7 +166,7 @@ const EditProfileScreen = ({ navigation }) => {
 							value={preference}
 							setValue={setPreference}
 							list={genderList}
-							icon={
+							leftIcon={
 								<FontAwesome
 									name='genderless'
 									color={MainColours.textInputIconColor}
@@ -137,7 +178,7 @@ const EditProfileScreen = ({ navigation }) => {
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
 								<MaterialCommunityIcons
 									name='city-variant-outline'
 									color={MainColours.textInputIconColor}
@@ -149,7 +190,7 @@ const EditProfileScreen = ({ navigation }) => {
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
 								<FontAwesome
 									name='envelope-o'
 									color={MainColours.textInputIconColor}
@@ -164,7 +205,7 @@ const EditProfileScreen = ({ navigation }) => {
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
 								<FontAwesome
 									name='university'
 									color={MainColours.textInputIconColor}
@@ -179,7 +220,7 @@ const EditProfileScreen = ({ navigation }) => {
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
 								<Ionicons
 									name='school-outline'
 									color={MainColours.textInputIconColor}
@@ -193,7 +234,7 @@ const EditProfileScreen = ({ navigation }) => {
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
 								<Entypo
 									name='book'
 									color={MainColours.textInputIconColor}
@@ -206,7 +247,7 @@ const EditProfileScreen = ({ navigation }) => {
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
 								<MaterialCommunityIcons
 									name='script-text-outline'
 									color={MainColours.textInputIconColor}

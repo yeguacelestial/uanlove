@@ -1,18 +1,21 @@
+import { useState } from 'react';
 import { View } from 'react-native';
-import { MainStyles } from '../../../styles/core';
 
 import { TextInput } from 'react-native-paper'
-import { useState } from 'react';
+
+import { MainStyles } from '../../../styles/core';
 
 const CustomTextInput = ({
   style,
-  icon,
+  leftIcon,
+  rightIcon,
   placeholder,
   keyboardType,
   multiline,
   showRemainingCharacters,
   disabled,
   initialText,
+  onPressIn,
 }) => {
   const [text, setText] = useState(initialText ? initialText : '');
   const [remainingCharacters, setRemainingCharacters] = useState(500);
@@ -30,7 +33,8 @@ const CustomTextInput = ({
   return (
     <View style={[MainStyles.action, style]}>
       <TextInput
-        left={<TextInput.Icon name={() => icon} />}
+        left={<TextInput.Icon name={() => leftIcon} />}
+        right={<TextInput.Icon name={() => rightIcon} />}
         label={showRemainingCharacters ? `${placeholder} (${remainingCharacters})` : placeholder}
         mode='outlined'
         outlineColor='red'
@@ -45,6 +49,7 @@ const CustomTextInput = ({
         autoComplete='off'
         autoFocus={false}
         disabled={disabled ? disabled : false}
+        onPressIn={() => onPressIn ? onPressIn() : null}
       />
     </View>
   );
