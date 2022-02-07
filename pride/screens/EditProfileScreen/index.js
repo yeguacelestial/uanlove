@@ -103,7 +103,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Nombre completo'}
-							initialText={'JUAN ALEJANDRO LOPEZ OJEDA'}
+							valueText={'JUAN ALEJANDRO LOPEZ OJEDA'}
 							multiline={Platform.OS === 'ios' ? true : false}
 							disabled
 						/>
@@ -119,7 +119,7 @@ const EditProfileScreen = ({ navigation }) => {
 									/>
 								}
 								placeholder={'Fecha de nacimiento'}
-								initialText={datePickerValue.toDateString()}
+								valueText={datePickerValue.toDateString()}
 								editable={false}
 								onPress={() => setShowDatePicker(true)}
 							/>
@@ -153,7 +153,7 @@ const EditProfileScreen = ({ navigation }) => {
 							}
 							placeholder={'Edad'}
 							keyboardType={'numeric'}
-							initialText={'25'}
+							valueText={'25'}
 							disabled
 						/>
 
@@ -211,7 +211,7 @@ const EditProfileScreen = ({ navigation }) => {
 							}
 							placeholder={'Correo universitario'}
 							keyboardType={'email-address'}
-							initialText={'juan.perezojd@uanl.edu.mx'}
+							valueText={'juan.perezojd@uanl.edu.mx'}
 							disabled
 						/>
 
@@ -225,7 +225,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Facultad'}
-							initialText={'FACULTAD DE INGENIERÍA MECÁNICA Y ELÉCTRICA'}
+							valueText={'FACULTAD DE INGENIERÍA MECÁNICA Y ELÉCTRICA'}
 							multiline
 							disabled
 						/>
@@ -240,7 +240,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Escolaridad'}
-							initialText={'ALUMNOS SUPERIOR'}
+							valueText={'ALUMNOS SUPERIOR'}
 							disabled
 						/>
 
@@ -254,6 +254,19 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Semestre'}
+							keyboardType={'numeric'}
+						/>
+
+						<CustomTextInput
+							leftIcon={
+								<Entypo
+									name='star-outlined'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+							placeholder={'Carrera'}
 							keyboardType={'numeric'}
 						/>
 

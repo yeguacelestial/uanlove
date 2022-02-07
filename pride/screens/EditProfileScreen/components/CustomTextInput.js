@@ -13,11 +13,11 @@ const CustomTextInput = ({
   multiline,
   showRemainingCharacters,
   disabled,
-  initialText,
   onPress,
   editable,
+  valueText,
 }) => {
-  const [text, setText] = useState(initialText ? initialText : '');
+  const [text, setText] = useState(valueText);
   const [remainingCharacters, setRemainingCharacters] = useState(500);
 
   const onChangeText = (text) => {
@@ -48,7 +48,7 @@ const CustomTextInput = ({
           keyboardType={keyboardType ? keyboardType : 'default'}
           multiline={multiline ? multiline : false}
           onChangeText={onChangeText}
-          value={text}
+          value={valueText}
           autoCorrect={false}
           autoCapitalize='none'
           autoComplete='off'
