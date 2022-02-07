@@ -1,11 +1,23 @@
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { MainStyles } from '../../../styles/core';
 
 import { TextInput } from 'react-native-paper'
 import { useState } from 'react';
 
-const CustomTextInput = ({ style, icon, placeholder, keyboardType, multiline, showRemainingCharacters }) => {
-  const [text, setText] = useState('');
+const CustomTextInput = ({
+  style,
+  leftIcon,
+  rightIcon,
+  placeholder,
+  keyboardType,
+  multiline,
+  showRemainingCharacters,
+  disabled,
+  onPress,
+  editable,
+  valueText,
+}) => {
+  const [text, setText] = useState(valueText);
   const [remainingCharacters, setRemainingCharacters] = useState(500);
 
   const onChangeText = (text) => {
@@ -19,20 +31,32 @@ const CustomTextInput = ({ style, icon, placeholder, keyboardType, multiline, sh
   }
 
   return (
-    <View style={[MainStyles.action, style]}>
-      <TextInput
-        left={<TextInput.Icon name={() => icon} />}
-        label={showRemainingCharacters ? `${placeholder} (${remainingCharacters})` : placeholder}
-        mode='outlined'
-        outlineColor='red'
-        activeOutlineColor='red'
-        style={MainStyles.textInput}
-        keyboardType={keyboardType ? keyboardType : 'default'}
-        multiline={multiline ? multiline : false}
-        onChangeText={onChangeText}
-        value={text}
-      />
-    </View>
+    <TouchableOpacity
+      onPress={onPress}
+      disabled={disabled}
+    >
+      <View style={[MainStyles.action, style]}>
+        <TextInput
+          left={<TextInput.Icon name={() => leftIcon} />}
+          right={<TextInput.Icon name={rightIcon ? () => rightIcon : ''} />}
+          label={showRemainingCharacters ? `${placeholder} (${remainingCharacters})` : placeholder}
+          mode='outlined'
+          outlineColor='red'
+          activeOutlineColor='red'
+          style={MainStyles.textInput}
+          keyboardType={keyboardType ? keyboardType : 'default'}
+          multiline={multiline ? multiline : false}
+          onChangeText={onChangeText}
+          value={valueText}
+          autoCorrect={false}
+          autoCapitalize='none'
+          autoComplete='off'
+          autoFocus={false}
+          disabled={disabled ? true : false}
+          editable={editable}
+        />
+      </View>
+    </TouchableOpacity>
   );
 };
 

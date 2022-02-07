@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { Platform, ScrollView, View } from 'react-native';
 
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {
 	Entypo,
@@ -19,14 +21,35 @@ import PanelButton from '../../components/PanelButton';
 import ProfilePreviewContainer from './components/ProfilePreviewContainer';
 
 import CustomDropDownInput from './components/CustomDropDownInput';
+
 import usePickImage from '../../hooks/usePickImage';
 
+
 const EditProfileScreen = ({ navigation }) => {
+	const today = new Date();
+
+	const maximumDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+	const minimumDate = new Date(today.getFullYear() - 110, today.getMonth(), today.getDate());
+
+	const [age, setAge] = useState(today.getFullYear() - maximumDate.getFullYear());
 	const [gender, setGender] = useState("");
 	const [preference, setPreference] = useState("");
+	const [term, setTerm] = useState("");
+	const [major, setMajor] = useState("");
+
+	const [showDatePicker, setShowDatePicker] = useState(Platform.OS === 'ios');
+	const [datePickerValue, setDatePickerValue] = useState(maximumDate);
+
 	const [imageUri, setImageUri] = useState("https://avatars.githubusercontent.com/u/52676055?s=400&u=18d95ed91216e90edacde8a5b0c7ecb8399657b5&v=4")
 
 	const { pickedImage, pickImage } = usePickImage();
+
+	const onChangeBirthdayPicker = (event, selectedDate) => {
+		const currentDate = selectedDate || datePickerValue;
+
+		setDatePickerValue(currentDate);
+		setShowDatePicker(Platform.OS === 'ios');
+	};
 
 	useEffect(() => {
 		if (pickedImage) {
@@ -34,6 +57,13 @@ const EditProfileScreen = ({ navigation }) => {
 		}
 	}, [pickedImage])
 
+	useEffect(() => {
+		if (datePickerValue) {
+			setAge(today.getFullYear() - datePickerValue.getFullYear());
+		}
+	}, [datePickerValue])
+
+	// These lists will come from the backend
 	const genderList = [
 		{
 			label: "Hombre",
@@ -49,6 +79,36 @@ const EditProfileScreen = ({ navigation }) => {
 		},
 	];
 
+	const termList = [
+		{
+			label: "1er semestre",
+			value: "1",
+		},
+		{
+			label: "2do semestre",
+			value: "2",
+		},
+		{
+			label: "3er semestre",
+			value: "3",
+		},
+	]
+
+	const majorList = [
+		{
+			label: "Ingeniería en Administración de Sistemas",
+			value: "IAS",
+		},
+		{
+			label: "Ingeniería en Tecnologías de Software",
+			value: "ITS",
+		},
+		{
+			label: "Ingeniería en Mecatrónica",
+			value: "IMTC",
+		},
+	]
+
 	const fall = new Animated.Value(1)
 
 	return (
@@ -58,7 +118,9 @@ const EditProfileScreen = ({ navigation }) => {
 			<View style={MainStyles.fx1}>
 				<ScrollView>
 					<Animated.View style={{
-						margin: 20,
+						marginHorizontal: 20,
+						marginTop: 10,
+						marginBottom: 40,
 						opacity: Animated.add(0.1, Animated.multiply(fall, 1))
 					}}>
 						<View style={MainStyles.alignCenter}>
@@ -71,10 +133,13 @@ const EditProfileScreen = ({ navigation }) => {
 						<PanelButton
 							text={'Editar fotos del perfil'}
 							onPress={() => navigation.navigate('EditProfilePhotos')}
+							style={{
+								marginVertical: 15,
+							}}
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
 								<Ionicons
 									name='person-outline'
 									color={MainColours.textInputIconColor}
@@ -82,11 +147,65 @@ const EditProfileScreen = ({ navigation }) => {
 									style={MainStyles.textInputIcon}
 								/>
 							}
-							placeholder={'Nombre completo'}
+							placeholder={'Nombre(s)'}
+							valueText={'JUAN ALEJANDRO'}
+							multiline={Platform.OS === 'ios' ? true : false}
+							disabled
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
+								<Ionicons
+									name='person-outline'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+							placeholder={'Apellidos'}
+							valueText={'LOPEZ OJEDA'}
+							multiline={Platform.OS === 'ios' ? true : false}
+							disabled
+						/>
+
+						<View>
+							<CustomTextInput
+								leftIcon={
+									<MaterialCommunityIcons
+										name='calendar'
+										color={MainColours.textInputIconColor}
+										size={MainStyles.iconSize}
+										style={MainStyles.textInputIcon}
+									/>
+								}
+								placeholder={'Fecha de nacimiento'}
+								valueText={datePickerValue.toDateString()}
+								editable={false}
+								onPress={() => setShowDatePicker(true)}
+							/>
+
+							{showDatePicker && (
+								<DateTimePicker
+									testID="dateTimePicker"
+									value={datePickerValue}
+									mode={"date"}
+									is24Hour={true}
+									display="default"
+									onChange={onChangeBirthdayPicker}
+									style={{
+										width: '100%',
+										height: '100%',
+										position: 'absolute',
+										right: 15,
+									}}
+									maximumDate={maximumDate}
+									minimumDate={minimumDate}
+								/>
+							)}
+						</View>
+
+						<CustomTextInput
+							leftIcon={
 								<MaterialIcons
 									name='elderly'
 									color={MainColours.textInputIconColor}
@@ -94,8 +213,10 @@ const EditProfileScreen = ({ navigation }) => {
 									style={MainStyles.textInputIcon}
 								/>
 							}
-							placeholder={'Fecha de nacimiento'}
+							placeholder={'Edad calculada'}
 							keyboardType={'numeric'}
+							valueText={`${age}`}
+							disabled
 						/>
 
 						<CustomDropDownInput
@@ -103,7 +224,7 @@ const EditProfileScreen = ({ navigation }) => {
 							value={gender}
 							setValue={setGender}
 							list={genderList}
-							icon={
+							leftIcon={
 								<FontAwesome
 									name='genderless'
 									color={MainColours.textInputIconColor}
@@ -118,7 +239,7 @@ const EditProfileScreen = ({ navigation }) => {
 							value={preference}
 							setValue={setPreference}
 							list={genderList}
-							icon={
+							leftIcon={
 								<FontAwesome
 									name='genderless'
 									color={MainColours.textInputIconColor}
@@ -130,19 +251,19 @@ const EditProfileScreen = ({ navigation }) => {
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
 								<MaterialCommunityIcons
-									name='city-variant-outline'
+									name='map-marker-outline'
 									color={MainColours.textInputIconColor}
 									size={MainStyles.iconSize}
 									style={MainStyles.textInputIcon}
 								/>
 							}
-							placeholder={'Municipio de residencia'}
+							placeholder={'Ubicación'}
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
 								<FontAwesome
 									name='envelope-o'
 									color={MainColours.textInputIconColor}
@@ -152,10 +273,12 @@ const EditProfileScreen = ({ navigation }) => {
 							}
 							placeholder={'Correo universitario'}
 							keyboardType={'email-address'}
+							valueText={'juan.perezojd@uanl.edu.mx'}
+							disabled
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
 								<FontAwesome
 									name='university'
 									color={MainColours.textInputIconColor}
@@ -164,10 +287,13 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Facultad'}
+							valueText={'FACULTAD DE INGENIERÍA MECÁNICA Y ELÉCTRICA'}
+							multiline
+							disabled
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
 								<Ionicons
 									name='school-outline'
 									color={MainColours.textInputIconColor}
@@ -176,10 +302,16 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Escolaridad'}
+							valueText={'ALUMNOS SUPERIOR'}
+							disabled
 						/>
 
-						<CustomTextInput
-							icon={
+						<CustomDropDownInput
+							label={'Semestre'}
+							value={term}
+							setValue={setTerm}
+							list={termList}
+							leftIcon={
 								<Entypo
 									name='book'
 									color={MainColours.textInputIconColor}
@@ -187,12 +319,26 @@ const EditProfileScreen = ({ navigation }) => {
 									style={MainStyles.textInputIcon}
 								/>
 							}
-							placeholder={'Semestre'}
-							keyboardType={'numeric'}
+						/>
+
+						<CustomDropDownInput
+							label={'Carrera'}
+							value={major}
+							setValue={setMajor}
+							list={majorList}
+							leftIcon={
+								<Entypo
+									name='star-outlined'
+									color={MainColours.textInputIconColor}
+									size={MainStyles.iconSize}
+									style={MainStyles.textInputIcon}
+								/>
+							}
+							multiline={Platform.OS === 'ios' ? true : false}
 						/>
 
 						<CustomTextInput
-							icon={
+							leftIcon={
 								<MaterialCommunityIcons
 									name='script-text-outline'
 									color={MainColours.textInputIconColor}
@@ -210,6 +356,9 @@ const EditProfileScreen = ({ navigation }) => {
 
 						<PanelButton
 							text={'Enviar'}
+							style={{
+								marginTop: 15,
+							}}
 						/>
 
 					</Animated.View>

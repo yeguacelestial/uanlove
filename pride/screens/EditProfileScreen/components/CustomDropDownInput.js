@@ -6,7 +6,7 @@ import { TextInput } from 'react-native-paper'
 import DropDown from "react-native-paper-dropdown";
 import { MainStyles } from '../../../styles/core';
 
-const CustomDropDownInput = ({ label, value, setValue, list, icon, multiSelect }) => {
+const CustomDropDownInput = ({ label, value, setValue, list, leftIcon, multiSelect, multiline }) => {
   const [showDropDown, setShowDropDown] = useState(false);
 
   return (
@@ -24,10 +24,11 @@ const CustomDropDownInput = ({ label, value, setValue, list, icon, multiSelect }
         setValue={setValue}
         list={list}
         inputProps={{
-          left: <TextInput.Icon name={ () => icon }/>,
+          left: <TextInput.Icon name={ () => leftIcon }/>,
           outlineColor: 'red',
           activeOutlineColor: 'red',
-          style: MainStyles.textInput
+          style: MainStyles.textInput,
+          multiline: multiline ? true : false,
         }}
         multiSelect={multiSelect ? multiSelect : false}
       />

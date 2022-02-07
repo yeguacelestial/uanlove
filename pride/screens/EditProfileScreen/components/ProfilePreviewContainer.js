@@ -18,9 +18,7 @@ const ProfilePreviewContainer = ({ imageUri, onPress }) => {
           MainStyles.alignCenter,
           MainStyles.justifyCenter,
           {
-          height: 100,
-          width: 100,
-          borderRadius: 15,
+          height: 130,
           }
         ]}>
           <ImageBackground
@@ -28,26 +26,23 @@ const ProfilePreviewContainer = ({ imageUri, onPress }) => {
               uri: imageUri
             }}
             style={{
-              height: 100,
-              width: 100,
+              height: 115,
+              width: 115,
             }}
             imageStyle={{
-              borderRadius: 15
+              borderRadius: 150
             }}
           >
             <View style={MainStyles.container}>
               <MaterialCommunityIcons
-                name="camera"
+                name="pencil"
                 size={35}
                 color="#fff"
                 style={[
                   MainStyles.alignCenter,
                   MainStyles.justifyCenter,
                   {
-                    opacity: 0.7,
-                    borderWidth: 1,
-                    borderColor: '#fff',
-                    borderRadius: 10,
+                    opacity: 0.5,
                   }
                 ]}
               />
