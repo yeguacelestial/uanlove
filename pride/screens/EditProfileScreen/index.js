@@ -28,6 +28,8 @@ import usePickImage from '../../hooks/usePickImage';
 const EditProfileScreen = ({ navigation }) => {
 	const [gender, setGender] = useState("");
 	const [preference, setPreference] = useState("");
+	const [term, setTerm] = useState("");
+	const [major, setMajor] = useState("");
 
 	const [showDatePicker, setShowDatePicker] = useState(Platform.OS === 'ios');
 	const [datePickerValue, setDatePickerValue] = useState(new Date(1598051730000));
@@ -49,6 +51,7 @@ const EditProfileScreen = ({ navigation }) => {
 		}
 	}, [pickedImage])
 
+	// These lists will come from the backend
 	const genderList = [
 		{
 			label: "Hombre",
@@ -63,6 +66,36 @@ const EditProfileScreen = ({ navigation }) => {
 			value: "otro",
 		},
 	];
+
+	const termList = [
+		{
+			label: "1er semestre",
+			value: "1",
+		},
+		{
+			label: "2do semestre",
+			value: "2",
+		},
+		{
+			label: "3er semestre",
+			value: "3",
+		},
+	]
+
+	const majorList = [
+		{
+			label: "Ingeniería en Administración de Sistemas",
+			value: "IAS",
+		},
+		{
+			label: "Ingeniería en Tecnologías de Software",
+			value: "ITS",
+		},
+		{
+			label: "Ingeniería en Mecatrónica",
+			value: "IMTC",
+		},
+	]
 
 	const fall = new Animated.Value(1)
 
@@ -244,7 +277,11 @@ const EditProfileScreen = ({ navigation }) => {
 							disabled
 						/>
 
-						<CustomTextInput
+						<CustomDropDownInput
+							label={'Semestre'}
+							value={term}
+							setValue={setTerm}
+							list={termList}
 							leftIcon={
 								<Entypo
 									name='book'
@@ -253,11 +290,13 @@ const EditProfileScreen = ({ navigation }) => {
 									style={MainStyles.textInputIcon}
 								/>
 							}
-							placeholder={'Semestre'}
-							keyboardType={'numeric'}
 						/>
 
-						<CustomTextInput
+						<CustomDropDownInput
+							label={'Carrera'}
+							value={major}
+							setValue={setMajor}
+							list={majorList}
 							leftIcon={
 								<Entypo
 									name='star-outlined'
@@ -266,8 +305,6 @@ const EditProfileScreen = ({ navigation }) => {
 									style={MainStyles.textInputIcon}
 								/>
 							}
-							placeholder={'Carrera'}
-							keyboardType={'numeric'}
 						/>
 
 						<CustomTextInput

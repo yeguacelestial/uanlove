@@ -36,7 +36,6 @@ const CustomTextInput = ({
       disabled={disabled}
     >
       <View style={[MainStyles.action, style]}>
-
         <TextInput
           left={<TextInput.Icon name={() => leftIcon} />}
           right={<TextInput.Icon name={rightIcon ? () => rightIcon : ''} />}
