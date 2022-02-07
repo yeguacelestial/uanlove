@@ -40,7 +40,7 @@ const EditProfileScreen = ({ navigation }) => {
 		const currentDate = selectedDate || datePickerValue;
 
 		setDatePickerValue(currentDate);
-		setShowDatePicker(false);
+		setShowDatePicker(Platform.OS === 'ios');
 	};
 
 	useEffect(() => {
@@ -104,40 +104,43 @@ const EditProfileScreen = ({ navigation }) => {
 							}
 							placeholder={'Nombre completo'}
 							initialText={'JUAN ALEJANDRO LOPEZ OJEDA'}
+							multiline={Platform.OS === 'ios' ? true : false}
 							disabled
 						/>
 
-						<CustomTextInput
-							leftIcon={
-								<MaterialCommunityIcons
-									name='baby-face-outline'
-									color={MainColours.textInputIconColor}
-									size={MainStyles.iconSize}
-									style={MainStyles.textInputIcon}
-								/>
-							}
-							rightIcon={
-								<MaterialCommunityIcons
-									name='calendar'
-									color={MainColours.textInputIconColor}
-									size={MainStyles.iconSize}
-									style={MainStyles.textInputIcon}
-								/>
-							}
-							placeholder={'Fecha de nacimiento'}
-							onPressIn={() => setShowDatePicker(true)}
-						/>
-
-						{showDatePicker && (
-							<DateTimePicker
-								testID="dateTimePicker"
-								value={datePickerValue}
-								mode={"date"}
-								is24Hour={true}
-								display="default"
-								onChange={onChangeBirthdayPicker}
+						<View>
+							<CustomTextInput
+								leftIcon={
+									<MaterialCommunityIcons
+										name='calendar'
+										color={MainColours.textInputIconColor}
+										size={MainStyles.iconSize}
+										style={MainStyles.textInputIcon}
+									/>
+								}
+								placeholder={'Fecha de nacimiento'}
+								initialText={datePickerValue.toDateString()}
+								editable={false}
+								onPress={() => setShowDatePicker(true)}
 							/>
-						)}
+
+							{showDatePicker && (
+								<DateTimePicker
+									testID="dateTimePicker"
+									value={datePickerValue}
+									mode={"date"}
+									is24Hour={true}
+									display="default"
+									onChange={onChangeBirthdayPicker}
+									style={{
+										width: '100%',
+										height: '100%',
+										position: 'absolute',
+										right: 15,
+									}}
+								/>
+							)}
+						</View>
 
 						<CustomTextInput
 							leftIcon={
