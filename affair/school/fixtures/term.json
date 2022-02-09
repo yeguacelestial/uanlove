@@ -1,0 +1,72 @@
+[
+{
+  "model": "school.term",
+  "pk": 1,
+  "fields": {
+    "number": 1
+  }
+},
+{
+  "model": "school.term",
+  "pk": 2,
+  "fields": {
+    "number": 2
+  }
+},
+{
+  "model": "school.term",
+  "pk": 3,
+  "fields": {
+    "number": 3
+  }
+},
+{
+  "model": "school.term",
+  "pk": 4,
+  "fields": {
+    "number": 4
+  }
+},
+{
+  "model": "school.term",
+  "pk": 5,
+  "fields": {
+    "number": 5
+  }
+},
+{
+  "model": "school.term",
+  "pk": 6,
+  "fields": {
+    "number": 6
+  }
+},
+{
+  "model": "school.term",
+  "pk": 7,
+  "fields": {
+    "number": 7
+  }
+},
+{
+  "model": "school.term",
+  "pk": 8,
+  "fields": {
+    "number": 8
+  }
+},
+{
+  "model": "school.term",
+  "pk": 9,
+  "fields": {
+    "number": 9
+  }
+},
+{
+  "model": "school.term",
+  "pk": 10,
+  "fields": {
+    "number": 10
+  }
+}
+]

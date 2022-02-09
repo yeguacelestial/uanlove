@@ -1,0 +1,9 @@
+[
+{
+  "model": "school.campus",
+  "pk": 1,
+  "fields": {
+    "name": "Ciudad Universitaria"
+  }
+}
+]
