@@ -50,6 +50,8 @@ INSTALLED_APPS = [
 
     # Local
     'api',
+    'users',
+    'school',
 
     # REST Framework
     'rest_framework',
@@ -152,6 +154,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 """
     CUSTOM SETTINGS
 """
+AUTH_USER_MODEL = 'users.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',

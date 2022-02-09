@@ -1,0 +1,10 @@
+[
+{
+  "model": "school.degree",
+  "pk": 1,
+  "fields": {
+    "name": "Ingeniería en Tecnologías de Software",
+    "faculty": 1
+  }
+}
+]

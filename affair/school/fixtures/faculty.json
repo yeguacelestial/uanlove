@@ -1,0 +1,10 @@
+[
+{
+  "model": "school.faculty",
+  "pk": 1,
+  "fields": {
+    "name": "Facultad de Ingeniería Mecánica y Eléctrica",
+    "campus": 1
+  }
+}
+]
