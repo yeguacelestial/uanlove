@@ -52,7 +52,7 @@ class AvailableGendersViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
-class AvailableSexPreferences(viewsets.ReadOnlyModelViewSet):
+class AvailableSexPreferencesViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = SexPreference.objects.all()
     serializer_class = AvailableSexPreferencesSerializer
     permissions_classes = [permissions.IsAuthenticated]
