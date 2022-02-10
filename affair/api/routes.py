@@ -6,3 +6,4 @@ from users import views as user_views
 router = routers.DefaultRouter()
 router.register(r'me', user_views.MeViewSet)
 router.register(r'available-genders', user_views.AvailableGendersViewSet)
+router.register(r'available-sex-preferences', user_views.AvailableSexPreferences)
