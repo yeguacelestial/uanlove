@@ -4,7 +4,7 @@ from rest_framework import serializers
 from users.models import User
 
 
-class MeSerializer(serializers.ModelSerializer):
+class MeRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = (
@@ -17,4 +17,12 @@ class MeSerializer(serializers.ModelSerializer):
             'groups',
             'user_permissions',
             'username'
+        )
+
+class MeUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        exclude = (
+            'email',
+            'password',
         )
