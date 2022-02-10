@@ -1,0 +1,23 @@
+[
+{
+  "model": "users.sexpreference",
+  "pk": "5ff78ace-1926-49f7-ae7a-ca1db7f5c08b",
+  "fields": {
+    "name": "Hombres"
+  }
+},
+{
+  "model": "users.sexpreference",
+  "pk": "99146b71-3e9f-4f51-8a11-c77a7a033223",
+  "fields": {
+    "name": "Personas de mi género"
+  }
+},
+{
+  "model": "users.sexpreference",
+  "pk": "a8798f6c-c8a3-47ff-98e2-4d0c88dde177",
+  "fields": {
+    "name": "Mujeres"
+  }
+}
+]

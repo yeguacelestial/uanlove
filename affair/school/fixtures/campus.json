@@ -1,7 +1,7 @@
 [
 {
   "model": "school.campus",
-  "pk": 1,
+  "pk": "d3df1563-4eaa-49a8-98b7-42d5ebb1c3fe",
   "fields": {
     "name": "Ciudad Universitaria"
   }

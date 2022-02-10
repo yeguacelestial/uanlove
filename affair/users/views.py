@@ -1,11 +1,11 @@
 from rest_framework import viewsets, permissions, status, mixins
 from rest_framework.response import Response
 
-from users.models import User
-from users.serializers import MeRetrieveSerializer, MeUpdateSerializer
+from users.models import Gender, SexPreference, User
+from users.serializers import AvailableGendersSerializer, AvailableSexPreferencesSerializer, MeRetrieveSerializer, MeUpdateSerializer
 
 
-class Me(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
+class MeViewSet(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     permission_classes = [permissions.IsAuthenticated]
 
@@ -44,3 +44,15 @@ class Me(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
         instance = User.objects.get(email=request.user.email)
         serializer = self.get_serializer_class(instance)
         return Response(serializer.data)
+    
+    
+class AvailableGendersViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Gender.objects.all()
+    serializer_class = AvailableGendersSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class AvailableSexPreferences(viewsets.ReadOnlyModelViewSet):
+    queryset = SexPreference.objects.all()
+    serializer_class = AvailableSexPreferencesSerializer
+    permissions_classes = [permissions.IsAuthenticated]

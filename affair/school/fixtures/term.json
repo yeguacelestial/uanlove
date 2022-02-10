@@ -1,72 +1,72 @@
 [
 {
   "model": "school.term",
-  "pk": 1,
-  "fields": {
-    "number": 1
-  }
-},
-{
-  "model": "school.term",
-  "pk": 2,
-  "fields": {
-    "number": 2
-  }
-},
-{
-  "model": "school.term",
-  "pk": 3,
+  "pk": "0254f2b8-c08c-4ae8-954b-d620bbcd268b",
   "fields": {
     "number": 3
   }
 },
 {
   "model": "school.term",
-  "pk": 4,
+  "pk": "0f177104-3def-4be1-bf86-caa2b1b09f44",
+  "fields": {
+    "number": 2
+  }
+},
+{
+  "model": "school.term",
+  "pk": "49c48fd7-14d7-4056-85f9-1773a4ff7f6f",
   "fields": {
     "number": 4
   }
 },
 {
   "model": "school.term",
-  "pk": 5,
-  "fields": {
-    "number": 5
-  }
-},
-{
-  "model": "school.term",
-  "pk": 6,
+  "pk": "4e5e9686-ddc8-45d3-ab37-0a466307e2f5",
   "fields": {
     "number": 6
   }
 },
 {
   "model": "school.term",
-  "pk": 7,
+  "pk": "662c5deb-3be8-4a17-b32b-b0da08e9ad15",
   "fields": {
-    "number": 7
+    "number": 10
   }
 },
 {
   "model": "school.term",
-  "pk": 8,
+  "pk": "729a67a6-0e13-464d-a619-f9e720d2e6a5",
   "fields": {
     "number": 8
   }
 },
 {
   "model": "school.term",
-  "pk": 9,
+  "pk": "81b98a03-afd3-4e91-bb73-a09302e2fff9",
+  "fields": {
+    "number": 7
+  }
+},
+{
+  "model": "school.term",
+  "pk": "85952f2c-2375-41db-baac-60e57dec79b3",
   "fields": {
     "number": 9
   }
 },
 {
   "model": "school.term",
-  "pk": 10,
+  "pk": "d992d7c9-160f-4a5b-a3fc-05306967ae71",
   "fields": {
-    "number": 10
+    "number": 5
+  }
+},
+{
+  "model": "school.term",
+  "pk": "e793dc7a-78d9-43c5-9567-8be771a14f59",
+  "fields": {
+    "number": 1
   }
 }
 ]
