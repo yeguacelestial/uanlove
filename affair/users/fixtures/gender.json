@@ -1,0 +1,72 @@
+[
+{
+  "model": "users.gender",
+  "pk": "230e2a6b-ee04-4014-a047-0acb8820a6bc",
+  "fields": {
+    "name": "Autosexual"
+  }
+},
+{
+  "model": "users.gender",
+  "pk": "2ca69b86-3aae-45d4-9872-4beea7051138",
+  "fields": {
+    "name": "Heterosexual"
+  }
+},
+{
+  "model": "users.gender",
+  "pk": "4290ce95-11e5-4352-a6d3-6c185d999a3a",
+  "fields": {
+    "name": "Asexual"
+  }
+},
+{
+  "model": "users.gender",
+  "pk": "5088c4d2-2eae-482a-8960-758891ebc071",
+  "fields": {
+    "name": "Pansexual"
+  }
+},
+{
+  "model": "users.gender",
+  "pk": "588a4234-c0eb-425c-a144-cee9a5e367db",
+  "fields": {
+    "name": "Polisexual"
+  }
+},
+{
+  "model": "users.gender",
+  "pk": "73ccb5ad-2f2e-45f3-89cd-1e578175cfe6",
+  "fields": {
+    "name": "Bisexual"
+  }
+},
+{
+  "model": "users.gender",
+  "pk": "82279fb3-112b-412a-b533-772ef090867b",
+  "fields": {
+    "name": "Lithsexual"
+  }
+},
+{
+  "model": "users.gender",
+  "pk": "9368b63c-f36a-4a50-9522-b26c8ed39e24",
+  "fields": {
+    "name": "Homosexual"
+  }
+},
+{
+  "model": "users.gender",
+  "pk": "a2aec458-68fa-4ea2-87a9-2b90bb01dc1c",
+  "fields": {
+    "name": "Demisexual"
+  }
+},
+{
+  "model": "users.gender",
+  "pk": "d913fe63-aff8-480b-84b5-1eb0abc69ad5",
+  "fields": {
+    "name": "Antrosexual"
+  }
+}
+]

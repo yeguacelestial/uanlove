@@ -1,10 +1,10 @@
 [
 {
   "model": "school.faculty",
-  "pk": 1,
+  "pk": "c7520bfe-9cd2-4a66-9cc5-ad0caa0190cd",
   "fields": {
     "name": "Facultad de Ingeniería Mecánica y Eléctrica",
-    "campus": 1
+    "campus": "d3df1563-4eaa-49a8-98b7-42d5ebb1c3fe"
   }
 }
 ]

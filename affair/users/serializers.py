@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from users.models import User
+from users.models import Gender, User
 
 
 class MeRetrieveSerializer(serializers.ModelSerializer):
@@ -32,3 +32,9 @@ class MeUpdateSerializer(serializers.ModelSerializer):
             'degree',
             'bio'
         )
+
+
+class AvailableGendersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gender
+        fields = '__all__'
