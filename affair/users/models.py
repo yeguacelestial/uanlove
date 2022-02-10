@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 from school.models import Degree, Faculty, StudentType
 
-from .manager import CustomUserManager
+from users.manager import CustomUserManager
 
 
 class Gender(models.Model):
