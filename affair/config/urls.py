@@ -24,7 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # REST Framework
-    path('api/v1/', include(routes.router.urls)),
+    path('api/v1/user/', include(routes.user_router.urls)),
+    path('api/v1/school/', include(routes.school_router.urls)),
 
     # Auth
     path('api/v1/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
