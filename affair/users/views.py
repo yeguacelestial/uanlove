@@ -14,14 +14,19 @@ class Me(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
             return MeUpdateSerializer(instance, data=data)
 
         return MeRetrieveSerializer(instance)
-        
+
     def create(self, request):
         instance = User.objects.get(email=request.user.email)
         serializer = self.get_serializer_class(instance, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        return Response(serializer.data)
+        # send full data through list serializer
+        updated_instance = User.objects.get(email=request.user.email)
+        self.action = 'list'
+        updated_serializer = self.get_serializer_class(updated_instance)
+
+        return Response(updated_serializer.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request):
         return Response(data={

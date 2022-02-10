@@ -8,6 +8,7 @@ class MeRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = (
+            'id',
             'password',
             'last_login',
             'is_superuser',
@@ -22,7 +23,13 @@ class MeRetrieveSerializer(serializers.ModelSerializer):
 class MeUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        exclude = (
-            'email',
-            'password',
+        fields = (
+            'birthday',
+            'age',
+            'gender',
+            'sex_preference',
+            'location',
+            'term',
+            'degree',
+            'bio'
         )
