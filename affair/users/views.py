@@ -7,7 +7,7 @@ from users.serializers import (AvailableGendersSerializer,
                                AvailableSexPreferencesSerializer,
                                MeRetrieveSerializer, MeUpdateSerializer)
 
-from school.models import Faculty
+from school.models import Campus, Faculty, StudentType
 
 
 class MeViewSet(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
@@ -52,13 +52,19 @@ class MeViewSet(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
         social_account_student_type = social_account.extra_data.get('jobTitle')
 
         try:
-            faculties = Faculty.objects.get(name=social_account_faculty)
+            faculty = Faculty.objects.get(name=social_account_faculty)
         except Faculty.DoesNotExist:
-            faculties = None
+            default_campus = Campus.objects.first()
+            faculty = Faculty.objects.create_faculty(name=social_account_faculty, campus=default_campus)
+
+        try:
+            student_type = StudentType.objects.get(name=social_account_student_type)
+        except StudentType.DoesNotExist:
+            student_type = StudentType.objects.create_student_type(name=social_account_student_type)
 
         instance = User.objects.get(email=request.user.email)
-        instance.faculty = Faculty.objects.get(name__contains=social_account_faculty)
-        instance.student_type = social_account_student_type
+        instance.faculty = faculty
+        instance.student_type = student_type
         
         serializer = self.get_serializer_class(instance)
         return Response(serializer.data)
