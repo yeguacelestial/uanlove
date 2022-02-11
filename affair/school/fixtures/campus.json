@@ -1,6 +1,13 @@
 [
 {
   "model": "school.campus",
+  "pk": "b8ff15bd-feeb-4e9d-bde2-907e56225b27",
+  "fields": {
+    "name": "Campus no asignado"
+  }
+},
+{
+  "model": "school.campus",
   "pk": "d3df1563-4eaa-49a8-98b7-42d5ebb1c3fe",
   "fields": {
     "name": "Ciudad Universitaria"
