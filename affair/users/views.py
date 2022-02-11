@@ -16,16 +16,15 @@ class MeViewSet(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
         return MeRetrieveSerializer(instance)
 
     def create(self, request):
-        age = request.data.get('age', 0)
-
-        if age < 18:
+        instance = User.objects.get(email=request.user.email)
+        serializer = self.get_serializer_class(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        if serializer.validated_data.get('age') < 18:
             return Response(data={
                 'error': '¡No puedes registrarte si eres menor de 18 años!',
             }, status=status.HTTP_401_UNAUTHORIZED)
 
-        instance = User.objects.get(email=request.user.email)
-        serializer = self.get_serializer_class(instance, data=request.data)
-        serializer.is_valid(raise_exception=True)
         serializer.save()
 
         # send full data through list serializer
@@ -45,7 +44,7 @@ class MeViewSet(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
         instance = User.objects.get(email=request.user.email)
         serializer = self.get_serializer_class(instance)
         return Response(serializer.data)
-    
+
 
 class AvailableGendersViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Gender.objects.all()
