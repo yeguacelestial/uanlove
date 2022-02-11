@@ -41,11 +41,12 @@ class MeViewSet(mixins.CreateModelMixin, viewsets.ReadOnlyModelViewSet):
         }, status=status.HTTP_404_NOT_FOUND)
 
     def list(self, request):
+        # TODO: when user is logged in, associate Azure data to user model
         instance = User.objects.get(email=request.user.email)
         serializer = self.get_serializer_class(instance)
         return Response(serializer.data)
     
-    
+
 class AvailableGendersViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Gender.objects.all()
     serializer_class = AvailableGendersSerializer
