@@ -16,7 +16,8 @@ class MeRetrieveSerializer(serializers.ModelSerializer):
             'date_joined',
             'groups',
             'user_permissions',
-            'username'
+            'username',
+            'first_time_login',
         )
 
 class MeUpdateSerializer(serializers.ModelSerializer):

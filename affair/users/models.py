@@ -29,10 +29,11 @@ class User(AbstractUser):
     email = models.EmailField('email address', unique=True)
 
     # Custom fields
+    first_time_login = models.BooleanField(default=True)
     birthday = models.DateField(null=True, blank=True)
     age = models.PositiveIntegerField(null=True, blank=True)
     gender = models.ForeignKey(Gender, on_delete=models.CASCADE, null=True, blank=True)
-    sex_preference = models.ForeignKey(SexPreference, on_delete=models.CASCADE, null=True, blank=True)
+    sex_preference = models.ManyToManyField(SexPreference, blank=True)
     location = models.CharField(max_length=150, null=True, blank=True)
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE, null=True, blank=True)
     student_type = models.ForeignKey(StudentType, on_delete=models.CASCADE, null=True, blank=True)
