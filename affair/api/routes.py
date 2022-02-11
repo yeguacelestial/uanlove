@@ -13,3 +13,4 @@ user_router.register(r'available-sex-preferences', user_views.AvailableSexPrefer
 school_router = routers.DefaultRouter()
 school_router.register(r'degrees', school_views.DegreesViewSet)
 school_router.register(r'terms', school_views.TermsViewSet)
+school_router.register(r'student-types', school_views.StudentTypeViewSet)
