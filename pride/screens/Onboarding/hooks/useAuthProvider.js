@@ -9,10 +9,10 @@ const BASE_API_ENDPOINT = process.env.BASE_API_ENDPOINT;
 const useAuthProvider = () => {
   const [affairResponse, setAffairResponse] = useState(null);
 
-  const { response, promptAsync, tokenResponse, azureAuthError } = useAzureAuth();
+  const { promptAsync, tokenResponse } = useAzureAuth();
 
   // Login endpoint
-  const loginEndpoint = `${BASE_API_ENDPOINT}login-as-student`;
+  const loginEndpoint = `${BASE_API_ENDPOINT}/login-as-student`;
 
   // sendToAffair sends access token to server
   const sendToAffair = useCallback(

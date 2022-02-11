@@ -23,9 +23,12 @@ import ProfilePreviewContainer from './components/ProfilePreviewContainer';
 import CustomDropDownInput from './components/CustomDropDownInput';
 
 import usePickImage from '../../hooks/usePickImage';
+import useUserMe from '../../hooks/useUserMe';
 
 
 const EditProfileScreen = ({ navigation }) => {
+	const { userInfo } = useUserMe();
+
 	const today = new Date();
 
 	const maximumDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
@@ -148,7 +151,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Nombre(s)'}
-							valueText={'JUAN ALEJANDRO'}
+							valueText={userInfo != null ? userInfo.first_name : ''}
 							multiline={Platform.OS === 'ios' ? true : false}
 							disabled
 						/>
@@ -163,7 +166,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Apellidos'}
-							valueText={'LOPEZ OJEDA'}
+							valueText={userInfo != null ? userInfo.last_name : ''}
 							multiline={Platform.OS === 'ios' ? true : false}
 							disabled
 						/>
@@ -179,7 +182,7 @@ const EditProfileScreen = ({ navigation }) => {
 									/>
 								}
 								placeholder={'Fecha de nacimiento'}
-								valueText={datePickerValue.toDateString()}
+								valueText={userInfo != null ? userInfo.birthday : datePickerValue.toDateString()}
 								editable={false}
 								onPress={() => setShowDatePicker(true)}
 							/>
@@ -273,7 +276,7 @@ const EditProfileScreen = ({ navigation }) => {
 							}
 							placeholder={'Correo universitario'}
 							keyboardType={'email-address'}
-							valueText={'juan.perezojd@uanl.edu.mx'}
+							valueText={userInfo != null ? userInfo.email : ''}
 							disabled
 						/>
 
@@ -287,7 +290,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Facultad'}
-							valueText={'FACULTAD DE INGENIERÍA MECÁNICA Y ELÉCTRICA'}
+							valueText={userInfo != null ? userInfo.faculty : ''}
 							multiline
 							disabled
 						/>
@@ -302,7 +305,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Escolaridad'}
-							valueText={'ALUMNOS SUPERIOR'}
+							valueText={userInfo != null ? userInfo.student_type : ''}
 							disabled
 						/>
 
