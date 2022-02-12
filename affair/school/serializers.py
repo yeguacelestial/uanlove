@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from school.models import StudentType, Term, Degree
+from school.models import Faculty, StudentType, Term, Degree
 
 
 class TermsSerializer(serializers.ModelSerializer):
@@ -19,3 +19,9 @@ class StudentTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentType
         fields = ['id', 'name']
+
+
+class FacultySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Faculty
+        fields = ['id', 'name', 'campus']

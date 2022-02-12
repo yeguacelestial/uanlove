@@ -1,8 +1,8 @@
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 
-from school.models import Degree, StudentType, Term
-from school.serializers import DegreesSerializer, StudentTypeSerializer, TermsSerializer
+from school.models import Degree, Faculty, StudentType, Term
+from school.serializers import DegreesSerializer, FacultySerializer, StudentTypeSerializer, TermsSerializer
 
 
 class DegreesViewSet(viewsets.ReadOnlyModelViewSet):
@@ -36,4 +36,10 @@ class TermsViewSet(viewsets.ReadOnlyModelViewSet):
 class StudentTypeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = StudentType.objects.all()
     serializer_class = StudentTypeSerializer
+    permissions_classes = [permissions.IsAuthenticated]
+
+
+class FacultyViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Faculty.objects.all()
+    serializer_class = FacultySerializer
     permissions_classes = [permissions.IsAuthenticated]
