@@ -4,17 +4,17 @@ import useUserToken from "./useUserToken"
 
 const BASE_API_ENDPOINT = process.env.BASE_API_ENDPOINT;
 
-const useFetchFaculty = () => {
+const useFetchStudentType = () => {
   const { userToken } = useUserToken();
-  const [fetchedFaculty, setFetchedFaculty] = useState(null);
+  const [fetchedStudentType, setFetchStudentType] = useState(null);
 
-  // "faculties" endpoint
-  const facultiesEndpoint = `${BASE_API_ENDPOINT}/school/faculties`;
+  // "student types" endpoint
+  const studentTypesEndpoint = `${BASE_API_ENDPOINT}/school/student-types`;
 
-  const checkFaculty = useCallback(
-    async (facultyId) => {
+  const checkStudentType = useCallback(
+    async (studentTypeId) => {
       try {
-        const serverResponse = await fetch(`${facultiesEndpoint}/${facultyId}/`, {
+        const serverResponse = await fetch(`${studentTypesEndpoint}/${studentTypeId}/`, {
           method: 'GET',
           headers: {
             Authorization: `Token ${userToken}`
@@ -22,7 +22,7 @@ const useFetchFaculty = () => {
         });
 
         const responseJson = await serverResponse.json();
-        setFetchedFaculty(responseJson)
+        setFetchStudentType(responseJson)
 
         return responseJson;
       } catch (e) {
@@ -41,9 +41,9 @@ const useFetchFaculty = () => {
   )
 
   return {
-    fetchedFaculty,
-    checkFaculty
+    fetchedStudentType,
+    checkStudentType
   }
 }
 
-export default useFetchFaculty
+export default useFetchStudentType

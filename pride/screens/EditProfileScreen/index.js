@@ -28,6 +28,7 @@ import useGenderList from '../../hooks/affair/useGenderList';
 import useSexPreferenceList from '../../hooks/affair/useSexPreferenceList';
 import useTermList from '../../hooks/affair/useTermList';
 import useFetchFaculty from '../../hooks/affair/useFetchFaculty';
+import useFetchStudentType from '../../hooks/affair/useFetchStudentType';
 
 
 const EditProfileScreen = ({ navigation }) => {
@@ -40,6 +41,7 @@ const EditProfileScreen = ({ navigation }) => {
 	const { sexPreferenceList } = useSexPreferenceList();
 	const { termList } = useTermList();
 	const { fetchedFaculty, checkFaculty } = useFetchFaculty();
+	const { fetchedStudentType, checkStudentType } = useFetchStudentType();
 
 	// dates
 	const today = new Date();
@@ -54,6 +56,7 @@ const EditProfileScreen = ({ navigation }) => {
 	const [preference, setPreference] = useState(userInfo ? userInfo.sex_preference : "");
 	const [term, setTerm] = useState(userInfo ? userInfo.term : "");
 	const [facultyName, setFacultyName] = useState();
+	const [studentTypeName, setStudentTypeName] = useState();
 
 	// date picker
 	const [showDatePicker, setShowDatePicker] = useState(Platform.OS === 'ios');
@@ -76,6 +79,7 @@ const EditProfileScreen = ({ navigation }) => {
 	useEffect(() => {
 		if(fetchedUserInfo) {
 			checkFaculty(fetchedUserInfo.faculty);
+			checkStudentType(fetchedUserInfo.student_type);
 			setUserInfo(fetchedUserInfo)
 		}
 	}, [fetchedUserInfo])
@@ -85,6 +89,12 @@ const EditProfileScreen = ({ navigation }) => {
 			setFacultyName(fetchedFaculty.name);
 		}
 	}, [fetchedFaculty])
+
+	useEffect(() => {
+		if(fetchedStudentType) {
+			setStudentTypeName(fetchedStudentType.name);
+		}
+	}, [fetchedStudentType])
 
 	useEffect(() => {
 		if (datePickerValue) {
@@ -313,13 +323,13 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Escolaridad'}
-							valueText={userInfo.student_type}
+							valueText={studentTypeName}
 							disabled
 						/>
 
 						<CustomDropDownInput
 							label={'Semestre'}
-							value={userInfo.term}
+							value={term}
 							setValue={setTerm}
 							list={formattedTermList}
 							leftIcon={
