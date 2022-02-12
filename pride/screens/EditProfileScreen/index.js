@@ -334,22 +334,6 @@ const EditProfileScreen = ({ navigation }) => {
 							}
 						/>
 
-						<CustomDropDownInput
-							label={'Carrera'}
-							value={major}
-							setValue={setMajor}
-							list={majorList}
-							leftIcon={
-								<Entypo
-									name='star-outlined'
-									color={MainColours.textInputIconColor}
-									size={MainStyles.iconSize}
-									style={MainStyles.textInputIcon}
-								/>
-							}
-							multiline={Platform.OS === 'ios' ? true : false}
-						/>
-
 						<CustomTextInput
 							leftIcon={
 								<MaterialCommunityIcons
