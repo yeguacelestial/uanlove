@@ -25,11 +25,22 @@ import CustomDropDownInput from './components/CustomDropDownInput';
 import usePickImage from '../../hooks/usePickImage';
 import useUserMe from '../../hooks/affair/useUserMe';
 import useGenderList from '../../hooks/affair/useGenderList';
+import useSexPreferenceList from '../../hooks/affair/useSexPreferenceList';
 
 
 const EditProfileScreen = ({ navigation }) => {
-	const { userInfo } = useUserMe();
+	// backend hooks
+	const { fetchedUserInfo } = useUserMe();
 	const { genderList } = useGenderList();
+	const { sexPreferenceList } = useSexPreferenceList();
+
+	const [userInfo, setUserInfo] = useState(null);
+
+	useEffect(() => {
+		if(fetchedUserInfo) {
+			setUserInfo(fetchedUserInfo)
+		}
+	}, [fetchedUserInfo])
 
 	const today = new Date();
 
@@ -66,10 +77,17 @@ const EditProfileScreen = ({ navigation }) => {
 		}
 	}, [pickedImage, datePickerValue])
 
-	const formattedGenderList = genderList ? genderList.map( gender => {
+	const formattedGenderList = genderList ? genderList.map(gender => {
 		return {
 			label: gender.name,
 			value: gender.id
+		}
+	}) : []
+
+	const formattedSexPreferenceList = sexPreferenceList ? sexPreferenceList.map(sexPreference => {
+		return {
+			label: sexPreference.name,
+			value: sexPreference.id
 		}
 	}) : []
 
@@ -105,9 +123,10 @@ const EditProfileScreen = ({ navigation }) => {
 
 	const fall = new Animated.Value(1)
 
-	return userInfo && genderList ? (
+
+	return fetchedUserInfo && genderList ? (
 		<KeyboardAwareScrollView
-			extraScrollHeight={100}
+			extraScrollHeight={Platform.OS === 'ios' ? 100 : 0}
 		>
 			<View style={MainStyles.fx1}>
 				<ScrollView>
@@ -142,7 +161,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Nombre(s)'}
-							valueText={userInfo ? userInfo.first_name : ''}
+							valueText={userInfo.first_name}
 							multiline={Platform.OS === 'ios' ? true : false}
 							disabled
 						/>
@@ -157,7 +176,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Apellidos'}
-							valueText={userInfo ? userInfo.last_name : ''}
+							valueText={userInfo.last_name}
 							multiline={Platform.OS === 'ios' ? true : false}
 							disabled
 						/>
@@ -173,7 +192,7 @@ const EditProfileScreen = ({ navigation }) => {
 									/>
 								}
 								placeholder={'Fecha de nacimiento'}
-								valueText={userInfo && userInfo.birthday ? userInfo.birthday : datePickerValue.toDateString()}
+								valueText={fetchedUserInfo && fetchedUserInfo.birthday ? fetchedUserInfo.birthday : datePickerValue.toDateString()}
 								editable={false}
 								onPress={() => setShowDatePicker(true)}
 							/>
@@ -228,11 +247,11 @@ const EditProfileScreen = ({ navigation }) => {
 							}
 						/>
 
-						{/* <CustomDropDownInput
+						<CustomDropDownInput
 							label={'Busco a alguien que sea...'}
 							value={preference}
 							setValue={setPreference}
-							list={genderList}
+							list={formattedSexPreferenceList}
 							leftIcon={
 								<FontAwesome
 									name='genderless'
@@ -242,7 +261,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							multiSelect
-						/> */}
+						/>
 
 						<CustomTextInput
 							leftIcon={
@@ -267,7 +286,7 @@ const EditProfileScreen = ({ navigation }) => {
 							}
 							placeholder={'Correo universitario'}
 							keyboardType={'email-address'}
-							valueText={userInfo ? userInfo.email : ''}
+							valueText={userInfo.email}
 							disabled
 						/>
 
@@ -281,7 +300,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Facultad'}
-							valueText={userInfo ? userInfo.faculty : ''}
+							valueText={userInfo.faculty}
 							multiline
 							disabled
 						/>
@@ -296,7 +315,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Escolaridad'}
-							valueText={userInfo ? userInfo.student_type : ''}
+							valueText={userInfo.student_type}
 							disabled
 						/>
 
@@ -358,11 +377,13 @@ const EditProfileScreen = ({ navigation }) => {
 					</Animated.View>
 				</ScrollView>
 			</View>
-		</KeyboardAwareScrollView >
+		</KeyboardAwareScrollView>
 	) : (
-		<View style={MainStyles.container}>
+		<KeyboardAwareScrollView
+			contentContainerStyle={MainStyles.container}
+		>
 			<ActivityIndicator size="large" color="#FF6347" />
-		</View>
+		</KeyboardAwareScrollView>
 	)
 };
 

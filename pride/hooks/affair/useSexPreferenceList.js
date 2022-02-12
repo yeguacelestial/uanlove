@@ -4,17 +4,17 @@ import useUserToken from "./useUserToken"
 
 const BASE_API_ENDPOINT = process.env.BASE_API_ENDPOINT;
 
-const useUserMe = () => {
-  const {userToken} = useUserToken();
-  const [fetchedUserInfo, setFetchedUserInfo] = useState(null);
+const useSexPreferenceList = () => {
+  const { userToken } = useUserToken();
+  const [sexPreferenceList, setSexPreferenceList] = useState(null);
 
-  // "me" endpoint
-  const meEndpoint = `${BASE_API_ENDPOINT}/user/me/`;
+  // "sex preferences" endpoint
+  const availableSexPreferencesEndpoint = `${BASE_API_ENDPOINT}/user/available-sex-preferences/`;
 
-  const checkUserMe = useCallback(
+  const checkSexPreferenceList = useCallback(
     async (userToken) => {
       try {
-        const serverResponse = await fetch(meEndpoint, {
+        const serverResponse = await fetch(availableSexPreferencesEndpoint, {
           method: 'GET',
           headers: {
             Authorization: `Token ${userToken}`
@@ -22,19 +22,18 @@ const useUserMe = () => {
         });
 
         const responseJson = await serverResponse.json();
-
-        setFetchedUserInfo(responseJson);
+        setSexPreferenceList(responseJson.results)
 
         return responseJson;
       } catch (e) {
         // 'Network request failed' is thrown if the server is unreachable
         if (e.message === 'Network request failed') {
           Alert.alert(
-            'Error al obtener la información de tu usuario',
+            'Error al obtener la lista de géneros',
             'El servidor está en mantenimiento. Vuelve más tarde.'
           );
         } else {
-          Alert.alert('Error al obtener la información de tu usuario', `${e}`);
+          Alert.alert('Error al obtener la lista de géneros', `${e}`);
         }
       }
     },
@@ -42,12 +41,12 @@ const useUserMe = () => {
   )
 
   useEffect(() => {
-    checkUserMe(userToken);
-  }, [userToken, checkUserMe]);
+    checkSexPreferenceList(userToken);
+  }, [userToken, checkSexPreferenceList]);
 
   return {
-    fetchedUserInfo,
+    sexPreferenceList,
   }
 }
 
-export default useUserMe
+export default useSexPreferenceList
