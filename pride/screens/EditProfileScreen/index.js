@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Platform, ScrollView, View } from 'react-native';
+import { ActivityIndicator, Platform, ScrollView, View } from 'react-native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -58,13 +58,11 @@ const EditProfileScreen = ({ navigation }) => {
 		if (pickedImage) {
 			setImageUri(pickedImage.uri);
 		}
-	}, [pickedImage])
 
-	useEffect(() => {
 		if (datePickerValue) {
 			setAge(today.getFullYear() - datePickerValue.getFullYear());
 		}
-	}, [datePickerValue])
+	}, [pickedImage, datePickerValue])
 
 	// These lists will come from the backend
 	const genderList = [
@@ -114,7 +112,7 @@ const EditProfileScreen = ({ navigation }) => {
 
 	const fall = new Animated.Value(1)
 
-	return (
+	return userInfo ? (
 		<KeyboardAwareScrollView
 			extraScrollHeight={100}
 		>
@@ -151,7 +149,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Nombre(s)'}
-							valueText={userInfo != null ? userInfo.first_name : ''}
+							valueText={userInfo ? userInfo.first_name : ''}
 							multiline={Platform.OS === 'ios' ? true : false}
 							disabled
 						/>
@@ -166,7 +164,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Apellidos'}
-							valueText={userInfo != null ? userInfo.last_name : ''}
+							valueText={userInfo ? userInfo.last_name : ''}
 							multiline={Platform.OS === 'ios' ? true : false}
 							disabled
 						/>
@@ -182,7 +180,7 @@ const EditProfileScreen = ({ navigation }) => {
 									/>
 								}
 								placeholder={'Fecha de nacimiento'}
-								valueText={userInfo != null ? userInfo.birthday : datePickerValue.toDateString()}
+								valueText={userInfo && userInfo.birthday ? userInfo.birthday : datePickerValue.toDateString()}
 								editable={false}
 								onPress={() => setShowDatePicker(true)}
 							/>
@@ -276,7 +274,7 @@ const EditProfileScreen = ({ navigation }) => {
 							}
 							placeholder={'Correo universitario'}
 							keyboardType={'email-address'}
-							valueText={userInfo != null ? userInfo.email : ''}
+							valueText={userInfo ? userInfo.email : ''}
 							disabled
 						/>
 
@@ -290,7 +288,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Facultad'}
-							valueText={userInfo != null ? userInfo.faculty : ''}
+							valueText={userInfo ? userInfo.faculty : ''}
 							multiline
 							disabled
 						/>
@@ -305,7 +303,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Escolaridad'}
-							valueText={userInfo != null ? userInfo.student_type : ''}
+							valueText={userInfo ? userInfo.student_type : ''}
 							disabled
 						/>
 
@@ -367,8 +365,12 @@ const EditProfileScreen = ({ navigation }) => {
 					</Animated.View>
 				</ScrollView>
 			</View>
-		</KeyboardAwareScrollView>
-	);
+		</KeyboardAwareScrollView >
+	) : (
+		<View style={MainStyles.container}>
+			<ActivityIndicator size="large" color="#FF6347" />
+		</View>
+	)
 };
 
 export default EditProfileScreen;
