@@ -23,11 +23,13 @@ import ProfilePreviewContainer from './components/ProfilePreviewContainer';
 import CustomDropDownInput from './components/CustomDropDownInput';
 
 import usePickImage from '../../hooks/usePickImage';
-import useUserMe from '../../hooks/useUserMe';
+import useUserMe from '../../hooks/affair/useUserMe';
+import useGenderList from '../../hooks/affair/useGenderList';
 
 
 const EditProfileScreen = ({ navigation }) => {
 	const { userInfo } = useUserMe();
+	const { genderList } = useGenderList();
 
 	const today = new Date();
 
@@ -64,21 +66,12 @@ const EditProfileScreen = ({ navigation }) => {
 		}
 	}, [pickedImage, datePickerValue])
 
-	// These lists will come from the backend
-	const genderList = [
-		{
-			label: "Hombre",
-			value: "hombre",
-		},
-		{
-			label: "Mujer",
-			value: "mujer",
-		},
-		{
-			label: "Otro",
-			value: "otro",
-		},
-	];
+	const formattedGenderList = genderList ? genderList.map( gender => {
+		return {
+			label: gender.name,
+			value: gender.id
+		}
+	}) : []
 
 	const termList = [
 		{
@@ -112,7 +105,7 @@ const EditProfileScreen = ({ navigation }) => {
 
 	const fall = new Animated.Value(1)
 
-	return userInfo ? (
+	return userInfo && genderList ? (
 		<KeyboardAwareScrollView
 			extraScrollHeight={100}
 		>
@@ -224,7 +217,7 @@ const EditProfileScreen = ({ navigation }) => {
 							label={'Soy...'}
 							value={gender}
 							setValue={setGender}
-							list={genderList}
+							list={formattedGenderList}
 							leftIcon={
 								<FontAwesome
 									name='genderless'
@@ -235,7 +228,7 @@ const EditProfileScreen = ({ navigation }) => {
 							}
 						/>
 
-						<CustomDropDownInput
+						{/* <CustomDropDownInput
 							label={'Busco a alguien que sea...'}
 							value={preference}
 							setValue={setPreference}
@@ -249,7 +242,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							multiSelect
-						/>
+						/> */}
 
 						<CustomTextInput
 							leftIcon={
