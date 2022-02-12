@@ -26,6 +26,7 @@ import usePickImage from '../../hooks/usePickImage';
 import useUserMe from '../../hooks/affair/useUserMe';
 import useGenderList from '../../hooks/affair/useGenderList';
 import useSexPreferenceList from '../../hooks/affair/useSexPreferenceList';
+import useTermList from '../../hooks/affair/useTermList';
 
 
 const EditProfileScreen = ({ navigation }) => {
@@ -33,6 +34,7 @@ const EditProfileScreen = ({ navigation }) => {
 	const { fetchedUserInfo } = useUserMe();
 	const { genderList } = useGenderList();
 	const { sexPreferenceList } = useSexPreferenceList();
+	const { termList } = useTermList();
 
 	const [userInfo, setUserInfo] = useState(null);
 
@@ -51,7 +53,6 @@ const EditProfileScreen = ({ navigation }) => {
 	const [gender, setGender] = useState("");
 	const [preference, setPreference] = useState("");
 	const [term, setTerm] = useState("");
-	const [major, setMajor] = useState("");
 
 	const [showDatePicker, setShowDatePicker] = useState(Platform.OS === 'ios');
 	const [datePickerValue, setDatePickerValue] = useState(maximumDate);
@@ -91,38 +92,14 @@ const EditProfileScreen = ({ navigation }) => {
 		}
 	}) : []
 
-	const termList = [
-		{
-			label: "1er semestre",
-			value: "1",
-		},
-		{
-			label: "2do semestre",
-			value: "2",
-		},
-		{
-			label: "3er semestre",
-			value: "3",
-		},
-	]
-
-	const majorList = [
-		{
-			label: "Ingeniería en Administración de Sistemas",
-			value: "IAS",
-		},
-		{
-			label: "Ingeniería en Tecnologías de Software",
-			value: "ITS",
-		},
-		{
-			label: "Ingeniería en Mecatrónica",
-			value: "IMTC",
-		},
-	]
+	const formattedTermList = termList ? termList.map(fetchedTerm => {
+		return {
+			label: `${fetchedTerm.number}`,
+			value: fetchedTerm.id
+		}
+	}) : []
 
 	const fall = new Animated.Value(1)
-
 
 	return fetchedUserInfo && genderList ? (
 		<KeyboardAwareScrollView
@@ -323,7 +300,7 @@ const EditProfileScreen = ({ navigation }) => {
 							label={'Semestre'}
 							value={term}
 							setValue={setTerm}
-							list={termList}
+							list={formattedTermList}
 							leftIcon={
 								<Entypo
 									name='book'
