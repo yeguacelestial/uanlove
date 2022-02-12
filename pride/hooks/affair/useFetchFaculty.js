@@ -4,17 +4,17 @@ import useUserToken from "./useUserToken"
 
 const BASE_API_ENDPOINT = process.env.BASE_API_ENDPOINT;
 
-const useSexPreferenceList = () => {
+const useFetchFaculty = () => {
   const { userToken } = useUserToken();
-  const [sexPreferenceList, setSexPreferenceList] = useState(null);
+  const [fetchedFaculty, setFetchedFaculty] = useState(null);
 
-  // "sex preferences" endpoint
-  const availableSexPreferencesEndpoint = `${BASE_API_ENDPOINT}/user/available-sex-preferences/`;
+  // "faculties" endpoint
+  const facultiesEndpoint = `${BASE_API_ENDPOINT}/school/faculties`;
 
-  const checkSexPreferenceList = useCallback(
-    async (userToken) => {
+  const checkFaculty = useCallback(
+    async (facultyId) => {
       try {
-        const serverResponse = await fetch(availableSexPreferencesEndpoint, {
+        const serverResponse = await fetch(`${facultiesEndpoint}/${facultyId}/`, {
           method: 'GET',
           headers: {
             Authorization: `Token ${userToken}`
@@ -22,33 +22,28 @@ const useSexPreferenceList = () => {
         });
 
         const responseJson = await serverResponse.json();
-        setSexPreferenceList(responseJson.results)
+        setFetchedFaculty(responseJson)
 
         return responseJson;
       } catch (e) {
         // 'Network request failed' is thrown if the server is unreachable
         if (e.message === 'Network request failed') {
           Alert.alert(
-            'Error al obtener la lista de preferencias',
+            'Error al obtener la facultad',
             'El servidor está en mantenimiento. Vuelve más tarde.'
           );
         } else {
-          Alert.alert('Error al obtener la lista de preferencias', `${e}`);
+          Alert.alert('Error al obtener la facultad', `${e}`);
         }
       }
     },
     [userToken]
   )
 
-  useEffect(() => {
-    if (userToken) {
-      checkSexPreferenceList(userToken);
-    }
-  }, [userToken]);
-
   return {
-    sexPreferenceList,
+    fetchedFaculty,
+    checkFaculty
   }
 }
 
-export default useSexPreferenceList
+export default useFetchFaculty

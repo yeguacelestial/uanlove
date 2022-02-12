@@ -12,7 +12,7 @@ const useUserMe = () => {
   const meEndpoint = `${BASE_API_ENDPOINT}/user/me/`;
 
   const checkUserMe = useCallback(
-    async (userToken) => {
+    async () => {
       try {
         const serverResponse = await fetch(meEndpoint, {
           method: 'GET',
@@ -42,8 +42,10 @@ const useUserMe = () => {
   )
 
   useEffect(() => {
-    checkUserMe(userToken);
-  }, [userToken, checkUserMe]);
+    if(userToken) {
+      checkUserMe();
+    }
+  }, [userToken]);
 
   return {
     fetchedUserInfo,

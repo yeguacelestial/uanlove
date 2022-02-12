@@ -12,7 +12,7 @@ const useGenderList = () => {
   const availableGendersEndpoint = `${BASE_API_ENDPOINT}/user/available-genders/`;
 
   const checkGenderList = useCallback(
-    async (userToken) => {
+    async () => {
       try {
         const serverResponse = await fetch(availableGendersEndpoint, {
           method: 'GET',
@@ -41,8 +41,10 @@ const useGenderList = () => {
   )
 
   useEffect(() => {
-    checkGenderList(userToken);
-  }, [userToken, checkGenderList]);
+    if (userToken) {
+      checkGenderList(userToken);
+    }
+  }, [userToken]);
 
   return {
     genderList,

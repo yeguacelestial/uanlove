@@ -27,39 +27,37 @@ import useUserMe from '../../hooks/affair/useUserMe';
 import useGenderList from '../../hooks/affair/useGenderList';
 import useSexPreferenceList from '../../hooks/affair/useSexPreferenceList';
 import useTermList from '../../hooks/affair/useTermList';
+import useFetchFaculty from '../../hooks/affair/useFetchFaculty';
 
 
 const EditProfileScreen = ({ navigation }) => {
+	// custom hooks
+	const { pickedImage, pickImage } = usePickImage();
+
 	// backend hooks
 	const { fetchedUserInfo } = useUserMe();
 	const { genderList } = useGenderList();
 	const { sexPreferenceList } = useSexPreferenceList();
 	const { termList } = useTermList();
+	const { fetchedFaculty, checkFaculty } = useFetchFaculty();
 
-	const [userInfo, setUserInfo] = useState(null);
-
-	useEffect(() => {
-		if(fetchedUserInfo) {
-			setUserInfo(fetchedUserInfo)
-		}
-	}, [fetchedUserInfo])
-
+	// dates
 	const today = new Date();
-
 	const maximumDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
 	const minimumDate = new Date(today.getFullYear() - 110, today.getMonth(), today.getDate());
-
+	
+	// profile
+	const [imageUri, setImageUri] = useState("https://avatars.githubusercontent.com/u/52676055?s=400&u=18d95ed91216e90edacde8a5b0c7ecb8399657b5&v=4")
+	const [userInfo, setUserInfo] = useState(null);
 	const [age, setAge] = useState(today.getFullYear() - maximumDate.getFullYear());
-	const [gender, setGender] = useState("");
-	const [preference, setPreference] = useState("");
-	const [term, setTerm] = useState("");
+	const [gender, setGender] = useState(userInfo ? userInfo.gender : "");
+	const [preference, setPreference] = useState(userInfo ? userInfo.sex_preference : "");
+	const [term, setTerm] = useState(userInfo ? userInfo.term : "");
+	const [facultyName, setFacultyName] = useState();
 
+	// date picker
 	const [showDatePicker, setShowDatePicker] = useState(Platform.OS === 'ios');
 	const [datePickerValue, setDatePickerValue] = useState(maximumDate);
-
-	const [imageUri, setImageUri] = useState("https://avatars.githubusercontent.com/u/52676055?s=400&u=18d95ed91216e90edacde8a5b0c7ecb8399657b5&v=4")
-
-	const { pickedImage, pickImage } = usePickImage();
 
 	const onChangeBirthdayPicker = (event, selectedDate) => {
 		const currentDate = selectedDate || datePickerValue;
@@ -68,16 +66,33 @@ const EditProfileScreen = ({ navigation }) => {
 		setShowDatePicker(Platform.OS === 'ios');
 	};
 
+	// effects
 	useEffect(() => {
 		if (pickedImage) {
 			setImageUri(pickedImage.uri);
 		}
+	}, [pickedImage])
 
+	useEffect(() => {
+		if(fetchedUserInfo) {
+			checkFaculty(fetchedUserInfo.faculty);
+			setUserInfo(fetchedUserInfo)
+		}
+	}, [fetchedUserInfo])
+
+	useEffect(() => {
+		if(fetchedFaculty) {
+			setFacultyName(fetchedFaculty.name);
+		}
+	}, [fetchedFaculty])
+
+	useEffect(() => {
 		if (datePickerValue) {
 			setAge(today.getFullYear() - datePickerValue.getFullYear());
 		}
-	}, [pickedImage, datePickerValue])
+	}, [datePickerValue])
 
+	// formatted lists from backend hooks
 	const formattedGenderList = genderList ? genderList.map(gender => {
 		return {
 			label: gender.name,
@@ -101,7 +116,12 @@ const EditProfileScreen = ({ navigation }) => {
 
 	const fall = new Animated.Value(1)
 
-	return fetchedUserInfo && genderList ? (
+	return (
+		fetchedUserInfo && 
+		genderList && 
+		sexPreferenceList &&
+		termList
+	) ? (
 		<KeyboardAwareScrollView
 			extraScrollHeight={Platform.OS === 'ios' ? 100 : 0}
 		>
@@ -169,7 +189,7 @@ const EditProfileScreen = ({ navigation }) => {
 									/>
 								}
 								placeholder={'Fecha de nacimiento'}
-								valueText={fetchedUserInfo && fetchedUserInfo.birthday ? fetchedUserInfo.birthday : datePickerValue.toDateString()}
+								valueText={userInfo.birthday ? userInfo.birthday : datePickerValue.toDateString()}
 								editable={false}
 								onPress={() => setShowDatePicker(true)}
 							/>
@@ -211,7 +231,7 @@ const EditProfileScreen = ({ navigation }) => {
 
 						<CustomDropDownInput
 							label={'Soy...'}
-							value={gender}
+							value={userInfo.gender}
 							setValue={setGender}
 							list={formattedGenderList}
 							leftIcon={
@@ -226,7 +246,7 @@ const EditProfileScreen = ({ navigation }) => {
 
 						<CustomDropDownInput
 							label={'Busco a alguien que sea...'}
-							value={preference}
+							value={userInfo.sex_preference}
 							setValue={setPreference}
 							list={formattedSexPreferenceList}
 							leftIcon={
@@ -249,6 +269,7 @@ const EditProfileScreen = ({ navigation }) => {
 									style={MainStyles.textInputIcon}
 								/>
 							}
+							valueText={userInfo.location}
 							placeholder={'Ubicación'}
 						/>
 
@@ -277,7 +298,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Facultad'}
-							valueText={userInfo.faculty}
+							valueText={facultyName}
 							multiline
 							disabled
 						/>
@@ -298,7 +319,7 @@ const EditProfileScreen = ({ navigation }) => {
 
 						<CustomDropDownInput
 							label={'Semestre'}
-							value={term}
+							value={userInfo.term}
 							setValue={setTerm}
 							list={formattedTermList}
 							leftIcon={
@@ -321,6 +342,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Bio'}
+							valueText={userInfo.bio}
 							style={{
 								height: 140,
 							}}
@@ -340,9 +362,7 @@ const EditProfileScreen = ({ navigation }) => {
 			</View>
 		</KeyboardAwareScrollView>
 	) : (
-		<KeyboardAwareScrollView
-			contentContainerStyle={MainStyles.container}
-		>
+		<KeyboardAwareScrollView contentContainerStyle={MainStyles.container}>
 			<ActivityIndicator size="large" color="#FF6347" />
 		</KeyboardAwareScrollView>
 	)

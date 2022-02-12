@@ -12,7 +12,7 @@ const useTermList = () => {
   const termsEndpoint = `${BASE_API_ENDPOINT}/school/terms/`;
 
   const checkTermList = useCallback(
-    async (userToken) => {
+    async () => {
       try {
         const serverResponse = await fetch(termsEndpoint, {
           method: 'GET',
@@ -41,8 +41,10 @@ const useTermList = () => {
   )
 
   useEffect(() => {
-    checkTermList(userToken);
-  }, [userToken, checkTermList]);
+    if (userToken) {
+      checkTermList(userToken);
+    }
+  }, [userToken]);
 
   return {
     termList,
