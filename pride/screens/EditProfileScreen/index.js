@@ -168,7 +168,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Nombre(s)'}
-							valueText={userInfo.first_name}
+							valueText={userInfo.first_name ? userInfo.first_name : ''}
 							multiline={Platform.OS === 'ios' ? true : false}
 							disabled
 						/>
@@ -183,7 +183,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Apellidos'}
-							valueText={userInfo.last_name}
+							valueText={userInfo.last_name ? userInfo.last_name : ''}
 							multiline={Platform.OS === 'ios' ? true : false}
 							disabled
 						/>
@@ -241,9 +241,9 @@ const EditProfileScreen = ({ navigation }) => {
 
 						<CustomDropDownInput
 							label={'Soy...'}
-							value={userInfo.gender}
+							value={gender}
 							setValue={setGender}
-							list={formattedGenderList}
+							list={formattedGenderList ? formattedGenderList : []}
 							leftIcon={
 								<FontAwesome
 									name='genderless'
@@ -256,9 +256,9 @@ const EditProfileScreen = ({ navigation }) => {
 
 						<CustomDropDownInput
 							label={'Busco a alguien que sea...'}
-							value={userInfo.sex_preference}
+							value={preference}
 							setValue={setPreference}
-							list={formattedSexPreferenceList}
+							list={formattedSexPreferenceList ? formattedSexPreferenceList : []}
 							leftIcon={
 								<FontAwesome
 									name='genderless'
@@ -294,7 +294,7 @@ const EditProfileScreen = ({ navigation }) => {
 							}
 							placeholder={'Correo universitario'}
 							keyboardType={'email-address'}
-							valueText={userInfo.email}
+							valueText={userInfo.email ? userInfo.email : ''}
 							disabled
 						/>
 
@@ -329,9 +329,9 @@ const EditProfileScreen = ({ navigation }) => {
 
 						<CustomDropDownInput
 							label={'Semestre'}
-							value={term}
+							value={term ? term : ''}
 							setValue={setTerm}
-							list={formattedTermList}
+							list={formattedTermList ? formattedTermList : []}
 							leftIcon={
 								<Entypo
 									name='book'
