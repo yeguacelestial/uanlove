@@ -12,7 +12,7 @@ import Paginator from './components/Paginator';
 import { MainStyles } from '../../styles/core';
 import SignInButton from './components/SignInButton';
 
-import useUserToken from '../../hooks/useUserToken';
+import useUserToken from '../../hooks/affair/useUserToken';
 
 const Onboarding = ({ navigation }) => {
   const { userToken } = useUserToken();

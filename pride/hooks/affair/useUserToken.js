@@ -27,8 +27,10 @@ const useUserToken = () => {
   }
 
   useEffect(() => {
-    checkUserToken();
-  }, []);
+    if (userToken == null) {
+      checkUserToken();
+    }
+  }, [userToken]);
 
   return { userToken, destroyUserToken }
 };

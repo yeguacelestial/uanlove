@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Platform, ScrollView, View } from 'react-native';
+import { ActivityIndicator, Platform, ScrollView, View } from 'react-native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -23,26 +23,44 @@ import ProfilePreviewContainer from './components/ProfilePreviewContainer';
 import CustomDropDownInput from './components/CustomDropDownInput';
 
 import usePickImage from '../../hooks/usePickImage';
+import useUserMe from '../../hooks/affair/useUserMe';
+import useGenderList from '../../hooks/affair/useGenderList';
+import useSexPreferenceList from '../../hooks/affair/useSexPreferenceList';
+import useTermList from '../../hooks/affair/useTermList';
+import useFetchFaculty from '../../hooks/affair/useFetchFaculty';
+import useFetchStudentType from '../../hooks/affair/useFetchStudentType';
 
 
 const EditProfileScreen = ({ navigation }) => {
-	const today = new Date();
+	// custom hooks
+	const { pickedImage, pickImage } = usePickImage();
 
+	// backend hooks
+	const { fetchedUserInfo } = useUserMe();
+	const { genderList } = useGenderList();
+	const { sexPreferenceList } = useSexPreferenceList();
+	const { termList } = useTermList();
+	const { fetchedFaculty, checkFaculty } = useFetchFaculty();
+	const { fetchedStudentType, checkStudentType } = useFetchStudentType();
+
+	// dates
+	const today = new Date();
 	const maximumDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
 	const minimumDate = new Date(today.getFullYear() - 110, today.getMonth(), today.getDate());
-
+	
+	// profile
+	const [imageUri, setImageUri] = useState("https://avatars.githubusercontent.com/u/52676055?s=400&u=18d95ed91216e90edacde8a5b0c7ecb8399657b5&v=4")
+	const [userInfo, setUserInfo] = useState(null);
 	const [age, setAge] = useState(today.getFullYear() - maximumDate.getFullYear());
-	const [gender, setGender] = useState("");
-	const [preference, setPreference] = useState("");
-	const [term, setTerm] = useState("");
-	const [major, setMajor] = useState("");
+	const [gender, setGender] = useState(userInfo ? userInfo.gender : "");
+	const [preference, setPreference] = useState(userInfo ? userInfo.sex_preference : "");
+	const [term, setTerm] = useState(userInfo ? userInfo.term : "");
+	const [facultyName, setFacultyName] = useState();
+	const [studentTypeName, setStudentTypeName] = useState();
 
+	// date picker
 	const [showDatePicker, setShowDatePicker] = useState(Platform.OS === 'ios');
 	const [datePickerValue, setDatePickerValue] = useState(maximumDate);
-
-	const [imageUri, setImageUri] = useState("https://avatars.githubusercontent.com/u/52676055?s=400&u=18d95ed91216e90edacde8a5b0c7ecb8399657b5&v=4")
-
-	const { pickedImage, pickImage } = usePickImage();
 
 	const onChangeBirthdayPicker = (event, selectedDate) => {
 		const currentDate = selectedDate || datePickerValue;
@@ -51,6 +69,7 @@ const EditProfileScreen = ({ navigation }) => {
 		setShowDatePicker(Platform.OS === 'ios');
 	};
 
+	// effects
 	useEffect(() => {
 		if (pickedImage) {
 			setImageUri(pickedImage.uri);
@@ -58,62 +77,63 @@ const EditProfileScreen = ({ navigation }) => {
 	}, [pickedImage])
 
 	useEffect(() => {
+		if(fetchedUserInfo) {
+			checkFaculty(fetchedUserInfo.faculty);
+			checkStudentType(fetchedUserInfo.student_type);
+			setUserInfo(fetchedUserInfo)
+		}
+	}, [fetchedUserInfo])
+
+	useEffect(() => {
+		if(fetchedFaculty) {
+			setFacultyName(fetchedFaculty.name);
+		}
+	}, [fetchedFaculty])
+
+	useEffect(() => {
+		if(fetchedStudentType) {
+			setStudentTypeName(fetchedStudentType.name);
+		}
+	}, [fetchedStudentType])
+
+	useEffect(() => {
 		if (datePickerValue) {
 			setAge(today.getFullYear() - datePickerValue.getFullYear());
 		}
 	}, [datePickerValue])
 
-	// These lists will come from the backend
-	const genderList = [
-		{
-			label: "Hombre",
-			value: "hombre",
-		},
-		{
-			label: "Mujer",
-			value: "mujer",
-		},
-		{
-			label: "Otro",
-			value: "otro",
-		},
-	];
+	// formatted lists from backend hooks
+	const formattedGenderList = genderList ? genderList.map(gender => {
+		return {
+			label: gender.name,
+			value: gender.id
+		}
+	}) : []
 
-	const termList = [
-		{
-			label: "1er semestre",
-			value: "1",
-		},
-		{
-			label: "2do semestre",
-			value: "2",
-		},
-		{
-			label: "3er semestre",
-			value: "3",
-		},
-	]
+	const formattedSexPreferenceList = sexPreferenceList ? sexPreferenceList.map(sexPreference => {
+		return {
+			label: sexPreference.name,
+			value: sexPreference.id
+		}
+	}) : []
 
-	const majorList = [
-		{
-			label: "Ingeniería en Administración de Sistemas",
-			value: "IAS",
-		},
-		{
-			label: "Ingeniería en Tecnologías de Software",
-			value: "ITS",
-		},
-		{
-			label: "Ingeniería en Mecatrónica",
-			value: "IMTC",
-		},
-	]
+	const formattedTermList = termList ? termList.map(fetchedTerm => {
+		return {
+			label: `${fetchedTerm.number}`,
+			value: fetchedTerm.id
+		}
+	}) : []
 
 	const fall = new Animated.Value(1)
 
 	return (
+		fetchedUserInfo && 
+		genderList && 
+		sexPreferenceList &&
+		termList
+	) ? (
 		<KeyboardAwareScrollView
-			extraScrollHeight={100}
+			extraScrollHeight={Platform.OS === 'ios' ? 100 : 0}
 		>
 			<View style={MainStyles.fx1}>
 				<ScrollView>
@@ -148,7 +168,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Nombre(s)'}
-							valueText={'JUAN ALEJANDRO'}
+							valueText={userInfo.first_name ? userInfo.first_name : ''}
 							multiline={Platform.OS === 'ios' ? true : false}
 							disabled
 						/>
@@ -163,7 +183,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Apellidos'}
-							valueText={'LOPEZ OJEDA'}
+							valueText={userInfo.last_name ? userInfo.last_name : ''}
 							multiline={Platform.OS === 'ios' ? true : false}
 							disabled
 						/>
@@ -179,7 +199,7 @@ const EditProfileScreen = ({ navigation }) => {
 									/>
 								}
 								placeholder={'Fecha de nacimiento'}
-								valueText={datePickerValue.toDateString()}
+								valueText={userInfo.birthday ? userInfo.birthday : datePickerValue.toDateString()}
 								editable={false}
 								onPress={() => setShowDatePicker(true)}
 							/>
@@ -223,7 +243,7 @@ const EditProfileScreen = ({ navigation }) => {
 							label={'Soy...'}
 							value={gender}
 							setValue={setGender}
-							list={genderList}
+							list={formattedGenderList ? formattedGenderList : []}
 							leftIcon={
 								<FontAwesome
 									name='genderless'
@@ -238,7 +258,7 @@ const EditProfileScreen = ({ navigation }) => {
 							label={'Busco a alguien que sea...'}
 							value={preference}
 							setValue={setPreference}
-							list={genderList}
+							list={formattedSexPreferenceList ? formattedSexPreferenceList : []}
 							leftIcon={
 								<FontAwesome
 									name='genderless'
@@ -259,6 +279,7 @@ const EditProfileScreen = ({ navigation }) => {
 									style={MainStyles.textInputIcon}
 								/>
 							}
+							valueText={userInfo.location}
 							placeholder={'Ubicación'}
 						/>
 
@@ -273,7 +294,7 @@ const EditProfileScreen = ({ navigation }) => {
 							}
 							placeholder={'Correo universitario'}
 							keyboardType={'email-address'}
-							valueText={'juan.perezojd@uanl.edu.mx'}
+							valueText={userInfo.email ? userInfo.email : ''}
 							disabled
 						/>
 
@@ -287,7 +308,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Facultad'}
-							valueText={'FACULTAD DE INGENIERÍA MECÁNICA Y ELÉCTRICA'}
+							valueText={facultyName}
 							multiline
 							disabled
 						/>
@@ -302,15 +323,15 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Escolaridad'}
-							valueText={'ALUMNOS SUPERIOR'}
+							valueText={studentTypeName}
 							disabled
 						/>
 
 						<CustomDropDownInput
 							label={'Semestre'}
-							value={term}
+							value={term ? term : ''}
 							setValue={setTerm}
-							list={termList}
+							list={formattedTermList ? formattedTermList : []}
 							leftIcon={
 								<Entypo
 									name='book'
@@ -319,22 +340,6 @@ const EditProfileScreen = ({ navigation }) => {
 									style={MainStyles.textInputIcon}
 								/>
 							}
-						/>
-
-						<CustomDropDownInput
-							label={'Carrera'}
-							value={major}
-							setValue={setMajor}
-							list={majorList}
-							leftIcon={
-								<Entypo
-									name='star-outlined'
-									color={MainColours.textInputIconColor}
-									size={MainStyles.iconSize}
-									style={MainStyles.textInputIcon}
-								/>
-							}
-							multiline={Platform.OS === 'ios' ? true : false}
 						/>
 
 						<CustomTextInput
@@ -347,6 +352,7 @@ const EditProfileScreen = ({ navigation }) => {
 								/>
 							}
 							placeholder={'Bio'}
+							valueText={userInfo.bio}
 							style={{
 								height: 140,
 							}}
@@ -365,7 +371,11 @@ const EditProfileScreen = ({ navigation }) => {
 				</ScrollView>
 			</View>
 		</KeyboardAwareScrollView>
-	);
+	) : (
+		<KeyboardAwareScrollView contentContainerStyle={MainStyles.container}>
+			<ActivityIndicator size="large" color="#FF6347" />
+		</KeyboardAwareScrollView>
+	)
 };
 
 export default EditProfileScreen;
