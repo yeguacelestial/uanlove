@@ -20,6 +20,12 @@ Alternatively, if you are using another environment wrapper, just install the re
 pip install -r requirements.txt
 ```
 
+To load all the project fixtures, just run:
+
+```bash 
+python manage.py loaddata */fixtures/*.json
+```
+
 ---
 
 ## Environment variables
