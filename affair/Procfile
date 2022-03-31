@@ -1,2 +1,1 @@
-release: python manage.py migrate --no-input
 web: gunicorn --pythonpath affair config.wsgi
