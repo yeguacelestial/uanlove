@@ -10,7 +10,9 @@ import usePickImage from '../hooks/usePickImage';
 
 const GalleryContainer = ({ navigation, images, style, editMode }) => {
   const [currentImages, setCurrentImages] = useState(images);
-  const { pickedImage, pickImage } = usePickImage();
+
+  // TODO: Handle firebase image uploads
+  const { pickedImage, pickImage, takePhoto, firebaseState } = usePickImage();
 
   const deviceWidth = Dimensions.get('window').width;
   const deviceHeight = Dimensions.get('window').height;
@@ -24,7 +26,7 @@ const GalleryContainer = ({ navigation, images, style, editMode }) => {
       changingImage.addImagePlaceholder = false;
 
       shallowCopyCurrentImages[pickedImage.reference] = changingImage;
-      setCurrentImages(shallowCopyCurrentImages); 
+      setCurrentImages(shallowCopyCurrentImages);
     }
   }, [pickedImage]);
 

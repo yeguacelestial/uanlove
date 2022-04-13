@@ -24,8 +24,8 @@ LogBox.ignoreLogs([`Setting a timer for a long period`]);
 
 const usePickImage = () => {
   const [firebaseState, setFirebaseState] = useState({
-    image: null,
-    uploading: false
+    imageUrl: null,
+    uploadingToFirebase: false
   })
   const [pickedImage, setPickedImage] = useState(null);
 
@@ -49,7 +49,7 @@ const usePickImage = () => {
 
       const imageFirebaseUrl = await firebaseUploadImageAsync(pickedImage.uri)
       setFirebaseState({
-        image: imageFirebaseUrl,
+        imageUrl: imageFirebaseUrl,
         loading: false,
       })
     }
