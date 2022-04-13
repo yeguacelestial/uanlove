@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import { LogBox } from 'react-native';
 
-import "uuid";
+import uuid from "uuid";
 import * as ImagePicker from 'expo-image-picker';
 import { getApps, initializeApp } from 'firebase/app';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-
-import * as Clipboard from 'expo-clipboard';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAlZruO2T_JNOWn4ysfX6AryR6Dzm_VVaA",
@@ -24,7 +22,7 @@ if (!getApps().length) {
 // Firebase sets some timeers for a long period, which will trigger some warnings. Let's turn that off for this example
 LogBox.ignoreLogs([`Setting a timer for a long period`]);
 
-async function uploadImageAsync(uri) {
+async function firebaseUploadImageAsync(uri) {
   // why use XMLHttpRequest instead of fetch?
   // https://github.com/expo/expo/issues/2402#issuecomment-443726662
 
@@ -51,7 +49,7 @@ async function uploadImageAsync(uri) {
 }
 
 const usePickImage = () => {
-  const [firebaseImage, firebaseUploading] = useState({
+  const [firebaseParams, setFirebaseState] = useState({
     image: null,
     uploading: false
   })
@@ -68,6 +66,17 @@ const usePickImage = () => {
     }
   }, []);
 
+  useEffect(async () => {
+    if (pickedImage) {
+      setFirebaseState({
+        ...firebaseParams,
+        loading: true,
+      });
+
+      const imageFirebaseUrl = await firebaseUploadImageAsync(pickedImage.uri)
+      alert(imageFirebaseUrl);
+    }
+  }, [pickedImage]);
 
 
   const pickImage = async (reference) => {
