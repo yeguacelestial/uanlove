@@ -48,3 +48,12 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+class ProfilePhoto(models.Model):
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    photo_url = models.CharField(max_length=200, null=True, blank=True)
+
+    def __str__(self):
+        return self.user.email

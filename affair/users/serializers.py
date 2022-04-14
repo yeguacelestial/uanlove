@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from users.models import Gender, SexPreference, User
+from users.models import Gender, ProfilePhoto, SexPreference, User
 
 
 class MeRetrieveSerializer(serializers.ModelSerializer):
@@ -44,4 +44,10 @@ class AvailableGendersSerializer(serializers.ModelSerializer):
 class AvailableSexPreferencesSerializer(serializers.ModelSerializer):
     class Meta:
         model = SexPreference
+        fields = '__all__'
+
+
+class ProfilePhotosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfilePhoto
         fields = '__all__'

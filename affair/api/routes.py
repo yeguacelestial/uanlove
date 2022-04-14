@@ -8,6 +8,7 @@ user_router = routers.DefaultRouter()
 user_router.register(r'me', user_views.MeViewSet)
 user_router.register(r'available-genders', user_views.AvailableGendersViewSet)
 user_router.register(r'available-sex-preferences', user_views.AvailableSexPreferencesViewSet)
+user_router.register(r'profile-photos', user_views.ProfilePhotosViewSet)
 
 # school
 school_router = routers.DefaultRouter()

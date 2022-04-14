@@ -2,10 +2,10 @@ from allauth.socialaccount.models import SocialAccount
 from rest_framework import mixins, permissions, status, viewsets
 from rest_framework.response import Response
 
-from users.models import Gender, SexPreference, User
+from users.models import Gender, ProfilePhoto, SexPreference, User
 from users.serializers import (AvailableGendersSerializer,
                                AvailableSexPreferencesSerializer,
-                               MeRetrieveSerializer, MeUpdateSerializer)
+                               MeRetrieveSerializer, MeUpdateSerializer, ProfilePhotosSerializer)
 
 from school.models import Campus, Faculty, StudentType
 
@@ -84,3 +84,15 @@ class AvailableSexPreferencesViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = SexPreference.objects.all()
     serializer_class = AvailableSexPreferencesSerializer
     permissions_classes = [permissions.IsAuthenticated]
+
+
+class ProfilePhotosViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
+    queryset = ProfilePhoto.objects.all()
+    serializer_class = ProfilePhotosSerializer
+    permissions_classes = [permissions.IsAuthenticated]
+
+    def list(self, request):
+        user = User.objects.get(email=request.user.email)
+        photos = ProfilePhoto.objects.filter(user=user)
+
+        return Response(ProfilePhotosSerializer(photos, many=True).data)
