@@ -29,6 +29,7 @@ import useSexPreferenceList from '../../hooks/affair/useSexPreferenceList';
 import useTermList from '../../hooks/affair/useTermList';
 import useFetchFaculty from '../../hooks/affair/useFetchFaculty';
 import useFetchStudentType from '../../hooks/affair/useFetchStudentType';
+import useFetchProfilePhotos from '../../hooks/affair/useFetchProfilePhotos';
 
 
 const EditProfileScreen = ({ navigation }) => {
@@ -37,6 +38,7 @@ const EditProfileScreen = ({ navigation }) => {
 
 	// backend hooks
 	const { fetchedUserInfo } = useUserMe();
+	const { profilePhotos } = useFetchProfilePhotos();
 	const { genderList } = useGenderList();
 	const { sexPreferenceList } = useSexPreferenceList();
 	const { termList } = useTermList();
@@ -47,7 +49,7 @@ const EditProfileScreen = ({ navigation }) => {
 	const today = new Date();
 	const maximumDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
 	const minimumDate = new Date(today.getFullYear() - 110, today.getMonth(), today.getDate());
-	
+
 	// profile
 	const [imageUri, setImageUri] = useState("https://avatars.githubusercontent.com/u/52676055?s=400&u=18d95ed91216e90edacde8a5b0c7ecb8399657b5&v=4")
 	const [userInfo, setUserInfo] = useState(null);
@@ -77,7 +79,7 @@ const EditProfileScreen = ({ navigation }) => {
 	}, [pickedImage])
 
 	useEffect(() => {
-		if(fetchedUserInfo) {
+		if (fetchedUserInfo) {
 			checkFaculty(fetchedUserInfo.faculty);
 			checkStudentType(fetchedUserInfo.student_type);
 			setUserInfo(fetchedUserInfo)
@@ -85,13 +87,13 @@ const EditProfileScreen = ({ navigation }) => {
 	}, [fetchedUserInfo])
 
 	useEffect(() => {
-		if(fetchedFaculty) {
+		if (fetchedFaculty) {
 			setFacultyName(fetchedFaculty.name);
 		}
 	}, [fetchedFaculty])
 
 	useEffect(() => {
-		if(fetchedStudentType) {
+		if (fetchedStudentType) {
 			setStudentTypeName(fetchedStudentType.name);
 		}
 	}, [fetchedStudentType])
@@ -127,8 +129,8 @@ const EditProfileScreen = ({ navigation }) => {
 	const fall = new Animated.Value(1)
 
 	return (
-		fetchedUserInfo && 
-		genderList && 
+		fetchedUserInfo &&
+		genderList &&
 		sexPreferenceList &&
 		termList
 	) ? (
