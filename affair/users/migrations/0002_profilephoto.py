@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             name='ProfilePhoto',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, unique=True)),
-                ('photo_url', models.CharField(blank=True, max_length=200, null=True)),
+                ('photo_url', models.URLField(blank=True, max_length=200, null=True)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
