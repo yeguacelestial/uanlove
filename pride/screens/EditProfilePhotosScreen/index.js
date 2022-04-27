@@ -1,23 +1,24 @@
 import { View } from 'react-native';
 
 import GalleryContainer from '../../components/GalleryContainer';
+import useFetchProfilePhotos from '../../hooks/affair/useFetchProfilePhotos';
 import { MainStyles } from '../../styles/core';
 
-import slides from '../Onboarding/slides';
-
 const EditProfilePhotosScreen = ({ navigation }) => {
-  const dummyImages = slides.map(slide => {
+  const { profilePhotos } = useFetchProfilePhotos();
+
+  const imageContainers = profilePhotos.map(photoObj => {
     return {
-      uri: slide.image,
+      uri: photoObj.photo_url,
     }
   });
 
   // Generate add image placeholder
-  const addImagePlaceholders = 6 - dummyImages.length;
+  const imagePlaceholders = 6 - imageContainers.length;
 
-  if (addImagePlaceholders > 0) {
-    for (let i = 0; i < addImagePlaceholders; i++) {
-      dummyImages.push({
+  if (imagePlaceholders > 0) {
+    for (let i = 0; i < imagePlaceholders; i++) {
+      imageContainers.push({
         addImagePlaceholder: true,
       });
     }
@@ -26,7 +27,7 @@ const EditProfilePhotosScreen = ({ navigation }) => {
   return (
     <View style={MainStyles.container}>
       <GalleryContainer
-        images={dummyImages}
+        images={imageContainers}
         editMode
       />
     </View>

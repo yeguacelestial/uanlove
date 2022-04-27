@@ -38,7 +38,6 @@ const EditProfileScreen = ({ navigation }) => {
 
 	// backend hooks
 	const { fetchedUserInfo } = useUserMe();
-	const { profilePhotos } = useFetchProfilePhotos();
 	const { genderList } = useGenderList();
 	const { sexPreferenceList } = useSexPreferenceList();
 	const { termList } = useTermList();
@@ -51,7 +50,7 @@ const EditProfileScreen = ({ navigation }) => {
 	const minimumDate = new Date(today.getFullYear() - 110, today.getMonth(), today.getDate());
 
 	// profile
-	const [imageUri, setImageUri] = useState("https://avatars.githubusercontent.com/u/52676055?s=400&u=18d95ed91216e90edacde8a5b0c7ecb8399657b5&v=4")
+	const [imageUri, setImageUri] = useState("https://thispersondoesnotexist.com/image")
 	const [userInfo, setUserInfo] = useState(null);
 	const [age, setAge] = useState(today.getFullYear() - maximumDate.getFullYear());
 	const [gender, setGender] = useState(userInfo ? userInfo.gender : "");

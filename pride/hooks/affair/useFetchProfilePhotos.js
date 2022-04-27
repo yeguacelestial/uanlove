@@ -6,10 +6,10 @@ const BASE_API_ENDPOINT = process.env.BASE_API_ENDPOINT;
 
 const useFetchProfilePhotos = () => {
   const { userToken } = useUserToken();
-  const [profilePhotos, setProfilePhotos] = useState(null);
+  const [profilePhotos, setProfilePhotos] = useState([]);
 
   // "profile photos" endpoint
-  const availableProfilePhotos = `${BASE_API_ENDPOINT}/user/photos/`;
+  const availableProfilePhotos = `${BASE_API_ENDPOINT}/user/profile-photos/`;
 
   const checkProfilePhotos = useCallback(
     async (userToken) => {
@@ -22,7 +22,7 @@ const useFetchProfilePhotos = () => {
         });
 
         const responseJson = await serverResponse.json();
-        setProfilePhotos(responseJson.results)
+        setProfilePhotos(responseJson)
 
         return responseJson;
       } catch (e) {

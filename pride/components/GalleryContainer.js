@@ -11,6 +11,12 @@ import usePickImage from '../hooks/usePickImage';
 const GalleryContainer = ({ navigation, images, style, editMode }) => {
   const [currentImages, setCurrentImages] = useState(images);
 
+  useEffect(() => {
+    if (images) {
+      setCurrentImages(images);
+    }
+  }, [images]);
+
   // TODO: Handle firebase image uploads
   const { pickedImage, pickImage, takePhoto, firebaseState } = usePickImage();
 
