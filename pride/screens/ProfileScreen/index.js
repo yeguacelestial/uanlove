@@ -15,8 +15,11 @@ import { MainStyles } from '../../styles/core';
 import GalleryContainer from '../../components/GalleryContainer';
 import slides from '../Onboarding/slides';
 import PanelButton from '../../components/PanelButton';
+import useFetchProfilePhotos from '../../hooks/affair/useFetchProfilePhotos';
 
 const ProfileScreen = ({ navigation }) => {
+  const { profilePhotos } = useFetchProfilePhotos();
+
   return (
     <ScrollView>
       <SafeAreaView style={MainStyles.fx1}>
@@ -142,9 +145,9 @@ const ProfileScreen = ({ navigation }) => {
         </View>
 
         <GalleryContainer
-          images={slides.map(slide => {
+          images={profilePhotos.map(photoObj => {
             return {
-              uri: slide.image,
+              uri: photoObj.photo_url,
             }
           })}
           style={{
