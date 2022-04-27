@@ -57,6 +57,7 @@ const GalleryContainer = ({ navigation, images, style, editMode }) => {
                       height: deviceHeight / 3.5,
                       width: deviceWidth / 3 - 6,
                       borderRadius: 10,
+                      overflow: 'hidden',
                       borderWidth: 1,
                       borderColor: '#dddddd',
                       margin: 2,
