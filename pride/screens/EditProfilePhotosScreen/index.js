@@ -8,7 +8,10 @@ import useFetchProfilePhotos from '../../hooks/affair/useFetchProfilePhotos';
 import { MainStyles } from '../../styles/core';
 
 const EditProfilePhotosScreen = ({ navigation }) => {
-  const [showBottomSheet, setShowBottomSheet] = useState(false);
+  const [bottomSheetParams, setBottomSheetParams] = useState({
+    imageReference: null,
+    visible: false,
+  });
 
   const { profilePhotos } = useFetchProfilePhotos();
 
@@ -34,12 +37,13 @@ const EditProfilePhotosScreen = ({ navigation }) => {
       <GalleryContainer
         images={imageContainers}
         editMode
-        showBottomSheet={showBottomSheet}
-        setShowBottomSheet={setShowBottomSheet}
+        bottomSheetParams={bottomSheetParams}
+        setBottomSheetParams={setBottomSheetParams}
       />
-      {showBottomSheet ? (
+      {bottomSheetParams.visible ? (
         <CustomBottomSheet
-          setShowBottomSheet={setShowBottomSheet}
+          bottomSheetParams={bottomSheetParams}
+          setBottomSheetParams={setBottomSheetParams}
         />
       ) : (
         null

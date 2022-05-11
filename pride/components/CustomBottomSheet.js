@@ -3,8 +3,9 @@ import { StyleSheet, Text, View } from "react-native";
 
 import BottomSheet from '@gorhom/bottom-sheet';
 import PanelButton from "./PanelButton";
+import usePickImage from "../hooks/usePickImage";
 
-const CustomBottomSheet = ({ navigation, setShowBottomSheet }) => {
+const CustomBottomSheet = ({ bottomSheetParams, setBottomSheetParams }) => {
   // ref
   const bottomSheetRef = useRef(null);
 
@@ -15,11 +16,13 @@ const CustomBottomSheet = ({ navigation, setShowBottomSheet }) => {
   const handleSheetChanges = useCallback((index, number) => {
     console.log('handleSheetChanges[index,number]: ', index, number);
     if (index === 1) {
-      setShowBottomSheet(true);
+      setBottomSheetParams({ ...bottomSheetParams, visible: true });
     } else {
-      setShowBottomSheet(false);
+      setBottomSheetParams({ ...bottomSheetParams, visible: false });
     }
   }, []);
+
+  const { pickedImage, pickImage, takePhoto, firebaseState } = usePickImage();
 
   return (
     <BottomSheet
@@ -39,14 +42,14 @@ const CustomBottomSheet = ({ navigation, setShowBottomSheet }) => {
         }}>Selecciona una opción</Text>
         <PanelButton
           text={'Abrir camara'}
-          onPress={() => navigation.navigate('EditProfilePhotos')}
+          onPress={() => takePhoto(bottomSheetParams.imageReference)}
           style={{
             width: '80%',
           }}
         />
         <PanelButton
           text={'Subir desde galería'}
-          onPress={() => navigation.navigate('EditProfilePhotos')}
+          onPress={() => pickImage(bottomSheetParams.imageReference)}
           style={{
             width: '80%',
           }}

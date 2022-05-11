@@ -8,7 +8,7 @@ import { MainStyles } from '../styles/core';
 
 import usePickImage from '../hooks/usePickImage';
 
-const GalleryContainer = ({ navigation, images, style, editMode, showBottomSheet, setShowBottomSheet }) => {
+const GalleryContainer = ({ navigation, images, style, editMode, bottomSheetParams, setBottomSheetParams }) => {
   const [currentImages, setCurrentImages] = useState(images);
 
   useEffect(() => {
@@ -17,7 +17,6 @@ const GalleryContainer = ({ navigation, images, style, editMode, showBottomSheet
     }
   }, [images]);
 
-  // TODO: Handle firebase image uploads
   const { pickedImage, pickImage, takePhoto, firebaseState } = usePickImage();
 
   const deviceWidth = Dimensions.get('window').width;
@@ -42,7 +41,7 @@ const GalleryContainer = ({ navigation, images, style, editMode, showBottomSheet
       flexDirection: 'row',
       flexWrap: 'wrap',
       marginLeft: 3,
-      opacity: showBottomSheet ? 0.2 : 1,
+      opacity: bottomSheetParams ? bottomSheetParams.visible ? 0.2 : 1 : 1,
     }]}>
       {
         currentImages.map((image, index) => {
@@ -51,7 +50,7 @@ const GalleryContainer = ({ navigation, images, style, editMode, showBottomSheet
               {editMode ? (
                 <TouchableOpacity
                   // onPress={() => pickImage(index)}
-                  onPress={() => setShowBottomSheet(true)}
+                  onPress={() => setBottomSheetParams({ imageReference: index, visible: true })}
                 >
                   <ImageBackground
                     source={typeof image.uri === 'string' ? { uri: image.uri } : image.uri}

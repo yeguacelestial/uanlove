@@ -128,6 +128,7 @@ const EditProfileScreen = ({ navigation }) => {
 	const fall = new Animated.Value(1)
 
 	return (
+		userInfo &&
 		fetchedUserInfo &&
 		genderList &&
 		sexPreferenceList &&
