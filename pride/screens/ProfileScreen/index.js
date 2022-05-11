@@ -13,7 +13,6 @@ import {
 } from '@expo/vector-icons'
 import { MainStyles } from '../../styles/core';
 import GalleryContainer from '../../components/GalleryContainer';
-import slides from '../Onboarding/slides';
 import PanelButton from '../../components/PanelButton';
 import useFetchProfilePhotos from '../../hooks/affair/useFetchProfilePhotos';
 
