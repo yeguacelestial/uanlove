@@ -8,7 +8,7 @@ import { MainStyles } from '../styles/core';
 
 import usePickImage from '../hooks/usePickImage';
 
-const GalleryContainer = ({ navigation, images, style, editMode, setShowBottomSheet }) => {
+const GalleryContainer = ({ navigation, images, style, editMode, showBottomSheet, setShowBottomSheet }) => {
   const [currentImages, setCurrentImages] = useState(images);
 
   useEffect(() => {
@@ -42,6 +42,7 @@ const GalleryContainer = ({ navigation, images, style, editMode, setShowBottomSh
       flexDirection: 'row',
       flexWrap: 'wrap',
       marginLeft: 3,
+      opacity: showBottomSheet ? 0.2 : 1,
     }]}>
       {
         currentImages.map((image, index) => {

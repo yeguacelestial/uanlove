@@ -34,6 +34,7 @@ const EditProfilePhotosScreen = ({ navigation }) => {
       <GalleryContainer
         images={imageContainers}
         editMode
+        showBottomSheet={showBottomSheet}
         setShowBottomSheet={setShowBottomSheet}
       />
       {showBottomSheet ? (

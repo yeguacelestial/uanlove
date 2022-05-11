@@ -2,13 +2,14 @@ import { useCallback, useMemo, useRef } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import BottomSheet from '@gorhom/bottom-sheet';
+import PanelButton from "./PanelButton";
 
-const CustomBottomSheet = ({ setShowBottomSheet }) => {
+const CustomBottomSheet = ({ navigation, setShowBottomSheet }) => {
   // ref
   const bottomSheetRef = useRef(null);
 
   // variables
-  const snapPoints = useMemo(() => ['25%', '25%'], []);
+  const snapPoints = useMemo(() => ['35%', '35%'], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index, number) => {
@@ -22,14 +23,34 @@ const CustomBottomSheet = ({ setShowBottomSheet }) => {
 
   return (
     <BottomSheet
+      enablePanDownToClose
+      backgroundStyle={{ backgroundColor: '#f5f5f5' }}
       ref={bottomSheetRef}
       index={1}
       snapPoints={snapPoints}
       onChange={handleSheetChanges}
-      enablePanDownToClose
     >
       <View style={styles.contentContainer}>
-        <Text>Awesome!</Text>
+        <Text style={{
+          fontSize: 20,
+          fontWeight: 'bold',
+          marginTop: 10,
+          marginBottom: 10,
+        }}>Selecciona una opción</Text>
+        <PanelButton
+          text={'Abrir camara'}
+          onPress={() => navigation.navigate('EditProfilePhotos')}
+          style={{
+            width: '80%',
+          }}
+        />
+        <PanelButton
+          text={'Subir desde galería'}
+          onPress={() => navigation.navigate('EditProfilePhotos')}
+          style={{
+            width: '80%',
+          }}
+        />
       </View>
     </BottomSheet>
   )
