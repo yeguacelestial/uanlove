@@ -31,14 +31,17 @@ const EditProfilePhotosScreen = ({ navigation }) => {
 
   return (
     <View style={MainStyles.container}>
+      <GalleryContainer
+        images={imageContainers}
+        editMode
+        setShowBottomSheet={setShowBottomSheet}
+      />
       {showBottomSheet ? (
-        <CustomBottomSheet />
-      ) : (
-        <GalleryContainer
-          images={imageContainers}
-          editMode
+        <CustomBottomSheet
           setShowBottomSheet={setShowBottomSheet}
         />
+      ) : (
+        null
       )}
     </View>
   );

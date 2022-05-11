@@ -98,7 +98,7 @@ const GalleryContainer = ({ navigation, images, style, editMode, setShowBottomSh
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
-                  onPress={() => { }}
+                  onPress={() => { alert('Profile: Selected profile image') }}
                 >
                   <Image source={typeof image.uri === 'string' ? { uri: image.uri } : image.uri} style={{
                     height: deviceHeight / 3.5,
