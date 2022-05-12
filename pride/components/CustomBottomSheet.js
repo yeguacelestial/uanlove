@@ -14,15 +14,12 @@ const CustomBottomSheet = ({ bottomSheetParams, setBottomSheetParams }) => {
 
   // callbacks
   const handleSheetChanges = useCallback((index, number) => {
-    console.log('handleSheetChanges[index,number]: ', index, number);
     if (index === 1) {
       setBottomSheetParams({ ...bottomSheetParams, visible: true });
     } else {
       setBottomSheetParams({ ...bottomSheetParams, visible: false });
     }
   }, []);
-
-  const { pickedImage, pickImage, takePhoto, firebaseState } = usePickImage();
 
   return (
     <BottomSheet
@@ -42,14 +39,14 @@ const CustomBottomSheet = ({ bottomSheetParams, setBottomSheetParams }) => {
         }}>Selecciona una opción</Text>
         <PanelButton
           text={'Abrir camara'}
-          onPress={() => takePhoto(bottomSheetParams.imageReference)}
+          onPress={() => bottomSheetParams.takePhoto(bottomSheetParams.imageReference)}
           style={{
             width: '80%',
           }}
         />
         <PanelButton
           text={'Subir desde galería'}
-          onPress={() => pickImage(bottomSheetParams.imageReference)}
+          onPress={() => bottomSheetParams.pickImage(bottomSheetParams.imageReference)}
           style={{
             width: '80%',
           }}

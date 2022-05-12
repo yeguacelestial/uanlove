@@ -8,7 +8,7 @@ import { MainStyles } from '../styles/core';
 
 import usePickImage from '../hooks/usePickImage';
 
-const GalleryContainer = ({ navigation, images, style, editMode, bottomSheetParams, setBottomSheetParams }) => {
+const GalleryContainer = ({ images, style, editMode, bottomSheetParams, setBottomSheetParams }) => {
   const [currentImages, setCurrentImages] = useState(images);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const GalleryContainer = ({ navigation, images, style, editMode, bottomSheetPara
               {editMode ? (
                 <TouchableOpacity
                   // onPress={() => pickImage(index)}
-                  onPress={() => setBottomSheetParams({ imageReference: index, visible: true })}
+                  onPress={() => setBottomSheetParams({ imageReference: index, visible: true, pickImage, takePhoto })}
                 >
                   <ImageBackground
                     source={typeof image.uri === 'string' ? { uri: image.uri } : image.uri}
